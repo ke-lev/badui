@@ -24,7 +24,7 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: "badui",
-  description: "Six original, working interface specimens. A collection by badui.",
+  description: "a working collection of intentionally bad ui components",
   icons: { icon: "/icon.svg" },
 };
 
