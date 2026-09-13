@@ -1,0 +1,42 @@
+.control {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  float: left;
+  margin-right: 14px;
+  padding: 0;
+  color: #6b6b63;
+  font-size: 12px;
+}
+
+.option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: #6b6b63;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.option:hover {
+  color: #282824;
+}
+
+.option input {
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  accent-color: #4e6145;
+  cursor: pointer;
+}
+
+.option input:checked + span {
+  color: #282824;
+}
