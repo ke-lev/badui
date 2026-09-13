@@ -54,6 +54,10 @@ Next.js 16 App Router, React 19, TypeScript, and Tailwind CSS v4. The page and l
 - `AGENTS.md` — how to add a component, and the documentation rule
 - `PRODUCT.md` — product scope and design boundaries
 
+## Accessibility
+
+The frame provides semantic landmarks, a skip link, visible keyboard focus, touch-sized controls, and reduced-motion support. Deliberately hostile interaction stays inside an entry, and covers interaction design only — roles, names, and states stay correct everywhere. Visual accessibility remains a requirement throughout.
+
 ## Tests
 
 ```sh
@@ -61,5 +65,3 @@ npm test
 ```
 
 Vitest with jsdom, covering the pure modules (`inspect.ts`, `lines.ts`). Motion and layout are verified in a browser.
-
-The frame provides semantic landmarks, a skip link, visible keyboard focus, touch-sized controls, and reduced-motion support. Deliberately hostile interaction stays inside an entry, and covers interaction design only — roles, names, and states stay correct everywhere. Visual accessibility remains a requirement throughout.
