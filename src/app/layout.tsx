@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { SidekickModeProvider } from "@/components/sidekick/sidekick-mode";
+import { Sidekick } from "@/components/sidekick/sidekick";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
     >
       <body>
-        <SidekickModeProvider>{children}</SidekickModeProvider>
+        <SidekickModeProvider>
+          {children}
+          <Sidekick />
+        </SidekickModeProvider>
       </body>
     </html>
   );

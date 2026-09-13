@@ -40,3 +40,51 @@
 .option input:checked + span {
   color: #282824;
 }
+
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+
+.cuff {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border: 1.5px solid #4e6145;
+  background: rgba(137, 145, 118, 0.09);
+  will-change: transform, width, height;
+}
+
+.tab {
+  position: fixed;
+  top: 0;
+  left: 0;
+  max-width: 320px;
+  padding: 5px 9px;
+  border-radius: 5px;
+  background: #282824;
+  color: #fbfaf8;
+  font-size: 11px;
+  line-height: 1.45;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 140ms ease;
+  will-change: transform, opacity;
+}
+
+.tabVisible {
+  opacity: 1;
+}
+
+.tabDom {
+  font-family: var(--font-geist-mono), monospace;
+  letter-spacing: -0.2px;
+}
+
+.tabSnark {
+  font-family: var(--font-geist-sans), sans-serif;
+}
