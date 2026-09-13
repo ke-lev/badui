@@ -1,0 +1,132 @@
+.control {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Floated so it stops being the "rendered legend" the browser parks in the
+   border gap, and lays out as an ordinary flex item in the row instead. */
+.legend {
+  float: left;
+  padding: 0;
+}
+
+.option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: #6b6b63;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.option:hover {
+  color: #282824;
+}
+
+.option input {
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  accent-color: #4e6145;
+  cursor: pointer;
+}
+
+.option input:checked + span {
+  color: #282824;
+}
+
+/* Centred on the page width rather than the viewport, so the control lands on
+   the same right edge as the collection page's footer. */
+.dock {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: flex-end;
+  width: var(--shell-width);
+  margin: 0 auto;
+  padding: 0 0 6px;
+  background: none;
+  border: 0;
+  pointer-events: none;
+}
+
+.dock > * {
+  pointer-events: auto;
+}
+
+@media (pointer: coarse), (hover: none) {
+  .control,
+  .dock {
+    display: none;
+  }
+}
+
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+
+/* The control's legend is a copy of the cuff at rest, so the two share their
+   surface here — restyle one and the other follows rather than drifting. */
+.cuff,
+.mark {
+  --cuff-border: 1.5px solid #4e6145;
+  --cuff-fill: rgba(137, 145, 118, 0.09);
+}
+
+.cuff {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border: var(--cuff-border);
+  background: var(--cuff-fill);
+  will-change: transform, width, height;
+}
+
+/* 24px is IDLE_RADIUS * 2 from sidekick.tsx — the blob's size once it has
+   settled, with no stretch and no rotation. */
+.mark {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border: var(--cuff-border);
+  border-radius: 50%;
+  background: var(--cuff-fill);
+}
+
+.tab {
+  position: fixed;
+  top: 0;
+  left: 0;
+  max-width: 320px;
+  padding: 5px 9px;
+  border-radius: 5px;
+  background: #282824;
+  color: #fbfaf8;
+  font-size: 11px;
+  line-height: 1.45;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.tabDom {
+  font-family: var(--font-geist-mono), monospace;
+  letter-spacing: -0.2px;
+}
+
+.tabTalk {
+  font-family: var(--font-geist-sans), sans-serif;
+}
