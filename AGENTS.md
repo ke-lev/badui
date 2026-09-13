@@ -7,3 +7,92 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+# badui
+
+A library of interface components: some deliberately hostile, some genuinely
+good, presented together as one collection. Visitors can operate every entry —
+these are working components, not screenshots.
+
+The site is no longer a fixed set of six specimens. It is an open library that
+grows, and every addition is documented as it lands.
+
+## Every component ships with its documentation, in the same change
+
+This is the rule that matters most here, because it is the one most often
+deferred and never returned to.
+
+A component is not finished when it renders. It is finished when it exports a
+`ComponentMeta` (see `src/components/meta.ts`) beside itself:
+
+```ts
+export const meta: ComponentMeta = {
+  name: "Volume control",
+  kind: "hostile",
+  summary:
+    "A rotary dial. Reaching 100% takes twelve and a half full turns; each " +
+    "arrow-key press moves it one percent.",
+  usage: "<VolumeControl />",
+  notes: "Pointer-driven via pointer capture. Exposed as role=slider.",
+};
+```
+
+The library index is built from these exports, so a component without `meta`
+does not appear in the collection. Documentation is load-bearing, not a chore
+to be caught up on later.
+
+Do not open a "document this" follow-up task, do not leave a TODO, and do not
+report a component as complete while its `meta` is missing. If you are editing
+a component and its `meta` no longer describes it, updating it is part of your
+change, not a separate one.
+
+## Explain the component. Never explain the joke.
+
+Both halves of this bind.
+
+**Explain the component.** Say what it is, how it behaves, and how to use it.
+The library has to be legible to someone deciding whether to use an entry or
+to learn from it. Writing "twelve and a half turns to reach 100%" is
+documentation.
+
+**Never explain the joke.** Do not editorialise, wink, apologise, name the
+anti-pattern, or tell the visitor how to beat a hostile control. Writing
+"hilariously unusable" or "a classic dark pattern" breaks the voice. The
+artifact still carries its own point; the documentation describes the
+mechanism, and stops there.
+
+The same split governs the two kinds. A `hostile` entry is documented in
+exactly the same register as a `benign` one — straight, factual, no nudge and
+no commentary. The deadpan is the whole effect.
+
+## Accessibility boundary
+
+The frame meets WCAG 2.2 AA: navigation, index, landmarks, focus order, and
+contrast on everything surrounding the components.
+
+Individual components are exempt on **interaction design only** — a hostile
+control is allowed to be hostile to operate. It is not licensed to drop
+semantics: roles, names, and states stay correct, because the readouts and the
+library index depend on them. Visual accessibility stays a requirement
+everywhere.
+
+## Repository conventions
+
+- Component styles are CSS Modules, colocated with the component.
+- Shared frame styles and design tokens live in `src/app/globals.css`.
+- Tests run on Vitest (`npm test`), jsdom environment, `src/**/*.test.ts`.
+  Pure logic gets unit tests; rAF loops and layout are verified in a browser.
+- Before reporting work complete, `npm test && npm run lint && npm run build`
+  must all pass, and test output must be free of warnings.
+- The working tree carries uncommitted, untracked work that is not yours.
+  Scope every `git add` to the files you actually changed. Never `git add -A`
+  or `git add .`.
+- Never use `pkill`, `killall`, or any pattern-matched kill. Other projects run
+  dev servers on this machine. Kill only a process you started, by its own PID,
+  and prefer a non-default port.
+
+## Precedence
+
+`PRODUCT.md` describes the product and remains authoritative on voice and
+scope. Where it still reads as though the collection were a fixed set of six,
+this file is newer.
