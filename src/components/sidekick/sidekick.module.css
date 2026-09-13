@@ -41,8 +41,20 @@
   color: #282824;
 }
 
+.dock {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  margin: 0;
+  padding: 0 28px 6px;
+  background: none;
+  border: 0;
+}
+
 @media (pointer: coarse), (hover: none) {
-  .control {
+  .control,
+  .dock {
     display: none;
   }
 }
@@ -78,12 +90,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   opacity: 0;
-  transition: opacity 140ms ease;
   will-change: transform, opacity;
-}
-
-.tabVisible {
-  opacity: 1;
 }
 
 .tabDom {

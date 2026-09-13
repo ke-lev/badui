@@ -30,3 +30,16 @@ export function SidekickControl() {
     </fieldset>
   );
 }
+
+// The splash route has no site footer, so the mode control had nowhere to live
+// there — a visitor landing on "/" with snark already stored had no way to turn
+// it off until they navigated. This docks the control in the corner instead:
+// a real contentinfo landmark (which "/" otherwise lacks) with no surface of
+// its own, so it sits on the page rather than on a bar.
+export function SidekickDock() {
+  return (
+    <footer className={styles.dock}>
+      <SidekickControl />
+    </footer>
+  );
+}
