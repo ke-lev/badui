@@ -7,12 +7,11 @@
   border: 0;
 }
 
+/* Floated so it stops being the "rendered legend" the browser parks in the
+   border gap, and lays out as an ordinary flex item in the row instead. */
 .legend {
   float: left;
-  margin-right: 14px;
   padding: 0;
-  color: #6b6b63;
-  font-size: 12px;
 }
 
 .option {
@@ -66,13 +65,32 @@
   pointer-events: none;
 }
 
+/* The control's legend is a copy of the cuff at rest, so the two share their
+   surface here — restyle one and the other follows rather than drifting. */
+.cuff,
+.mark {
+  --cuff-border: 1.5px solid #4e6145;
+  --cuff-fill: rgba(137, 145, 118, 0.09);
+}
+
 .cuff {
   position: fixed;
   top: 0;
   left: 0;
-  border: 1.5px solid #4e6145;
-  background: rgba(137, 145, 118, 0.09);
+  border: var(--cuff-border);
+  background: var(--cuff-fill);
   will-change: transform, width, height;
+}
+
+/* 24px is IDLE_RADIUS * 2 from sidekick.tsx — the blob's size once it has
+   settled, with no stretch and no rotation. */
+.mark {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border: var(--cuff-border);
+  border-radius: 50%;
+  background: var(--cuff-fill);
 }
 
 .tab {

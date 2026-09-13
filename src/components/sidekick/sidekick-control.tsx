@@ -14,7 +14,10 @@ export function SidekickControl() {
 
   return (
     <fieldset className={styles.control}>
-      <legend className={styles.legend}>Sidekick</legend>
+      <legend className={styles.legend}>
+        <span className={styles.mark} aria-hidden="true" />
+        <span className="sr-only">Cursor companion</span>
+      </legend>
       {OPTIONS.map((option) => (
         <label className={styles.option} key={option.value}>
           <input
