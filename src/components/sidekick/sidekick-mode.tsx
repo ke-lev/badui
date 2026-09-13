@@ -4,7 +4,7 @@ import { createContext, useContext, useSyncExternalStore, type ReactNode } from 
 
 export type SidekickMode = "dom" | "talk" | "off";
 
-export const DEFAULT_MODE: SidekickMode = "dom";
+export const DEFAULT_MODE: SidekickMode = "talk";
 const STORAGE_KEY = "badui:sidekick-mode";
 
 function isMode(value: unknown): value is SidekickMode {

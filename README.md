@@ -42,8 +42,8 @@ Each entry has an independent reset. **Reset all** restores the entire collectio
 
 A pointer layer trails the cursor, envelopes whatever is under it, and hangs a tab off the envelope with one line of context. Two modes, switched from the control in the footer:
 
-- **DOM** (default) — an inspector. Reports declared attributes and computed accessibility properties, and nothing else. It reads an element's own claims back to you, which on a hostile component means it repeats that component's lie.
-- **Talk** — authored lines giving direction without a walkthrough. Each component ships its lines in its `meta`, and a test fails any entry without them.
+- **Talk** (default) — authored lines giving direction without a walkthrough. Each component ships its lines in its `meta`, and a test fails any entry without them.
+- **DOM** — an inspector. Reports declared attributes and computed accessibility properties, and nothing else. It reads an element's own claims back to you, which on a hostile component means it repeats that component's lie.
 
 Motion is a velocity-carrying spring; the envelope's corner radius is derived from the morph so the shape is a true circle or pill at every intermediate frame. The layer is pointer-only, `aria-hidden`, and snaps rather than trails under `prefers-reduced-motion`.
 
