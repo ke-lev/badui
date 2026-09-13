@@ -38,6 +38,18 @@ describe("accessibleName", () => {
     expect(accessibleName(el)).toBe("Save preferences");
   });
 
+  it("uses a fieldset's legend as its accessible name", () => {
+    const el = render(
+      `<fieldset><legend>Select your preferences</legend><label><input type="checkbox"><span>Email updates</span></label></fieldset>`,
+    );
+    expect(accessibleName(el)).toBe("Select your preferences");
+  });
+
+  it("does not concatenate multiple children's text without a space", () => {
+    const el = render(`<div><span>Hello</span><span>World</span></div>`);
+    expect(accessibleName(el)).toBe("Hello World");
+  });
+
   it("truncates past 40 characters", () => {
     const el = render(`<button aria-label="${"a".repeat(60)}"></button>`);
     expect(accessibleName(el)).toHaveLength(40);

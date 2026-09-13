@@ -13,6 +13,6 @@ const LINES: Record<string, string> = {
 
 export function line(el: Element): string {
   const key = el.closest("[data-sidekick]")?.getAttribute("data-sidekick");
-  if (key && key in LINES) return LINES[key];
+  if (key && Object.hasOwn(LINES, key)) return LINES[key];
   return inspect(el);
 }

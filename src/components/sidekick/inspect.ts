@@ -44,10 +44,17 @@ export function accessibleName(el: Element): string {
     if (text) return truncate(text);
   }
 
+  if (el instanceof HTMLFieldSetElement) {
+    const legend = collapse(el.querySelector("legend")?.textContent ?? "");
+    if (legend) return truncate(legend);
+  }
+
   const title = el.getAttribute("title");
   if (title && collapse(title)) return truncate(collapse(title));
 
-  const text = collapse(el.textContent ?? "");
+  const text = collapse(
+    Array.from(el.childNodes).map((node) => node.textContent ?? "").join(" "),
+  );
   return text ? truncate(text) : "";
 }
 

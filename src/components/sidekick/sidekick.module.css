@@ -41,6 +41,12 @@
   color: #282824;
 }
 
+@media (pointer: coarse), (hover: none) {
+  .control {
+    display: none;
+  }
+}
+
 .layer {
   position: fixed;
   inset: 0;

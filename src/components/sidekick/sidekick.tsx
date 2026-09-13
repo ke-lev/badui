@@ -46,9 +46,12 @@ function approach(current: number, target: number, k: number): number {
   return Math.abs(target - next) < SETTLE ? target : next;
 }
 
-function radiusOf(el: Element): number {
-  const parsed = Number.parseFloat(getComputedStyle(el).borderTopLeftRadius);
-  return Number.isFinite(parsed) ? parsed + PAD : 8;
+function radiusOf(el: Element, rect: DOMRect): number {
+  const raw = getComputedStyle(el).borderTopLeftRadius;
+  const parsed = Number.parseFloat(raw);
+  if (!Number.isFinite(parsed)) return 8;
+  const base = raw.endsWith("%") ? (parsed / 100) * Math.min(rect.width, rect.height) : parsed;
+  return base + PAD;
 }
 
 export function Sidekick() {
@@ -93,6 +96,8 @@ export function Sidekick() {
     let angle = 0;
     let frame = 0;
     let last = performance.now();
+    let lastRadiusTarget: Element | null = null;
+    let lastRadius = 0;
 
     function publish(next: string) {
       if (next === textRef.current) return;
@@ -135,7 +140,11 @@ export function Sidekick() {
         ty = rect.top - PAD;
         tw = rect.width + PAD * 2;
         th = rect.height + PAD * 2;
-        tr = radiusOf(el);
+        if (el !== lastRadiusTarget) {
+          lastRadius = radiusOf(el, rect);
+          lastRadiusTarget = el;
+        }
+        tr = lastRadius;
         // Re-described every frame so a readout stays live while the element
         // changes underneath the cursor — turning the dial moves aria-valuenow.
         // publish() bails when the string is unchanged, so this is not a
@@ -184,8 +193,18 @@ export function Sidekick() {
       const below = box.y + box.h + TAB_GAP;
       const flip = below + TAB_HEIGHT > window.innerHeight - TAB_CLEARANCE;
       const tabY = flip ? box.y - TAB_GAP - TAB_HEIGHT : below;
-      tab.style.transform = `translate3d(${box.x}px, ${tabY}px, 0)`;
+      const tabX = Math.max(8, Math.min(box.x, window.innerWidth - tab.offsetWidth - 8));
+      tab.style.transform = `translate3d(${tabX}px, ${tabY}px, 0)`;
     };
+
+    // Painted synchronously so the cuff and tab start at the idle box's
+    // position instead of the CSS default of (0, 0) for the frame or two
+    // before the first rAF tick runs.
+    cuff.style.width = `${box.w}px`;
+    cuff.style.height = `${box.h}px`;
+    cuff.style.borderRadius = `${box.r}px`;
+    cuff.style.transform = `translate3d(${box.x}px, ${box.y}px, 0) rotate(0rad) scale(1, 1)`;
+    tab.style.transform = `translate3d(${box.x}px, ${box.y}px, 0)`;
 
     document.addEventListener("pointermove", onPointerMove, { passive: true });
     document.addEventListener("pointerover", onPointerOver, { passive: true });
@@ -199,6 +218,7 @@ export function Sidekick() {
       document.removeEventListener("pointerleave", onPointerLeave);
       targetRef.current = null;
       textRef.current = "";
+      setText("");
     };
   }, [active]);
 
