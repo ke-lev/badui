@@ -1,0 +1,278 @@
+.specimen {
+  width: 100%;
+  max-width: 330px;
+  margin-inline: auto;
+  color: #282824;
+}
+
+.surface {
+  border: 1px solid #deded6;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.caption {
+  margin: 0;
+  color: #6b6b63;
+  font-size: 11px;
+}
+
+/* Tabs */
+
+.tabsSpecimen {
+  max-width: 360px;
+}
+
+.tablist {
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  border-bottom: 1px solid #deded6;
+  overflow-x: auto;
+}
+
+.tab {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 6px 9px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #6b6b63;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.tab:hover {
+  background: #f3f3ec;
+  color: #282824;
+}
+
+.tab[aria-selected="true"] {
+  background: #ecece4;
+  color: #282824;
+  font-weight: 500;
+}
+
+.tab:focus-visible,
+.panel:focus-visible,
+.pageButton:focus-visible,
+.crumbButton:focus-visible,
+.folderButton:focus-visible,
+.folderTitle:focus-visible {
+  outline: 2px solid #667251;
+  outline-offset: 2px;
+}
+
+.panel {
+  min-height: 118px;
+  padding: 18px 16px;
+}
+
+.panelTitle {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+}
+
+.panelText {
+  margin: 0;
+  color: #6b6b63;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Pagination */
+
+.results {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 46px;
+  padding: 0 16px;
+  font-size: 13px;
+}
+
+.result + .result {
+  border-top: 1px solid #eeeee8;
+}
+
+.resultIndex {
+  color: #6b6b63;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pager {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.pageButton {
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid #deded6;
+  border-radius: 5px;
+  background: #fff;
+  color: #282824;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease;
+}
+
+.pageButton:hover:not([aria-disabled="true"]) {
+  border-color: #a3aa95;
+  background: #f7f8f2;
+}
+
+.pageButton[aria-disabled="true"] {
+  color: #6b6b63;
+  cursor: default;
+}
+
+.pageStatus {
+  margin: 0;
+  color: #6b6b63;
+  font-size: 12px;
+  text-align: center;
+}
+
+.pageStatus strong {
+  color: #282824;
+  font-family: var(--font-geist-mono), monospace;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Breadcrumbs */
+
+.trail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+}
+
+.trail li {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.separator {
+  color: #a9aa9f;
+  padding: 0 2px;
+}
+
+.crumbButton {
+  min-height: 30px;
+  padding: 4px 6px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #54614a;
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-color: #c6c8ba;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.crumbButton:hover {
+  background: #f1f2ea;
+  text-decoration-color: currentColor;
+}
+
+.crumbCurrent {
+  padding: 4px 6px;
+  font-weight: 500;
+}
+
+.folderHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 0 2px 10px;
+  border-bottom: 1px solid #deded6;
+}
+
+.folderTitle {
+  margin: 0;
+  border-radius: 3px;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+
+.folders {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  min-height: 132px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.folderButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 40px;
+  padding: 6px 12px;
+  border: 1px solid #deded6;
+  border-radius: 5px;
+  background: #fff;
+  color: #282824;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease;
+}
+
+.folderButton:hover {
+  border-color: #a3aa95;
+  background: #f7f8f2;
+}
+
+.folderIcon {
+  flex: none;
+  color: #7a8565;
+}
+
+.empty {
+  margin: 0;
+  padding: 12px 2px;
+  color: #6b6b63;
+  font-size: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab,
+  .pageButton,
+  .folderButton {
+    transition: none;
+  }
+}

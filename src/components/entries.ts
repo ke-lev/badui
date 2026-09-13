@@ -9,12 +9,18 @@ import { DelayedPointer, delayedPointerMeta } from "@/components/cursor/delayed-
 import { HeavyPointer, heavyPointerMeta } from "@/components/cursor/heavy-pointer";
 import { MirroredPointer, mirroredPointerMeta } from "@/components/cursor/mirrored-pointer";
 import { NearestTarget, nearestTargetMeta } from "@/components/cursor/nearest-target";
+import { SaveButton, saveButtonMeta } from "@/components/feedback/save-button";
+import { UndoToast, undoToastMeta } from "@/components/feedback/undo-toast";
+import { UploadProgress, uploadProgressMeta } from "@/components/feedback/upload-progress";
 import { LeadingCaret, leadingCaretMeta } from "@/components/inputs/leading-caret";
 import { LetterName, letterNameMeta } from "@/components/inputs/letter-name";
 import { OneTimeCode, oneTimeCodeMeta } from "@/components/inputs/one-time-code";
 import { QuantityStepper, quantityStepperMeta } from "@/components/inputs/quantity-stepper";
 import { SortedEmail, sortedEmailMeta } from "@/components/inputs/sorted-email";
 import type { LibraryEntry } from "@/components/library";
+import { Breadcrumbs, breadcrumbsMeta } from "@/components/navigation/breadcrumbs";
+import { Pagination, paginationMeta } from "@/components/navigation/pagination";
+import { TabBar, tabBarMeta } from "@/components/navigation/tab-bar";
 import {
   CheckboxGroup,
   checkboxGroupMeta,
@@ -60,4 +66,10 @@ export const entries: LibraryEntry[] = [
   { id: "opinionated-buddy", component: OpinionatedBuddy, meta: opinionatedBuddyMeta },
   { id: "screaming-buddy", component: ScreamingBuddy, meta: screamingBuddyMeta },
   { id: "clingy-buddy", component: ClingyBuddy, meta: clingyBuddyMeta },
+  { id: "tabs", component: TabBar, meta: tabBarMeta },
+  { id: "pagination", component: Pagination, meta: paginationMeta },
+  { id: "breadcrumbs", component: Breadcrumbs, meta: breadcrumbsMeta },
+  { id: "upload-progress", component: UploadProgress, meta: uploadProgressMeta },
+  { id: "undo-toast", component: UndoToast, meta: undoToastMeta },
+  { id: "save-button", component: SaveButton, meta: saveButtonMeta },
 ];
