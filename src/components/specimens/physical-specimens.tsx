@@ -1,7 +1,11 @@
 "use client";
 
 import { useId, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import type { ComponentMeta } from "@/components/meta";
+import { datePickerPrompt } from "./date-picker.prompt";
+import { phoneNumberPrompt } from "./phone-number.prompt";
 import styles from "./physical-specimens.module.css";
+import { volumeControlPrompt } from "./volume-control.prompt";
 
 const MAX_ROTATION = 4_500;
 
@@ -104,6 +108,24 @@ export function VolumeControl() {
   );
 }
 
+export const volumeControlMeta: ComponentMeta = {
+  name: "Volume control",
+  kind: "hostile",
+  category: "specimens",
+  summary:
+    "A rotary dial read in percent. One full turn of the dial moves it eight " +
+    "percent, so reaching 100% takes twelve and a half turns; each arrow-key " +
+    "press moves it one percent.",
+  usage: "<VolumeControl />",
+  prompt: volumeControlPrompt,
+  notes:
+    "Turned with pointer capture, so the pointer may leave the dial mid-turn. " +
+    "Exposed as role=slider from 0 to 100 with aria-valuetext in percent.",
+  lines: {
+    "volume-dial": "It goes to 100. It does not go to 100 quickly.",
+  },
+};
+
 const DAY = 86_400_000;
 const FIRST_DATE = Date.UTC(1900, 0, 1);
 const LAST_DAY = (Date.UTC(2026, 11, 31) - FIRST_DATE) / DAY;
@@ -147,6 +169,24 @@ export function DatePicker() {
     </div>
   );
 }
+
+export const datePickerMeta: ComponentMeta = {
+  name: "Date picker",
+  kind: "hostile",
+  category: "specimens",
+  summary:
+    "A date of birth set on a single range slider covering 1 January 1900 to " +
+    "31 December 2026 — one hundred and twenty-seven years in one groove, one " +
+    "day per step. The chosen date is read out above the track.",
+  usage: "<DatePicker />",
+  prompt: datePickerPrompt,
+  notes:
+    "A native range input, so the keyboard moves it one day at a time. " +
+    "aria-valuetext carries the formatted date rather than the day number.",
+  lines: {
+    "date-slider": "One hundred and twenty-seven years. One groove.",
+  },
+};
 
 export function PhoneNumber() {
   const [digits, setDigits] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -202,3 +242,21 @@ export function PhoneNumber() {
     </div>
   );
 }
+
+export const phoneNumberMeta: ComponentMeta = {
+  name: "Phone number",
+  kind: "hostile",
+  category: "specimens",
+  summary:
+    "Ten digits, each raised by its own stepper and wrapping from 9 back to 0. " +
+    "Raising a digit also raises the one after it, wrapping from the tenth " +
+    "back to the first.",
+  usage: "<PhoneNumber />",
+  prompt: phoneNumberPrompt,
+  notes:
+    "Each stepper is a button whose accessible name carries its position and " +
+    "current value; the ten sit in a group labelled Phone number.",
+  lines: {
+    "phone-digit": "Every digit is on speaking terms with the next.",
+  },
+};

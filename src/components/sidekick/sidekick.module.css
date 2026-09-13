@@ -40,15 +40,26 @@
   color: #282824;
 }
 
+/* Centred on the page width rather than the viewport, so the control lands on
+   the same right edge as the collection page's footer. */
 .dock {
   position: fixed;
+  left: 0;
   right: 0;
   bottom: 0;
   z-index: 50;
-  margin: 0;
-  padding: 0 28px 6px;
+  display: flex;
+  justify-content: flex-end;
+  width: var(--shell-width);
+  margin: 0 auto;
+  padding: 0 0 6px;
   background: none;
   border: 0;
+  pointer-events: none;
+}
+
+.dock > * {
+  pointer-events: auto;
 }
 
 @media (pointer: coarse), (hover: none) {
@@ -116,6 +127,6 @@
   letter-spacing: -0.2px;
 }
 
-.tabSnark {
+.tabTalk {
   font-family: var(--font-geist-sans), sans-serif;
 }

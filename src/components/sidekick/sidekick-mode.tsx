@@ -2,13 +2,13 @@
 
 import { createContext, useContext, useSyncExternalStore, type ReactNode } from "react";
 
-export type SidekickMode = "dom" | "snark" | "off";
+export type SidekickMode = "dom" | "talk" | "off";
 
 export const DEFAULT_MODE: SidekickMode = "dom";
 const STORAGE_KEY = "badui:sidekick-mode";
 
 function isMode(value: unknown): value is SidekickMode {
-  return value === "dom" || value === "snark" || value === "off";
+  return value === "dom" || value === "talk" || value === "off";
 }
 
 type SidekickModeValue = {
@@ -39,7 +39,9 @@ function subscribe(listener: () => void): () => void {
 function getSnapshot(): SidekickMode {
   if (memoryMode === null) {
     try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
+      let stored = window.localStorage.getItem(STORAGE_KEY);
+      // The mode was called "snark" before it was renamed.
+      if (stored === "snark") stored = "talk";
       memoryMode = isMode(stored) ? stored : DEFAULT_MODE;
     } catch {
       memoryMode = DEFAULT_MODE;

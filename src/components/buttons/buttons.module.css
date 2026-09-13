@@ -1,0 +1,87 @@
+.specimen {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-self: stretch;
+  gap: 12px;
+  min-width: 0;
+  color: #282824;
+}
+
+.arena {
+  position: relative;
+  flex: 1;
+  min-height: 160px;
+  touch-action: manipulation;
+}
+
+/* Centred by CSS so the server render is already at rest; the effects write
+   the whole transform from then on, starting with the same translate. */
+.button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 39px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: #30312b;
+  color: #fafaf6;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  transition: background 150ms ease;
+  touch-action: manipulation;
+}
+
+.button:hover {
+  background: #4d5142;
+}
+
+.button:focus-visible {
+  outline: 2px solid #667251;
+  outline-offset: 3px;
+}
+
+.button svg {
+  width: 12px;
+  height: 12px;
+}
+
+.shrinking {
+  overflow: hidden;
+}
+
+.label {
+  display: block;
+  overflow: hidden;
+}
+
+.readout {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  color: #6b6b63;
+  font-size: 11px;
+}
+
+.count {
+  color: #282824;
+  font-family: var(--font-geist-mono), monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}

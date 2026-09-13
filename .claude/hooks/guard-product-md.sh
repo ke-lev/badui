@@ -38,5 +38,5 @@ case "$tool" in
 esac
 
 cat <<'JSON'
-{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"PRODUCT.md records confirmed product decisions and carries an impeccable:product-schema marker, so a skill re-run can regenerate it and silently revert them. Confirm only if this rewrite is intended. If impeccable is regenerating the file, preserve: the open-library scale, 'Explain the component, never the joke', 'Each entry ships finished', and the Voice commitment permitting component documentation. AGENTS.md is the newer authority."}}
+{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"PRODUCT.md records confirmed product decisions and carries an impeccable:product-schema marker, so a skill re-run can regenerate it and silently revert them. Confirm only if this rewrite is intended. If impeccable is regenerating the file, preserve: the open-library scale, 'Explain the component, never the joke', 'Each entry ships finished', portable reproduction prompts as required entry content, and the Voice commitment permitting component documentation. AGENTS.md is the newer authority."}}
 JSON

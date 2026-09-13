@@ -2,12 +2,9 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { inspect } from "./inspect";
-import { line } from "./lines";
+import { line, TARGETS } from "./lines";
 import styles from "./sidekick.module.css";
 import { useSidekickMode } from "./sidekick-mode";
-
-const TARGETS =
-  'a[href], button, input, select, textarea, [role="slider"], [role="dialog"], [data-sidekick]';
 
 const FINE_POINTER_QUERY = "(pointer: fine) and (hover: hover)";
 
@@ -139,7 +136,7 @@ export function Sidekick() {
   }, [mode]);
 
   // Depending on `mode` directly would tear down and rebuild the loop on every
-  // DOM/Snark switch, resetting the cuff to the top-left corner. Only the Off
+  // DOM/Talk switch, resetting the cuff to the top-left corner. Only the Off
   // transition should restart it; the loop reads the live mode from modeRef.
   const active = enabled && mode !== "off";
 
@@ -177,7 +174,7 @@ export function Sidekick() {
     }
 
     function describe(el: Element): string {
-      return modeRef.current === "snark" ? line(el) : inspect(el);
+      return modeRef.current === "talk" ? line(el) : inspect(el);
     }
 
     function onPointerMove(event: PointerEvent) {
@@ -354,7 +351,7 @@ export function Sidekick() {
     <div className={styles.layer} aria-hidden="true">
       <div className={styles.cuff} ref={cuffRef} />
       <div
-        className={`${styles.tab} ${mode === "snark" ? styles.tabSnark : styles.tabDom}`}
+        className={`${styles.tab} ${mode === "talk" ? styles.tabTalk : styles.tabDom}`}
         ref={tabRef}
       >
         {text}

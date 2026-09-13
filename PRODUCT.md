@@ -6,6 +6,7 @@
 > pivoted from a fixed set of six hostile specimens to an open component
 > library. These are settled decisions, not gaps awaiting an interview:
 > the open-ended scale; component documentation as required entry content;
+> portable reproduction prompts as required entry content;
 > "Explain the component, never the joke"; "Each entry ships finished"; and a
 > Voice commitment that permits documentation while still forbidding
 > commentary. `AGENTS.md` holds the same rules and is the newer authority.
@@ -42,7 +43,7 @@ Reviewers reach the project by link and evaluate it in a single sitting. Browsin
 ## Capabilities and Constraints
 
 - **Scale:** an open library that grows over time. Each entry is still hand-composed and bespoke rather than fitted to a content shell, and the index is built from the components' own metadata, so no CMS or content pipeline is required.
-- **Entry content:** the component, its name, and its documentation — what it is, how it behaves, and how to use it. Documentation is written in the same change as the component it describes. Commentary, verdict, teardown, and corrected versions remain out of scope: describe the mechanism, never the joke.
+- **Entry content:** the component, its name, its documentation, and its reproduction prompt. Documentation says what it is, how it behaves, and how to use it. The prompt is a portable React + TypeScript brief for recreating the same behavior and appearance without repository-specific dependencies. Both are written in the same change as the component they describe. Commentary, verdict, teardown, and corrected versions remain out of scope: describe the mechanism, never the joke.
 - **Component origin:** all components are original work authored in this project. No real company, product, or brand is named, depicted, or attributed. No screenshots or recordings of shipped third-party interfaces.
 - **Stack:** existing codebase — Next.js 16 (App Router, `src/`), React 19, TypeScript, Tailwind CSS v4, ESLint, Turbopack. Verified building.
 - **Undecided:** deployment target and whether the project is published at a public URL; the roster of components, which is open by design.
@@ -63,7 +64,7 @@ Future work must not fabricate any of it: no invented company names on component
 1. **Operable, not depicted.** An entry earns its place only if the visitor can interact with it firsthand. If it works as a screenshot, it is not an entry.
 2. **Explain the component, never the joke.** Documentation says what a component is and how it behaves; that is required. Editorialising, winking, naming the anti-pattern, or coaching the visitor past a hostile control is a confirmed exclusion, not a gap waiting to be filled.
 3. **Hostile by design, never by defect.** The failure must read as authored intent. Sloppiness that could be mistaken for an accident undermines the entire premise.
-4. **Each entry ships finished.** The library grows, but nothing lands half-built: a component arrives documented, operable, and complete, or it does not arrive.
+4. **Each entry ships finished.** The library grows, but nothing lands half-built: a component arrives documented, operable, complete, and accompanied by a portable reproduction prompt, or it does not arrive.
 5. **The craft is the deliverable.** The audience judges execution. Everything that frames the collection is held to portfolio standard.
 
 ## Accessibility & Inclusion

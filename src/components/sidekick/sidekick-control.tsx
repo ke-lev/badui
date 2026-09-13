@@ -5,7 +5,7 @@ import { useSidekickMode, type SidekickMode } from "./sidekick-mode";
 
 const OPTIONS: Array<{ value: SidekickMode; label: string }> = [
   { value: "dom", label: "DOM" },
-  { value: "snark", label: "Snark" },
+  { value: "talk", label: "Talk" },
   { value: "off", label: "Off" },
 ];
 
@@ -19,7 +19,7 @@ export function SidekickControl() {
         <span className="sr-only">Cursor companion</span>
       </legend>
       {OPTIONS.map((option) => (
-        <label className={styles.option} key={option.value}>
+        <label className={styles.option} key={option.value} data-sidekick={`sidekick-${option.value}`}>
           <input
             type="radio"
             name="sidekick-mode"
@@ -35,7 +35,7 @@ export function SidekickControl() {
 }
 
 // The splash route has no site footer, so the mode control had nowhere to live
-// there — a visitor landing on "/" with snark already stored had no way to turn
+// there — a visitor landing on "/" with talk already stored had no way to turn
 // it off until they navigated. This docks the control in the corner instead:
 // a real contentinfo landmark (which "/" otherwise lacks) with no surface of
 // its own, so it sits on the page rather than on a bar.

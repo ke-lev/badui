@@ -1,0 +1,118 @@
+.area {
+  overflow: hidden;
+  cursor: none;
+}
+
+/* The real pointer passes through to the area, which decides what a click
+   meant. Keyboard focus and activation are untouched. */
+.area .target {
+  pointer-events: none;
+}
+
+.area .target[data-hover] {
+  background: #4d5142;
+}
+
+.area .offset {
+  left: 27%;
+}
+
+/* The arrow's tip sits 1.5px into its box; the offset puts it on the point. */
+.pointer {
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  width: 16px;
+  height: 22px;
+  visibility: hidden;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.pointer svg {
+  display: block;
+}
+
+/* Nearest target */
+
+.transport {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  touch-action: manipulation;
+}
+
+.transport[data-reach] {
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.control {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid #deded6;
+  border-radius: 50%;
+  background: #fafaf6;
+  color: #282824;
+  cursor: pointer;
+  transition: background 120ms ease, box-shadow 120ms ease;
+  touch-action: manipulation;
+}
+
+.control svg {
+  width: 12px;
+  height: 12px;
+}
+
+.primary {
+  width: 40px;
+  height: 40px;
+  border-color: transparent;
+  background: #30312b;
+  color: #fafaf6;
+}
+
+.control[data-near] {
+  box-shadow: 0 0 0 5px rgba(102, 114, 81, 0.22);
+  background: #eceee4;
+}
+
+.primary[data-near] {
+  background: #4d5142;
+}
+
+.control:focus-visible {
+  outline: 2px solid #667251;
+  outline-offset: 3px;
+}
+
+.status {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  color: #6b6b63;
+  font-size: 11px;
+}
+
+.state {
+  color: #282824;
+  font-family: var(--font-geist-mono), monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .control {
+    transition: none;
+  }
+}

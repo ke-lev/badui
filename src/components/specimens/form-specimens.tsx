@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import type { ComponentMeta } from "@/components/meta";
+import { checkboxGroupPrompt } from "./checkbox-group.prompt";
+import { confirmDialogPrompt } from "./confirm-dialog.prompt";
 import styles from "./form-specimens.module.css";
+import { passwordFieldPrompt } from "./password-field.prompt";
 
 function Checkmark({ className }: { className?: string }) {
   return (
@@ -18,11 +22,8 @@ function Checkmark({ className }: { className?: string }) {
   );
 }
 
-type PasswordFieldVariant = "collection" | "login";
-
-export function PasswordField({ variant = "collection" }: { variant?: PasswordFieldVariant } = {}) {
+export function PasswordField() {
   const inputId = useId();
-  const emailId = `${inputId}-email`;
   const inputRef = useRef<HTMLInputElement>(null);
   const restartRef = useRef<HTMLButtonElement>(null);
   const hasAccepted = useRef(false);
@@ -79,14 +80,12 @@ export function PasswordField({ variant = "collection" }: { variant?: PasswordFi
     setAccepted(false);
   }
 
-  const isLogin = variant === "login";
-
   if (accepted) {
     return (
       <div className={styles.success} role="status">
         <span className={styles.successIcon}><Checkmark /></span>
         <p className={styles.successTitle}>Password accepted.</p>
-        <button ref={restartRef} className={styles.secondaryButton} onClick={reset} type="button">
+        <button ref={restartRef} className={styles.secondaryButton} data-sidekick="password-restart" onClick={reset} type="button">
           Start again
         </button>
       </div>
@@ -94,21 +93,8 @@ export function PasswordField({ variant = "collection" }: { variant?: PasswordFi
   }
 
   return (
-    <form
-      className={`${styles.passwordForm} ${isLogin ? styles.loginPasswordForm : ""}`}
-      onSubmit={submit}
-      noValidate={!isLogin}
-      aria-label={isLogin ? "Log in" : undefined}
-    >
-      {isLogin && (
-        <div className={styles.loginEmailField}>
-          <label className={styles.fieldLabel} htmlFor={emailId}>Email</label>
-          <div className={styles.passwordInput}>
-            <input id={emailId} name="email" type="email" autoComplete="email" required />
-          </div>
-        </div>
-      )}
-      <label className={styles.fieldLabel} htmlFor={inputId}>{isLogin ? "Password" : "Create a password"}</label>
+    <form className={styles.passwordForm} onSubmit={submit} noValidate>
+      <label className={styles.fieldLabel} htmlFor={inputId}>Create a password</label>
       <div className={`${styles.passwordInput} ${submitted ? styles.invalidInput : ""}`}>
         <input
           ref={inputRef}
@@ -118,7 +104,7 @@ export function PasswordField({ variant = "collection" }: { variant?: PasswordFi
           data-sidekick="password"
           value={password}
           onChange={(event) => updatePassword(event.target.value)}
-          autoComplete={isLogin ? "current-password" : "off"}
+          autoComplete="off"
           spellCheck={false}
           placeholder="Enter password"
           aria-describedby={`${inputId}-requirements`}
@@ -127,6 +113,7 @@ export function PasswordField({ variant = "collection" }: { variant?: PasswordFi
         <button
           type="button"
           className={styles.revealButton}
+          data-sidekick="password-reveal"
           onClick={() => setVisible(!visible)}
           aria-label={visible ? "Hide password" : "Show password"}
           aria-pressed={visible}
@@ -148,10 +135,32 @@ export function PasswordField({ variant = "collection" }: { variant?: PasswordFi
           </li>
         ))}
       </ul>
-      <button className={styles.primaryButton} type="submit">{isLogin ? "Log in" : "Create password"}</button>
+      <button className={styles.primaryButton} type="submit" data-sidekick="password-submit">Create password</button>
     </form>
   );
 }
+
+export const passwordFieldMeta: ComponentMeta = {
+  name: "Password field",
+  kind: "hostile",
+  category: "specimens",
+  summary:
+    "A password field that reveals its requirements as they are met: eight " +
+    "characters and a number bring out a rule about how many numbers, and " +
+    "meeting that one brings out a rule about vowels.",
+  usage: "<PasswordField />",
+  prompt: passwordFieldPrompt,
+  notes:
+    "The requirement list is a live region and each item states met or not " +
+    "met to a screen reader. A rejected submit sets aria-invalid and returns " +
+    "focus to the field.",
+  lines: {
+    password: "Meeting a requirement is how you find the next one.",
+    "password-reveal": "Shows the password. Only the password.",
+    "password-submit": "It will let you know.",
+    "password-restart": "Once more, from nothing.",
+  },
+};
 
 const confirmations = [
   "Would you like to continue?",
@@ -170,7 +179,7 @@ export function ConfirmDialog() {
     return (
       <div className={styles.success}>
         <p className={styles.successTitle} role="status">Action canceled.</p>
-        <button className={styles.secondaryButton} type="button" onClick={() => setDepth(1)}>
+        <button className={styles.secondaryButton} type="button" data-sidekick="dialog-restart" onClick={() => setDepth(1)}>
           Continue
         </button>
       </div>
@@ -211,6 +220,26 @@ export function ConfirmDialog() {
   );
 }
 
+export const confirmDialogMeta: ComponentMeta = {
+  name: "Confirmation dialog",
+  kind: "hostile",
+  category: "specimens",
+  summary:
+    "A confirmation dialog that counts. Continue and the close button each " +
+    "raise the count by one and ask again; Cancel lowers it by one, and " +
+    "cancelling the first dialog ends the sequence.",
+  usage: "<ConfirmDialog />",
+  prompt: confirmDialogPrompt,
+  notes:
+    "Rendered inline as role=dialog with aria-modal=false, since it never " +
+    "takes the page modal. The count and the message are live regions.",
+  lines: {
+    dialog: "Cancel goes back one. Everything else goes forward.",
+    "dialog-close": "This is not an exit.",
+    "dialog-restart": "It missed you.",
+  },
+};
+
 const preferenceLabels = ["Email updates", "Product news", "Research invitations"];
 
 export function CheckboxGroup() {
@@ -230,7 +259,7 @@ export function CheckboxGroup() {
         <span className={styles.successIcon}><Checkmark /></span>
         <p className={styles.successTitle}>Preferences saved.</p>
         <p className={styles.successDescription}>{selectedCount} preferences selected.</p>
-        <button className={styles.secondaryButton} type="button" onClick={() => setSaved(false)}>
+        <button className={styles.secondaryButton} type="button" data-sidekick="checkboxes-edit" onClick={() => setSaved(false)}>
           Edit preferences
         </button>
       </div>
@@ -257,10 +286,30 @@ export function CheckboxGroup() {
       </fieldset>
       <div className={styles.preferenceActions}>
         <span className={styles.selectedCount} role="status">{selectedCount} selected</span>
-        <button className={styles.primaryButton} type="button" onClick={() => setSaved(true)}>
+        <button className={styles.primaryButton} type="button" data-sidekick="checkboxes-save" onClick={() => setSaved(true)}>
           Save preferences
         </button>
       </div>
     </div>
   );
 }
+
+export const checkboxGroupMeta: ComponentMeta = {
+  name: "Checkboxes",
+  kind: "hostile",
+  category: "specimens",
+  summary:
+    "Three preference checkboxes. Toggling one also toggles the next in the " +
+    "list, wrapping from the last back to the first; a running count sits " +
+    "beside the save button.",
+  usage: "<CheckboxGroup />",
+  prompt: checkboxGroupPrompt,
+  notes:
+    "Native checkboxes in a labelled fieldset, so each reports its own " +
+    "checked state. The count is a status region.",
+  lines: {
+    checkboxes: "Each one has an opinion about its neighbour.",
+    "checkboxes-save": "Saves whatever it ended up as.",
+    "checkboxes-edit": "They are where you left them. Roughly.",
+  },
+};
