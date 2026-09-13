@@ -94,5 +94,19 @@ everywhere.
 ## Precedence
 
 `PRODUCT.md` describes the product and remains authoritative on voice and
-scope. Where it still reads as though the collection were a fixed set of six,
-this file is newer.
+scope, and the two files agree today.
+
+`PRODUCT.md` carries an `impeccable:product-schema` marker, so a skill re-run
+can regenerate it from a fresh interview. **This file is the durable copy of
+the rules below, and wins wherever a regenerated `PRODUCT.md` disagrees:**
+
+- the library is open and grows; it is not a fixed set of six specimens
+- component documentation is required entry content, written in the same
+  change as the component
+- explain the component; never explain the joke
+- each entry ships finished — documented, operable, complete
+- hostile and benign entries are documented in the same straight register
+
+A `.claude/hooks/guard-product-md.sh` hook prompts before any write to
+`PRODUCT.md` so a regeneration cannot revert these silently. If you are asked
+to confirm such a write, check the list above survives it.

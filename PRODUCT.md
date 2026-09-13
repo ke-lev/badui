@@ -2,6 +2,15 @@
 
 <!-- impeccable:product-schema 1 -->
 
+> **Confirmed 2026-09-13 — do not reopen without being asked to.** The project
+> pivoted from a fixed set of six hostile specimens to an open component
+> library. These are settled decisions, not gaps awaiting an interview:
+> the open-ended scale; component documentation as required entry content;
+> "Explain the component, never the joke"; "Each entry ships finished"; and a
+> Voice commitment that permits documentation while still forbidding
+> commentary. `AGENTS.md` holds the same rules and is the newer authority.
+> A regeneration of this file must preserve all of them.
+
 ## Platform
 
 web
