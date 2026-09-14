@@ -16,12 +16,13 @@ BEHAVIOR
 - A click on an aria-disabled button does nothing.
 
 STYLING
-- The specimen is width 100%, max-width 330px, centered, color #282824.
-- The list has no margin, padding, or bullets, a 1px solid #deded6 border, 6px radius, and white background. Each item is a flex row, space-between, min-height 46px, padding 0 16px, 13px type; items after the first have a 1px solid #eeeee8 top border. The “#NNN” text is 11px monospace with tabular numerals in #6b6b63.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The specimen is width 100%, max-width 330px, centered, color light-dark(#282824, #e8e7e0).
+- The list has no margin, padding, or bullets, a 1px solid light-dark(#deded6, #34342f) border, 6px radius, and light-dark(#ffffff, #1a1a17) background. Each item is a flex row, space-between, min-height 46px, padding 0 16px, 13px type; items after the first have a 1px solid light-dark(#eaeaea, #2a2a26) top border. The “#NNN” text is 11px monospace with tabular numerals in light-dark(#6b6b63, #9c9c91).
 - The nav is a three-column grid (auto, 1fr, auto), centered vertically, 8px gap, 12px top margin.
-- Buttons have min-height 36px, padding 6px 12px, 1px solid #deded6 border, 5px radius, white background, color #282824, 12px inherited type, pointer cursor, and 140ms ease transitions on background and border color. When not aria-disabled, hover uses border #a3aa95 and background #f7f8f2. aria-disabled buttons use color #6b6b63 and a default cursor.
-- The status is centered 12px #6b6b63 with no margin; the page number is #282824, monospace, weight 500, tabular numerals.
-- Focus-visible outline is 2px solid #667251 at 2px offset. Remove transitions under prefers-reduced-motion: reduce.
+- Buttons have min-height 36px, padding 6px 12px, 1px solid light-dark(#deded6, #34342f) border, 5px radius, light-dark(#ffffff, #1a1a17) background, color light-dark(#282824, #e8e7e0), 12px inherited type, pointer cursor, and 140ms ease transitions on background and border color. When not aria-disabled, hover uses border light-dark(#a9aa9f, #62635a) and background light-dark(#f7f7f2, #20201d). aria-disabled buttons use color light-dark(#6b6b63, #9c9c91) and a default cursor.
+- The status is centered 12px light-dark(#6b6b63, #9c9c91) with no margin; the page number is light-dark(#282824, #e8e7e0), monospace, weight 500, tabular numerals.
+- Focus-visible outline is 2px solid light-dark(#667251, #8e9c78) at 2px offset. Remove transitions under prefers-reduced-motion: reduce.
 
 DONE WHEN
 - Next doubles and Previous halves (rounding down) within 1–24, and the record numbers follow the page.

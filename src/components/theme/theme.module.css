@@ -1,0 +1,20 @@
+/* Laid out like the sidekick control, but kept on touch screens: the theme
+   still applies without a cursor. */
+.control {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* A half-filled disc, the same 24px footprint as the sidekick's mark. */
+.mark {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  background: linear-gradient(90deg, var(--accent) 50%, transparent 50%);
+}

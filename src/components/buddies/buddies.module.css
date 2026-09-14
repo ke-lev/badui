@@ -15,9 +15,9 @@
   left: 0;
   width: 24px;
   height: 24px;
-  border: 1.5px solid #4e6145;
+  border: 1.5px solid var(--accent);
   border-radius: 12px;
-  background: rgba(137, 145, 118, 0.09);
+  background: color-mix(in srgb, var(--accent-soft) 9%, transparent);
   opacity: 0;
   transition: opacity 150ms ease, border-radius 160ms ease;
   will-change: transform, width, height;
@@ -29,8 +29,8 @@
   left: 0;
   padding: 5px 9px;
   border-radius: 5px;
-  background: #282824;
-  color: #fbfaf8;
+  background: var(--foreground);
+  color: var(--background);
   font-family: var(--font-geist-sans), sans-serif;
   font-size: 11px;
   line-height: 1.45;
@@ -53,9 +53,9 @@
   left: 0;
   width: 24px;
   height: 24px;
-  border: 1.5px solid #4e6145;
+  border: 1.5px solid var(--accent);
   border-radius: 50%;
-  background: rgba(137, 145, 118, 0.16);
+  background: color-mix(in srgb, var(--accent-soft) 16%, transparent);
   transform: translate3d(16px, 16px, 0);
   transform-origin: center;
   pointer-events: none;
@@ -63,7 +63,7 @@
 }
 
 .hungry[data-eating] {
-  background: rgba(78, 97, 69, 0.55);
+  background: color-mix(in srgb, var(--accent) 55%, transparent);
 }
 
 /* The face is sized in percentages of the companion. */
@@ -79,7 +79,7 @@
   width: 14%;
   height: 22%;
   border-radius: 999px;
-  background: #282824;
+  background: var(--foreground);
 }
 
 .eyeLeft {
@@ -96,7 +96,7 @@
   left: 50%;
   width: 34%;
   height: 14%;
-  border-bottom: 1.5px solid #282824;
+  border-bottom: 1.5px solid var(--foreground);
   border-radius: 0 0 50% 50% / 0 0 100% 100%;
   transform: translateX(-50%);
 }
@@ -107,7 +107,7 @@
   top: 62%;
   width: 7px;
   height: 3px;
-  border: 1.5px solid #282824;
+  border: 1.5px solid var(--foreground);
   border-radius: 999px;
   background: none;
   transform: translate(-50%, -50%);
@@ -132,13 +132,13 @@
 /* Screaming */
 
 .loud {
-  border: 2px solid #c62a1f;
-  background: rgba(214, 40, 30, 0.14);
+  border: 2px solid light-dark(#c62a1f, #ff7e70);
+  background: var(--danger-tint);
 }
 
 .loudTab {
-  background: #b3261e;
-  color: #ffffff;
+  background: var(--danger);
+  color: var(--on-inverse);
   font-weight: 700;
   letter-spacing: 0.04em;
 }
@@ -157,7 +157,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 11px;
 }
 
@@ -165,16 +165,16 @@
   width: 140px;
   min-height: 39px;
   padding: 8px 10px;
-  border: 1px solid #85857b;
+  border: 1px solid light-dark(#85857b, #7a7a6d);
   border-radius: 5px;
-  background: #fafaf6;
-  color: #282824;
+  background: var(--field);
+  color: var(--foreground);
   font: inherit;
   font-size: 12px;
 }
 
 .input:focus-visible {
-  outline: 2px solid #667251;
+  outline: 2px solid var(--accent-line);
   outline-offset: 3px;
 }
 

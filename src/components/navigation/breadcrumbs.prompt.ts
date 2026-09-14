@@ -19,12 +19,13 @@ BEHAVIOR
 - Perform focus moves in an effect after the state change, and only when triggered by one of these actions — never on first render.
 
 STYLING
-- The specimen is width 100%, max-width 330px, centered, color #282824.
-- The crumb list is a wrapping flex row, centered, 2px gap, no margin, padding, or bullets, 12px type. Each item is an inline flex row with 2px gap. The separator is #a9aa9f with 0 2px padding.
-- Crumb buttons: min-height 30px, padding 4px 6px, no border, 4px radius, transparent background, color #54614a, inherited font, underline in #c6c8ba with 3px underline offset, pointer cursor. Hover uses background #f1f2ea and a currentColor underline. The current crumb is padding 4px 6px, weight 500.
-- The heading row is a baseline-aligned flex row, space-between, 12px gap, 14px top margin, padding 0 2px 10px, 1px solid #deded6 bottom border. The title is 19px, weight 500, letter-spacing -0.5px, no margin, 3px radius. The caption is 11px #6b6b63 with no margin.
-- The folder list is a grid with align-content start, 4px gap, min-height 132px, 10px top margin, no padding or bullets. Folder buttons are full-width flex rows, 10px gap, min-height 40px, padding 6px 12px, 1px solid #deded6 border, 5px radius, white background, 13px left-aligned text, pointer cursor, 140ms ease transitions on background and border; hover uses border #a3aa95 and background #f7f8f2. The icon is #7a8565. The empty message is 12px #6b6b63 with 12px 2px padding.
-- Buttons and the title use a 2px solid #667251 focus-visible outline at 2px offset. Remove transitions under prefers-reduced-motion: reduce.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The specimen is width 100%, max-width 330px, centered, color light-dark(#282824, #e8e7e0).
+- The crumb list is a wrapping flex row, centered, 2px gap, no margin, padding, or bullets, 12px type. Each item is an inline flex row with 2px gap. The separator is light-dark(#a9aa9f, #62635a) with 0 2px padding.
+- Crumb buttons: min-height 30px, padding 4px 6px, no border, 4px radius, transparent background, color light-dark(#54614a, #b6c2a2), inherited font, underline in light-dark(#c6c8ba, #4a4b43) with 3px underline offset, pointer cursor. Hover uses background light-dark(#f1f1ea, #262622) and a currentColor underline. The current crumb is padding 4px 6px, weight 500.
+- The heading row is a baseline-aligned flex row, space-between, 12px gap, 14px top margin, padding 0 2px 10px, 1px solid light-dark(#deded6, #34342f) bottom border. The title is 19px, weight 500, letter-spacing -0.5px, no margin, 3px radius. The caption is 11px light-dark(#6b6b63, #9c9c91) with no margin.
+- The folder list is a grid with align-content start, 4px gap, min-height 132px, 10px top margin, no padding or bullets. Folder buttons are full-width flex rows, 10px gap, min-height 40px, padding 6px 12px, 1px solid light-dark(#deded6, #34342f) border, 5px radius, light-dark(#ffffff, #1a1a17) background, 13px left-aligned text, pointer cursor, 140ms ease transitions on background and border; hover uses border light-dark(#a9aa9f, #62635a) and background light-dark(#f7f7f2, #20201d). The icon is light-dark(#7a8565, #97a37f). The empty message is 12px light-dark(#6b6b63, #9c9c91) with 12px 2px padding.
+- Buttons and the title use a 2px solid light-dark(#667251, #8e9c78) focus-visible outline at 2px offset. Remove transitions under prefers-reduced-motion: reduce.
 
 DONE WHEN
 - The trail folds past four crumbs, unfolds on “…”, and every crumb and subfolder navigates to the right folder.

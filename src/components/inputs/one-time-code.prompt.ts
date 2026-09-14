@@ -19,14 +19,15 @@ BEHAVIOR
 - Clear empties the code and focuses the input. It is disabled while the code is empty.
 
 STYLING
-- The specimen is width 100%, max-width 310px, centered, color #282824.
-- The heading is a 12px flex row, 20px line-height, space-between, 12px gap. The right-hand text is 11px monospace in #6b6b63.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The specimen is width 100%, max-width 310px, centered, color light-dark(#282824, #e8e7e0).
+- The heading is a 12px flex row, 20px line-height, space-between, 12px gap. The right-hand text is 11px monospace in light-dark(#6b6b63, #9c9c91).
 - The field wrapper has 10px top margin. The input is absolutely positioned to fill it, with no margin, padding, border, or outline, transparent background, transparent text, transparent caret color, 16px font size (prevents zoom on iOS), text cursor, and a transparent ::selection background.
-- The cells are a grid of six equal columns with a 6px gap and pointer-events none. Each cell is a centered grid, height 56px, 1px solid #deded6 border, 4px radius, #ffffff background, 24px monospace, tabular numerals. Hovering the field makes cell borders #c9ccbd.
-- The active cell has border #6c7660 and box-shadow 0 0 0 1px #6c7660. When the active cell is empty, draw a 1px by 24px #282824 bar in it with an ::after that blinks: opacity 0 at 50%, 1s steps(1) infinite.
-- When the input is focus-visible, give the cell grid a 2px solid #6c7660 outline at 4px offset with a 6px radius.
-- The status row is a flex row with space-between, min-height 32px, 14px top margin, 11px type, color #6b6b63; when complete, the status text is #4f5a3d.
-- The Clear button has min-height 32px, padding 6px 12px, 1px solid #deded6 border, 4px radius, #ffffff background, color #282824, 12px type; hover (when enabled) background #f7f8f2 and border #a3aa95; disabled color #6b6b63 with default cursor; focus-visible outline 2px solid #6c7660 at 3px offset.
+- The cells are a grid of six equal columns with a 6px gap and pointer-events none. Each cell is a centered grid, height 56px, 1px solid light-dark(#deded6, #34342f) border, 4px radius, light-dark(#ffffff, #1a1a17) background, 24px monospace, tabular numerals. Hovering the field makes cell borders light-dark(#c9ccbd, #4a4b43).
+- The active cell has border light-dark(#6c7660, #8e9c78) and box-shadow 0 0 0 1px light-dark(#6c7660, #8e9c78). When the active cell is empty, draw a 1px by 24px light-dark(#282824, #e8e7e0) bar in it with an ::after that blinks: opacity 0 at 50%, 1s steps(1) infinite.
+- When the input is focus-visible, give the cell grid a 2px solid light-dark(#6c7660, #8e9c78) outline at 4px offset with a 6px radius.
+- The status row is a flex row with space-between, min-height 32px, 14px top margin, 11px type, color light-dark(#6b6b63, #9c9c91); when complete, the status text is light-dark(#4f5a3d, #a9b894).
+- The Clear button has min-height 32px, padding 6px 12px, 1px solid light-dark(#deded6, #34342f) border, 4px radius, light-dark(#ffffff, #1a1a17) background, color light-dark(#282824, #e8e7e0), 12px type; hover (when enabled) background light-dark(#f7f8f2, #20201d) and border light-dark(#a3aa95, #62635a); disabled color light-dark(#6b6b63, #9c9c91) with default cursor; focus-visible outline 2px solid light-dark(#6c7660, #8e9c78) at 3px offset.
 - Cell border and shadow transitions are 140ms ease. Under prefers-reduced-motion remove the transitions and the blink.
 - At widths up to 600px, cells are 50px tall with 20px type.
 

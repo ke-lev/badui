@@ -18,11 +18,12 @@ BEHAVIOR
 - Remove letter removes the last letter. It is disabled when one letter remains.
 
 STYLING
-- The specimen is width 100%, max-width 310px, centered, color #282824.
-- The heading is a 12px flex row, 20px line-height, space-between, 12px gap. The count is 11px monospace in #6b6b63.
-- The output is display block, min-height 42px, padding 14px 0 12px, 1px solid #deded6 bottom border, 26px monospace, line-height 1.2, letter-spacing -1px, overflow-wrap anywhere.
-- The select group is a wrapping flex row with a 4px gap and 16px top margin. Each select is 44px square with 14px left padding, 1px solid #deded6 border, 4px radius, #ffffff background, color #282824, 15px monospace, pointer cursor; hover border #a3aa95; focus-visible outline 2px solid #6c7660 at 2px offset.
-- The button row is a flex row with space-between, an 8px gap and 16px top margin. Each button has min-height 32px, padding 6px 12px, 1px solid #deded6 border, 4px radius, #ffffff background, color #282824, 12px type, pointer cursor. Hover (when enabled) uses background #f7f8f2 and border #a3aa95. Disabled uses color #6b6b63 and a default cursor. Focus-visible outline is 2px solid #6c7660 at 3px offset. Background and border transitions are 140ms ease, removed under prefers-reduced-motion.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The specimen is width 100%, max-width 310px, centered, color light-dark(#282824, #e8e7e0).
+- The heading is a 12px flex row, 20px line-height, space-between, 12px gap. The count is 11px monospace in light-dark(#6b6b63, #9c9c91).
+- The output is display block, min-height 42px, padding 14px 0 12px, 1px solid light-dark(#deded6, #34342f) bottom border, 26px monospace, line-height 1.2, letter-spacing -1px, overflow-wrap anywhere.
+- The select group is a wrapping flex row with a 4px gap and 16px top margin. Each select is 44px square with 14px left padding, 1px solid light-dark(#deded6, #34342f) border, 4px radius, light-dark(#ffffff, #1a1a17) background, color light-dark(#282824, #e8e7e0), 15px monospace, pointer cursor; hover border light-dark(#a3aa95, #62635a); focus-visible outline 2px solid light-dark(#6c7660, #8e9c78) at 2px offset.
+- The button row is a flex row with space-between, an 8px gap and 16px top margin. Each button has min-height 32px, padding 6px 12px, 1px solid light-dark(#deded6, #34342f) border, 4px radius, light-dark(#ffffff, #1a1a17) background, color light-dark(#282824, #e8e7e0), 12px type, pointer cursor. Hover (when enabled) uses background light-dark(#f7f8f2, #20201d) and border light-dark(#a3aa95, #62635a). Disabled uses color light-dark(#6b6b63, #9c9c91) and a default cursor. Focus-visible outline is 2px solid light-dark(#6c7660, #8e9c78) at 3px offset. Background and border transitions are 140ms ease, removed under prefers-reduced-motion.
 
 DONE WHEN
 - The field starts as a single select showing K, with the name “K” and the count “1/12”.

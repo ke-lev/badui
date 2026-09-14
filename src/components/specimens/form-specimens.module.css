@@ -2,7 +2,7 @@
 .preferences {
   width: 100%;
   max-width: 296px;
-  color: #282824;
+  color: var(--foreground);
 }
 
 .fieldLabel {
@@ -20,15 +20,15 @@
   height: 45px;
   margin-top: 9px;
   overflow: hidden;
-  border: 1px solid #868b7c;
+  border: 1px solid light-dark(#868b7c, #a0a892);
   border-radius: 5px;
-  background: #fff;
+  background: var(--field);
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .passwordInput:focus-within {
-  border-color: #757b64;
-  box-shadow: 0 0 0 3px rgb(117 123 100 / 11%);
+  border-color: var(--accent-muted);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-muted) 11%, transparent);
 }
 
 .passwordInput input {
@@ -45,11 +45,11 @@
 }
 
 .passwordInput input::placeholder {
-  color: #75756b;
+  color: var(--muted);
 }
 
 .invalidInput {
-  border-color: #9a733e;
+  border-color: var(--warning);
 }
 
 .revealButton {
@@ -58,15 +58,15 @@
   min-width: 53px;
   border: 0;
   background: transparent;
-  color: #64645d;
+  color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
   font-size: 11px;
   cursor: pointer;
 }
 
 .revealButton:hover {
-  color: #282824;
-  background: #f5f5ef;
+  color: var(--foreground);
+  background: var(--surface);
 }
 
 .requirements {
@@ -74,7 +74,7 @@
   margin: 15px 0 13px;
   padding: 0;
   list-style: none;
-  color: #6b6b63;
+  color: var(--muted);
 }
 
 .requirements li {
@@ -87,11 +87,11 @@
 }
 
 .requirements .requirementMet {
-  color: #606c4f;
+  color: var(--accent-line);
 }
 
 .requirements .requirementUnmet {
-  color: #8c6026;
+  color: var(--warning);
 }
 
 .ruleIcon {
@@ -130,12 +130,12 @@
 }
 
 .primaryButton {
-  background: #30312b;
-  color: #fafaf6;
+  background: var(--inverse);
+  color: var(--on-inverse);
 }
 
 .primaryButton:hover {
-  background: #4d5142;
+  background: var(--inverse-hover);
 }
 
 .primaryButton:active,
@@ -144,14 +144,14 @@
 }
 
 .secondaryButton {
-  border-color: #ddddd5;
-  background: #fff;
-  color: #464640;
+  border-color: var(--border);
+  background: var(--field);
+  color: var(--ink-soft);
 }
 
 .secondaryButton:hover {
-  border-color: #bdbeb1;
-  background: #f5f5ef;
+  border-color: var(--border-hover);
+  background: var(--surface);
 }
 
 .passwordForm > .primaryButton {
@@ -161,12 +161,12 @@
 .primaryButton:focus-visible,
 .secondaryButton:focus-visible,
 .closeButton:focus-visible {
-  outline: 2px solid #667251;
+  outline: 2px solid var(--accent-line);
   outline-offset: 3px;
 }
 
 .revealButton:focus-visible {
-  outline: 2px solid #667251;
+  outline: 2px solid var(--accent-line);
   outline-offset: -4px;
 }
 
@@ -176,7 +176,7 @@
   flex-direction: column;
   align-items: center;
   gap: 18px;
-  color: #282824;
+  color: var(--foreground);
   text-align: center;
 }
 
@@ -185,10 +185,10 @@
   width: 36px;
   height: 36px;
   place-items: center;
-  border: 1px solid #d8decc;
+  border: 1px solid var(--selection);
   border-radius: 50%;
-  background: #eef1e5;
-  color: #606c4f;
+  background: var(--accent-tint);
+  color: var(--accent-line);
 }
 
 .successIcon svg {
@@ -205,7 +205,7 @@
 
 .successDescription {
   margin: -9px 0 0;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 12px;
 }
 
@@ -214,7 +214,7 @@
   isolation: isolate;
   width: calc(100% - 12px);
   max-width: 304px;
-  color: #282824;
+  color: var(--foreground);
 }
 
 .dialogStack::before,
@@ -222,9 +222,9 @@
   position: absolute;
   z-index: -1;
   inset: 0;
-  border: 1px solid #d8d8d0;
+  border: 1px solid var(--border);
   border-radius: 7px;
-  background: #f6f6f1;
+  background: var(--surface);
   content: "";
   transform: translate(6px, -6px);
   transition: opacity 160ms ease;
@@ -232,7 +232,7 @@
 
 .dialogStack::after {
   z-index: -2;
-  background: #eeeee7;
+  background: var(--selected);
   transform: translate(12px, -12px);
 }
 
@@ -245,10 +245,10 @@
 .dialog {
   position: relative;
   padding: 26px 23px 22px;
-  border: 1px solid #deded6;
+  border: 1px solid var(--border);
   border-radius: 7px;
-  background: #fff;
-  box-shadow: 0 5px 12px rgb(40 40 36 / 3%);
+  background: var(--field);
+  box-shadow: 0 5px 12px color-mix(in srgb, var(--shadow) 33%, transparent);
 }
 
 .closeButton {
@@ -263,18 +263,18 @@
   border: 0;
   border-radius: 3px;
   background: transparent;
-  color: #82827a;
+  color: var(--faint);
   cursor: pointer;
 }
 
 .closeButton:hover {
-  background: #f3f3ec;
-  color: #282824;
+  background: var(--surface);
+  color: var(--foreground);
 }
 
 .eyebrow {
   margin: 0 20px 16px 0;
-  color: #6b6b63;
+  color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
   font-size: 10px;
   line-height: 1.5;
@@ -293,7 +293,7 @@
 .dialogMessage {
   min-height: 42px;
   margin: 0 0 22px;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.6;
 }
@@ -319,7 +319,7 @@
 
 .preferenceOptions {
   margin-top: 17px;
-  border-top: 1px solid #deded6;
+  border-top: 1px solid var(--border);
 }
 
 .preferenceOption {
@@ -328,7 +328,7 @@
   align-items: center;
   gap: 12px;
   min-height: 50px;
-  border-bottom: 1px solid #deded6;
+  border-bottom: 1px solid var(--border);
   font-size: 13px;
   cursor: pointer;
 }
@@ -350,26 +350,26 @@
   width: 19px;
   height: 19px;
   place-items: center;
-  border: 1px solid #868b7c;
+  border: 1px solid light-dark(#868b7c, #a0a892);
   border-radius: 3px;
-  background: #fff;
+  background: var(--field);
   color: transparent;
   transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
 }
 
 .preferenceOption input:checked + .checkboxVisual {
-  border-color: #767f63;
-  background: #e6eada;
-  color: #586245;
+  border-color: var(--accent-muted);
+  background: var(--accent-tint);
+  color: var(--accent);
 }
 
 .preferenceOption input:focus-visible + .checkboxVisual {
-  outline: 2px solid #667251;
+  outline: 2px solid var(--accent-line);
   outline-offset: 3px;
 }
 
 .preferenceOption:hover .checkboxVisual {
-  border-color: #858b75;
+  border-color: var(--accent-soft);
 }
 
 .preferenceActions {
@@ -381,7 +381,7 @@
 }
 
 .selectedCount {
-  color: #6b6b63;
+  color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
   font-size: 10px;
   white-space: nowrap;

@@ -4,7 +4,7 @@
   width: 100%;
   max-width: 320px;
   margin: auto;
-  color: #282824;
+  color: var(--foreground);
 }
 
 .volumeSpecimen {
@@ -26,7 +26,7 @@
 }
 
 .dial:focus-visible {
-  outline: 2px solid #6c7660;
+  outline: 2px solid var(--accent-line);
   outline-offset: 7px;
 }
 
@@ -41,12 +41,12 @@
 }
 
 .majorTick {
-  stroke: #9d9d92;
+  stroke: var(--border-strong);
   stroke-width: 1;
 }
 
 .minorTick {
-  stroke: #d4d4c9;
+  stroke: var(--border-hover);
   stroke-width: 1;
 }
 
@@ -55,9 +55,9 @@
   inset: 29px;
   display: grid;
   place-items: center;
-  border: 1px solid #deded6;
+  border: 1px solid var(--border);
   border-radius: 50%;
-  background: #fff;
+  background: var(--field);
 }
 
 .dialHand {
@@ -73,7 +73,7 @@
   width: 4px;
   height: 12px;
   border-radius: 2px;
-  background: #858e70;
+  background: var(--accent-soft);
 }
 
 .volumeReading {
@@ -98,13 +98,13 @@
   position: absolute;
   top: 8px;
   margin-left: 4px;
-  color: #77776b;
+  color: var(--muted);
   font-size: 13px;
   letter-spacing: 0;
 }
 
 .volumeLabel {
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 11px;
 }
 
@@ -112,7 +112,7 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 11px;
 }
 
@@ -136,13 +136,13 @@
 }
 
 .fieldHeading svg {
-  color: #838377;
+  color: var(--faint);
 }
 
 .dateReading {
   display: block;
   padding: 24px 0 21px;
-  border-bottom: 1px solid #deded6;
+  border-bottom: 1px solid var(--border);
   font-family: var(--font-geist-mono), monospace;
   font-size: clamp(25px, 2.8vw, 32px);
   line-height: 1.3;
@@ -170,22 +170,22 @@
 
 .dateRange::-webkit-slider-runnable-track {
   height: 2px;
-  background: #c7c7bc;
+  background: var(--border-hover);
 }
 
 .dateRange::-moz-range-track {
   height: 2px;
-  background: #c7c7bc;
+  background: var(--border-hover);
 }
 
 .dateRange::-webkit-slider-thumb {
   width: 14px;
   height: 26px;
   margin-top: -12px;
-  border: 4px solid #fff;
+  border: 4px solid var(--field);
   border-radius: 3px;
-  outline: 1px solid #b9bbae;
-  background: #879271;
+  outline: 1px solid var(--border-hover);
+  background: var(--accent-soft);
   appearance: none;
   -webkit-appearance: none;
 }
@@ -193,14 +193,14 @@
 .dateRange::-moz-range-thumb {
   width: 6px;
   height: 18px;
-  border: 4px solid #fff;
+  border: 4px solid var(--field);
   border-radius: 3px;
-  outline: 1px solid #b9bbae;
-  background: #879271;
+  outline: 1px solid var(--border-hover);
+  background: var(--accent-soft);
 }
 
 .dateRange:focus-visible {
-  outline: 2px solid #6c7660;
+  outline: 2px solid var(--accent-line);
   border-radius: 2px;
 }
 
@@ -216,7 +216,7 @@
 .yearTicks > span {
   width: 1px;
   height: 4px;
-  background: #d2d2c6;
+  background: var(--border-hover);
 }
 
 .yearTicks > .yearMajorTick {
@@ -227,13 +227,13 @@
   display: flex;
   justify-content: space-between;
   margin-top: 7px;
-  color: #6b6b63;
+  color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
   font-size: 10px;
 }
 
 .countryCode {
-  color: #6b6b63;
+  color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
   font-size: 12px;
 }
@@ -267,10 +267,10 @@
   min-width: 0;
   height: 87px;
   padding: 9px 0 15px;
-  border: 1px solid #deded6;
+  border: 1px solid var(--border);
   border-radius: 4px;
-  background: #fff;
-  color: #282824;
+  background: var(--field);
+  color: var(--foreground);
   font-family: var(--font-geist-mono), monospace;
   font-size: 22px;
   line-height: 1;
@@ -280,29 +280,29 @@
 }
 
 .digitButton:hover {
-  background: #f7f8f2;
-  border-color: #a3aa95;
+  background: var(--surface-raised);
+  border-color: var(--border-strong);
 }
 
 .digitButton:active {
-  background: #e3e9d8;
+  background: var(--selection);
 }
 
 .digitButton:focus-visible {
-  outline: 2px solid #6c7660;
+  outline: 2px solid var(--accent-line);
   outline-offset: 3px;
   z-index: 1;
 }
 
 .connectedDigit {
-  background: #f3f0e5;
-  border-color: #ccc5ad;
+  background: var(--stage-2);
+  border-color: var(--border-hover);
 }
 
 .digitArrow {
   width: 11px;
   height: 11px;
-  color: #939389;
+  color: var(--faint);
 }
 
 .digitUnderline {
@@ -310,12 +310,12 @@
   bottom: 10px;
   width: 6px;
   height: 1px;
-  background: #d3d3c9;
+  background: var(--border-hover);
 }
 
 .phoneSeparator {
   padding: 13px 1px 0;
-  color: #8c8c80;
+  color: var(--faint);
   font-size: 12px;
 }
 
@@ -324,7 +324,7 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 21px;
-  color: #6b6b63;
+  color: var(--muted);
 }
 
 .phoneHint {

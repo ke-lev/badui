@@ -20,14 +20,15 @@ BEHAVIOR
 - Restore all resets the list to the original four files, clears any pending deletion, and focuses the first file's Delete button.
 
 STYLING
-- The container is width 100%, max-width 320px, min-height 272px, centered, color #282824.
-- The title row is a baseline flex row, space-between, 8px bottom margin; the title is 13px weight 500, no margin, 3px radius; the caption is 11px #6b6b63.
-- The list and empty panel have a 1px solid #deded6 border, 6px radius, white background. Items are flex rows, space-between, 12px gap, min-height 46px, padding 0 6px 0 14px, 13px type, with a 1px solid #eeeee8 border between items. The empty panel is a centered grid with 12px gap, padding 28px 16px, 12px #6b6b63 type.
-- Delete buttons: min-height 32px, padding 4px 10px, transparent border and background, 5px radius, #6b6b63 12px type; hover #f3f3ec background and #282824 text. Restore all: min-height 39px, padding 8px 15px, 1px solid #ddddd5 border, 5px radius, white, #464640, 12px weight 500; hover border #bdbeb1 and background #f5f5ef.
-- The toast is a relative flex row, space-between, 12px gap, overflow hidden, padding 10px 8px 12px 14px, 6px radius, background #30312b, color #fafaf6, 12px type, shadow 0 8px 20px rgba(40,40,36,0.14), entering with a 180ms cubic-bezier(0.2,0.8,0.2,1) animation from opacity 0 and translateY(8px).
-- Undo: min-height 30px, padding 4px 10px, no border, 4px radius, transparent background, color #e6e9dc, weight 500, underlined with 3px offset; hover background #4d5142; focus-visible outline 2px solid #e6e9dc at 1px offset.
-- The countdown bar is absolutely positioned along the toast's bottom edge, 3px tall, #a3aa95, transform-origin left, animating from full width to scaleX(0) over 5000ms linear, forwards.
-- Other focus-visible outlines are 2px solid #667251 at 3px offset. Under prefers-reduced-motion: reduce, remove button transitions and the toast entrance, and hide the countdown bar.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The container is width 100%, max-width 320px, min-height 272px, centered, color light-dark(#282824, #e8e7e0).
+- The title row is a baseline flex row, space-between, 8px bottom margin; the title is 13px weight 500, no margin, 3px radius; the caption is 11px light-dark(#6b6b63, #9c9c91).
+- The list and empty panel have a 1px solid light-dark(#deded6, #34342f) border, 6px radius, light-dark(#ffffff, #1a1a17) background. Items are flex rows, space-between, 12px gap, min-height 46px, padding 0 6px 0 14px, 13px type, with a 1px solid light-dark(#eeeee8, #2a2a26) border between items. The empty panel is a centered grid with 12px gap, padding 28px 16px, 12px light-dark(#6b6b63, #9c9c91) type.
+- Delete buttons: min-height 32px, padding 4px 10px, transparent border and background, 5px radius, light-dark(#6b6b63, #9c9c91) 12px type; hover light-dark(#f3f3ec, #20201d) background and light-dark(#282824, #e8e7e0) text. Restore all: min-height 39px, padding 8px 15px, 1px solid light-dark(#ddddd5, #34342f) border, 5px radius, light-dark(#ffffff, #1a1a17) background, light-dark(#464640, #c3c3b9) text, 12px weight 500; hover border light-dark(#bdbeb1, #4a4b43) and background light-dark(#f5f5ef, #20201d).
+- The toast is a relative flex row, space-between, 12px gap, overflow hidden, padding 10px 8px 12px 14px, 6px radius, background light-dark(#30312b, #e8e7e0), color light-dark(#fafaf6, #1a1a17), 12px type, shadow 0 8px 20px light-dark(rgba(40,40,36,0.14), rgba(0,0,0,0.45)), entering with a 180ms cubic-bezier(0.2,0.8,0.2,1) animation from opacity 0 and translateY(8px).
+- Undo: min-height 30px, padding 4px 10px, no border, 4px radius, transparent background, color light-dark(#e6e9dc, #2b3125), weight 500, underlined with 3px offset; hover background light-dark(#4d5142, #cdd1c2); focus-visible outline 2px solid light-dark(#e6e9dc, #2b3125) at 1px offset.
+- The countdown bar is absolutely positioned along the toast's bottom edge, 3px tall, light-dark(#a3aa95, #8f9880), transform-origin left, animating from full width to scaleX(0) over 5000ms linear, forwards.
+- Other focus-visible outlines are 2px solid light-dark(#667251, #8e9c78) at 3px offset. Under prefers-reduced-motion: reduce, remove button transitions and the toast entrance, and hide the countdown bar.
 
 DONE WHEN
 - Each delete shows a toast that closes after five seconds or as soon as a pointer enters it, whichever comes first.

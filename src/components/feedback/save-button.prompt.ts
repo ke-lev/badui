@@ -19,12 +19,13 @@ BEHAVIOR
 - Status text: “Saving…” while saving; otherwise “Unsaved changes” if dirty; otherwise “All changes saved”.
 
 STYLING
-- The form is width 100%, max-width 320px, centered, color #282824, 1px solid #deded6 border, 6px radius, white background, padding 18px.
-- The label is block, 12px weight 500, 8px bottom margin. The input is full width, min-height 42px, padding 8px 12px, 1px solid #deded6 border, 5px radius, white, 14px type, 140ms ease border transition, border #a3aa95 on hover.
-- The bottom row is a centered flex row, space-between, 12px gap, 16px top margin. The status is an inline flex row with 7px gap, 11px #6b6b63 type, no margin. The dot is round: #a9aa9f while saving, #9a6b2f when dirty, #54614a when saved.
-- The button is inline-flex centered, 8px gap, min-width 96px, min-height 39px, padding 8px 15px, 1px transparent border, 5px radius, 12px weight 500, line-height 1.5, pointer cursor, 150ms ease transitions on background and border color. Available: background #30312b, text #fafaf6, hover #4d5142. aria-disabled: border #deded6, background #f3f3ec, text #54544d, default cursor, no hover change.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The form is width 100%, max-width 320px, centered, color light-dark(#282824, #e8e7e0), 1px solid light-dark(#deded6, #34342f) border, 6px radius, light-dark(#ffffff, #1a1a17) background, padding 18px.
+- The label is block, 12px weight 500, 8px bottom margin. The input is full width, min-height 42px, padding 8px 12px, 1px solid light-dark(#deded6, #34342f) border, 5px radius, light-dark(#ffffff, #1a1a17) background, 14px type, 140ms ease border transition, border light-dark(#a3aa95, #8f9880) on hover.
+- The bottom row is a centered flex row, space-between, 12px gap, 16px top margin. The status is an inline flex row with 7px gap, 11px light-dark(#6b6b63, #9c9c91) type, no margin. The dot is round: light-dark(#a9aa9f, #62635a) while saving, light-dark(#9a6b2f, #d6a764) when dirty, light-dark(#54614a, #b6c2a2) when saved.
+- The button is inline-flex centered, 8px gap, min-width 96px, min-height 39px, padding 8px 15px, 1px transparent border, 5px radius, 12px weight 500, line-height 1.5, pointer cursor, 150ms ease transitions on background and border color. Available: background light-dark(#30312b, #e8e7e0), text light-dark(#fafaf6, #1a1a17), hover light-dark(#4d5142, #cdd1c2). aria-disabled: border light-dark(#deded6, #34342f), background light-dark(#f3f3ec, #20201d), text light-dark(#54544d, #adada3), default cursor, no hover change.
 - The spinner is a 12px circle with a 1.5px currentColor border whose right side is transparent, rotating 360deg every 700ms linearly. The check is a 13px stroked path.
-- Input and button use a 2px solid #667251 focus-visible outline at 3px offset. Under prefers-reduced-motion: reduce, remove transitions and stop the spinner's rotation.
+- Input and button use a 2px solid light-dark(#667251, #8e9c78) focus-visible outline at 3px offset. Under prefers-reduced-motion: reduce, remove transitions and stop the spinner's rotation.
 
 DONE WHEN
 - The button reads Saved at rest, Save after an edit, Saving for 900ms after a trigger, and Saved again when the stored value matches the field.

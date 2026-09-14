@@ -5,7 +5,7 @@
   align-self: stretch;
   gap: 12px;
   min-width: 0;
-  color: #282824;
+  color: var(--foreground);
 }
 
 .arena {
@@ -29,8 +29,8 @@
   padding: 8px 16px;
   border: 1px solid transparent;
   border-radius: 5px;
-  background: #30312b;
-  color: #fafaf6;
+  background: var(--inverse);
+  color: var(--on-inverse);
   font: inherit;
   font-size: 12px;
   font-weight: 500;
@@ -44,11 +44,11 @@
 }
 
 .button:hover {
-  background: #4d5142;
+  background: var(--inverse-hover);
 }
 
 .button:focus-visible {
-  outline: 2px solid #667251;
+  outline: 2px solid var(--accent-line);
   outline-offset: 3px;
 }
 
@@ -98,7 +98,7 @@
 }
 
 .squish:focus-visible + .squishRing {
-  outline: 2px solid #667251;
+  outline: 2px solid var(--accent-line);
   outline-offset: 3px;
 }
 
@@ -124,12 +124,12 @@
   display: flex;
   justify-content: space-between;
   margin: 0;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 11px;
 }
 
 .count {
-  color: #282824;
+  color: var(--foreground);
   font-family: var(--font-geist-mono), monospace;
   font-variant-numeric: tabular-nums;
 }

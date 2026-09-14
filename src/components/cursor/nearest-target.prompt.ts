@@ -24,14 +24,15 @@ BEHAVIOR
 - Remove all listeners on unmount.
 
 STYLING
-- The specimen is a vertical flex column that grows to fill its container (flex: 1, align-self: stretch), 12px gap, min-width 0, color #282824.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The specimen is a vertical flex column that grows to fill its container (flex: 1, align-self: stretch), 12px gap, min-width 0, color light-dark(#282824, #e8e7e0).
 - The area is position relative, a flex container centring its content both ways, flex 1, min-height 160px, touch-action manipulation. With data-reach its cursor is pointer.
 - The group is a flex row, align-items center, gap 6px.
-- Previous and next buttons: 32px by 32px, padding 0, content centred with CSS grid place-items center, 1px solid #deded6 border, 50% radius, background #fafaf6, color #282824, cursor pointer, transition background 120ms ease and box-shadow 120ms ease, touch-action manipulation. Icons are 12px by 12px.
-- The play button: 40px by 40px, transparent border, background #30312b, color #fafaf6, otherwise the same.
-- With data-near: box-shadow 0 0 0 5px rgba(102, 114, 81, 0.22) and background #eceee4; the play button's data-near background is #4d5142 instead.
-- Focus-visible outline on any button is 2px solid #667251 with 3px offset.
-- The status is a flex row with space-between, margin 0, 11px, color #6b6b63. The state span is #282824 in a monospace stack with tabular numerals.
+- Previous and next buttons: 32px by 32px, padding 0, content centred with CSS grid place-items center, 1px solid light-dark(#deded6, #34342f) border, 50% radius, background light-dark(#fafaf6, #1a1a17), color light-dark(#282824, #e8e7e0), cursor pointer, transition background 120ms ease and box-shadow 120ms ease, touch-action manipulation. Icons are 12px by 12px.
+- The play button: 40px by 40px, transparent border, background light-dark(#30312b, #e8e7e0), color light-dark(#fafaf6, #1a1a17), otherwise the same.
+- With data-near: box-shadow 0 0 0 5px light-dark(rgba(102, 114, 81, 0.22), rgba(142, 156, 120, 0.22)) and background light-dark(#eceee4, #2d2d28); the play button's data-near background is light-dark(#4d5142, #cdd1c2) instead.
+- Focus-visible outline on any button is 2px solid light-dark(#667251, #8e9c78) with 3px offset.
+- The status is a flex row with space-between, margin 0, 11px, color light-dark(#6b6b63, #9c9c91). The state span is light-dark(#282824, #e8e7e0) in a monospace stack with tabular numerals.
 
 DONE WHEN
 - Hovering within 40px of the controls rings the nearest button and shows a hand pointer; beyond 40px nothing is ringed and the pointer is the default arrow.

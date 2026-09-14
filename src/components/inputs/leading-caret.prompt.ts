@@ -15,10 +15,11 @@ BEHAVIOR
 - Nothing else is intercepted: native editing keys, selection, and paste behave as usual until the next change moves the caret back to the start. Typing J, a, n, e in that order therefore produces “J”, then “aJ”, then “naJ”, then “enaJ”.
 
 STYLING
-- The specimen is width 100%, max-width 310px, centered, color #282824.
-- The heading is a 12px flex row, 20px line-height, space-between, 12px gap. The count is 11px monospace in #6b6b63.
-- The input is display block, border-box, width 100%, height 44px, 10px top margin, 0 12px padding, 1px solid #deded6 border, 4px radius, #ffffff background, color #282824, 15px monospace. Placeholder color #8c8c80. Hover border #a3aa95. Focus-visible outline 2px solid #6c7660 at 3px offset. Border transition 140ms ease, removed under prefers-reduced-motion.
-- The paragraph has 12px top margin, 11px type, line-height 1.5, color #6b6b63.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The specimen is width 100%, max-width 310px, centered, color light-dark(#282824, #e8e7e0).
+- The heading is a 12px flex row, 20px line-height, space-between, 12px gap. The count is 11px monospace in light-dark(#6b6b63, #9c9c91).
+- The input is display block, border-box, width 100%, height 44px, 10px top margin, 0 12px padding, 1px solid light-dark(#deded6, #34342f) border, 4px radius, light-dark(#ffffff, #1a1a17) background, color light-dark(#282824, #e8e7e0), 15px monospace. Placeholder color light-dark(#8c8c80, #75756b). Hover border light-dark(#a3aa95, #62635a). Focus-visible outline 2px solid light-dark(#6c7660, #8e9c78) at 3px offset. Border transition 140ms ease, removed under prefers-reduced-motion.
+- The paragraph has 12px top margin, 11px type, line-height 1.5, color light-dark(#6b6b63, #9c9c91).
 
 DONE WHEN
 - Each typed character is inserted before every character already in the field.

@@ -18,12 +18,13 @@ BEHAVIOR
 - The fill is drawn with transform scaleX(percent / 100) from its left edge.
 
 STYLING
-- The card is width 100%, max-width 320px, centered, color #282824, 1px solid #deded6 border, 6px radius, white background, padding 18px 18px 16px.
-- The file row is a baseline-aligned flex row, space-between, 12px gap, 13px type; the name is weight 500 and wraps anywhere. The size and the status are 11px #6b6b63 with no margin.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The card is width 100%, max-width 320px, centered, color light-dark(#282824, #e8e7e0), 1px solid light-dark(#deded6, #34342f) border, 6px radius, light-dark(#ffffff, #1a1a17) background, padding 18px 18px 16px.
+- The file row is a baseline-aligned flex row, space-between, 12px gap, 13px type; the name is weight 500 and wraps anywhere. The size and the status are 11px light-dark(#6b6b63, #9c9c91) with no margin.
 - The percentage has margin 18px 0 8px, monospace 34px, line-height 1.1, letter-spacing -1.5px, tabular numerals.
-- The track is 6px tall, overflow hidden, fully rounded, background #ecece4. The fill is full height, inherits the radius, background #54614a, transform-origin left center, with a 250ms linear transform transition.
+- The track is 6px tall, overflow hidden, fully rounded, background light-dark(#ecece4, #2d2d28). The fill is full height, inherits the radius, background light-dark(#54614a, #b6c2a2), transform-origin left center, with a 250ms linear transform transition.
 - The bottom row is a centered flex row, space-between, 12px gap, 16px top margin.
-- The button has min-height 39px, padding 8px 15px, 1px border, 5px radius, 12px weight 500 type, pointer cursor, and 150ms ease transitions on background and border color. As Upload it is #30312b with #fafaf6 text and a transparent border (hover #4d5142). As Cancel it is white with #464640 text and a #ddddd5 border (hover border #bdbeb1, background #f5f5ef). Focus-visible outline is 2px solid #667251 at 3px offset.
+- The button has min-height 39px, padding 8px 15px, 1px border, 5px radius, 12px weight 500 type, pointer cursor, and 150ms ease transitions on background and border color. As Upload it is light-dark(#30312b, #e8e7e0) with light-dark(#fafaf6, #1a1a17) text and a transparent border (hover light-dark(#4d5142, #cdd1c2)). As Cancel it is light-dark(#ffffff, #1a1a17) with light-dark(#464640, #c3c3b9) text and a light-dark(#ddddd5, #34342f) border (hover border light-dark(#bdbeb1, #4a4b43), background light-dark(#f5f5ef, #20201d)). Focus-visible outline is 2px solid light-dark(#667251, #8e9c78) at 3px offset.
 - Under prefers-reduced-motion: reduce, remove the fill and button transitions.
 
 DONE WHEN

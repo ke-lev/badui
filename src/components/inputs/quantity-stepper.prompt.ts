@@ -16,13 +16,14 @@ BEHAVIOR
 - While the spinbutton has focus, ArrowUp steps up and ArrowDown steps down, each calling preventDefault. No other keys are handled.
 
 STYLING
-- The specimen is width 100%, max-width 310px, centered, color #282824.
-- The heading is a 12px flex row, 20px line-height, space-between, 12px gap. The “±10%” text is 11px monospace in #6b6b63.
-- The row has 10px top margin, 1px solid #deded6 border, 4px radius, #ffffff background, and is a flex row with stretched items.
-- Each button is flex 0 0 56px with no border, transparent background, color #282824, 18px type, pointer cursor. The − button has a 1px solid #deded6 right border and 3px 0 0 3px radius; the + button has a 1px solid #deded6 left border and 0 3px 3px 0 radius. Hover background #f7f8f2; active background #e3e9d8.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The specimen is width 100%, max-width 310px, centered, color light-dark(#282824, #e8e7e0).
+- The heading is a 12px flex row, 20px line-height, space-between, 12px gap. The “±10%” text is 11px monospace in light-dark(#6b6b63, #9c9c91).
+- The row has 10px top margin, 1px solid light-dark(#deded6, #34342f) border, 4px radius, light-dark(#ffffff, #1a1a17) background, and is a flex row with stretched items.
+- Each button is flex 0 0 56px with no border, transparent background, color light-dark(#282824, #e8e7e0), 18px type, pointer cursor. The − button has a 1px solid light-dark(#deded6, #34342f) right border and 3px 0 0 3px radius; the + button has a 1px solid light-dark(#deded6, #34342f) left border and 0 3px 3px 0 radius. Hover background light-dark(#f7f8f2, #20201d); active background light-dark(#e3e9d8, #2b3125).
 - The spinbutton is flex 1, 18px vertical padding, 34px monospace, line-height 1.1, letter-spacing -1.5px, centered, tabular numerals.
-- Buttons and spinbutton show a 2px solid #6c7660 outline at 3px offset on focus-visible.
-- The paragraph has 12px top margin, 11px type, line-height 1.5, color #6b6b63.
+- Buttons and spinbutton show a 2px solid light-dark(#6c7660, #8e9c78) outline at 3px offset on focus-visible.
+- The paragraph has 12px top margin, 11px type, line-height 1.5, color light-dark(#6b6b63, #9c9c91).
 - Button background transitions are 140ms ease and are removed under prefers-reduced-motion.
 
 DONE WHEN

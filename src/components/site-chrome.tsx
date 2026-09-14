@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SidekickControl } from "@/components/sidekick/sidekick-control";
+import { ThemeControl } from "@/components/theme/theme";
 
 function CollectionMark() {
   return (
@@ -35,6 +36,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="site-footer">
+      <ThemeControl />
       <a href="#top" data-sidekick="back-to-top">Back to top <span aria-hidden="true">↑</span></a>
       <SidekickControl />
     </footer>

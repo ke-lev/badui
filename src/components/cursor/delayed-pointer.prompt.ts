@@ -6,7 +6,7 @@ Reproduce the behavior exactly as specified; do not adjust thresholds, timings, 
 MARKUP AND SEMANTICS
 - Render a vertical specimen containing an area (a position-relative div) and a readout paragraph below it.
 - Inside the area, render one native type="button" labelled “Continue” as its text content, then a div holding the drawn pointer with aria-hidden="true".
-- The drawn pointer is an inline SVG, viewBox "0 0 16 22", width 16, height 22, with one path: d="M1.5 1.5v16.2l4.3-4.1 2.9 6.6 2.6-1.1-2.9-6.5h6z", fill #282824, stroke #fafaf6, stroke-width 1.25, stroke-linejoin round.
+- The drawn pointer is an inline SVG, viewBox "0 0 16 22", width 16, height 22, with one path: d="M1.5 1.5v16.2l4.3-4.1 2.9 6.6 2.6-1.1-2.9-6.5h6z", fill light-dark(#282824, #e8e7e0) and stroke light-dark(#fafaf6, #1a1a17) set through CSS (presentation attributes do not accept light-dark()), stroke-width 1.25, stroke-linejoin round.
 - The readout is a paragraph with role="status", aria-live="polite", and aria-atomic="true", containing a span “Presses” and a span with the integer count, starting at 0.
 - The button keeps native focus and keyboard activation. Its onClick handler increments the count, so Tab then Enter or Space presses it.
 
@@ -21,11 +21,12 @@ BEHAVIOR
 - Remove all listeners and cancel any pending frame on unmount.
 
 STYLING
-- The specimen is a vertical flex column that grows to fill its container (flex: 1, align-self: stretch), 12px gap, min-width 0, color #282824.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The specimen is a vertical flex column that grows to fill its container (flex: 1, align-self: stretch), 12px gap, min-width 0, color light-dark(#282824, #e8e7e0).
 - The area is position relative, flex 1, min-height 160px, overflow hidden, cursor none, touch-action manipulation.
-- The button is absolutely positioned at top 50%, left 50%, transform translate(-50%, -50%); inline-flex centred; min-height 39px; padding 8px 16px; 1px solid transparent border; 5px radius; background #30312b; text #fafaf6; inherited sans-serif font at 12px, weight 500, line-height 1.5; nowrap; transition background 150ms ease. With data-hover its background is #4d5142. Focus-visible outline is 2px solid #667251 with 3px offset.
+- The button is absolutely positioned at top 50%, left 50%, transform translate(-50%, -50%); inline-flex centred; min-height 39px; padding 8px 16px; 1px solid transparent border; 5px radius; background light-dark(#30312b, #e8e7e0); text light-dark(#fafaf6, #1a1a17); inherited sans-serif font at 12px, weight 500, line-height 1.5; nowrap; transition background 150ms ease. With data-hover its background is light-dark(#4d5142, #cdd1c2). Focus-visible outline is 2px solid light-dark(#667251, #8e9c78) with 3px offset.
 - The pointer div is absolutely positioned at top -1.5px, left -1.5px, 16px by 22px, visibility hidden initially, pointer-events none, will-change transform. The SVG is display block.
-- The readout is a flex row with space-between, margin 0, 11px, color #6b6b63. The count span is #282824 in a monospace stack with tabular numerals.
+- The readout is a flex row with space-between, margin 0, 11px, color light-dark(#6b6b63, #9c9c91). The count span is light-dark(#282824, #e8e7e0) in a monospace stack with tabular numerals.
 - Under prefers-reduced-motion, remove the button's background transition.
 
 DONE WHEN

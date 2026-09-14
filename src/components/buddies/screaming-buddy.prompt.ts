@@ -38,13 +38,13 @@ STYLING
 ${SPECIMEN_STYLING}
 - The area also has overflow hidden.
 - The form is absolutely positioned at top 50%, left 50%, transform translate(-50%, -50%), a flex row aligned to the bottom with an 8px gap.
-- The label div is a flex column with a 4px gap, 11px text, color #6b6b63.
-- The input is 140px wide, min-height 39px, padding 8px 10px, 1px solid #85857b border, 5px radius, background #fafaf6, color #282824, inherited font at 12px. Focus-visible outline is 2px solid #667251 with 3px offset.
-- The button is ${BUTTON_STYLING}. On hover its background is #4d5142.
+- The label div is a flex column with a 4px gap, 11px text, color light-dark(#6b6b63, #9c9c91).
+- The input is 140px wide, min-height 39px, padding 8px 10px, 1px solid light-dark(#85857b, #7a7a6d) border, 5px radius, background light-dark(#ffffff, #1a1a17), color light-dark(#282824, #e8e7e0), inherited font at 12px. Focus-visible outline is 2px solid light-dark(#667251, #8e9c78) with 3px offset.
+- The button is ${BUTTON_STYLING}. On hover its background is light-dark(#4d5142, #cdd1c2).
 ${ENVELOPE_STYLING}
-- The envelope has a 2px solid #c62a1f border and background rgba(214, 40, 30, 0.14).
+- The envelope has a 2px solid light-dark(#c62a1f, #ff7e70) border and background light-dark(rgba(214, 40, 30, 0.14), rgba(238, 122, 111, 0.16)).
 ${TAB_STYLING}
-- The tab has background #b3261e, color #ffffff, weight 700, letter-spacing 0.04em.
+- The tab has background light-dark(#b3261e, #ee7a6f), color light-dark(#fafaf6, #1a1a17), weight 700, letter-spacing 0.04em.
 ${READOUT_STYLING}
 - Under prefers-reduced-motion, remove the button, envelope, and tab transitions.
 

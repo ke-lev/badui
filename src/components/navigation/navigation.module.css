@@ -2,18 +2,18 @@
   width: 100%;
   max-width: 330px;
   margin-inline: auto;
-  color: #282824;
+  color: var(--foreground);
 }
 
 .surface {
-  border: 1px solid #deded6;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  background: #fff;
+  background: var(--field);
 }
 
 .caption {
   margin: 0;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 11px;
 }
 
@@ -27,7 +27,7 @@
   display: flex;
   gap: 2px;
   padding: 4px;
-  border-bottom: 1px solid #deded6;
+  border-bottom: 1px solid var(--border);
   overflow-x: auto;
 }
 
@@ -38,7 +38,7 @@
   border: 0;
   border-radius: 4px;
   background: transparent;
-  color: #6b6b63;
+  color: var(--muted);
   font: inherit;
   font-size: 12px;
   cursor: pointer;
@@ -46,13 +46,13 @@
 }
 
 .tab:hover {
-  background: #f3f3ec;
-  color: #282824;
+  background: var(--hover);
+  color: var(--foreground);
 }
 
 .tab[aria-selected="true"] {
-  background: #ecece4;
-  color: #282824;
+  background: var(--selected);
+  color: var(--foreground);
   font-weight: 500;
 }
 
@@ -62,7 +62,7 @@
 .crumbButton:focus-visible,
 .folderButton:focus-visible,
 .folderTitle:focus-visible {
-  outline: 2px solid #667251;
+  outline: 2px solid var(--accent-line);
   outline-offset: 2px;
 }
 
@@ -80,7 +80,7 @@
 
 .panelText {
   margin: 0;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.6;
 }
@@ -103,11 +103,11 @@
 }
 
 .result + .result {
-  border-top: 1px solid #eeeee8;
+  border-top: 1px solid var(--rule);
 }
 
 .resultIndex {
-  color: #6b6b63;
+  color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
   font-size: 11px;
   font-variant-numeric: tabular-nums;
@@ -124,10 +124,10 @@
 .pageButton {
   min-height: 36px;
   padding: 6px 12px;
-  border: 1px solid #deded6;
+  border: 1px solid var(--border);
   border-radius: 5px;
-  background: #fff;
-  color: #282824;
+  background: var(--field);
+  color: var(--foreground);
   font: inherit;
   font-size: 12px;
   cursor: pointer;
@@ -135,24 +135,24 @@
 }
 
 .pageButton:hover:not([aria-disabled="true"]) {
-  border-color: #a3aa95;
-  background: #f7f8f2;
+  border-color: var(--border-strong);
+  background: var(--surface-raised);
 }
 
 .pageButton[aria-disabled="true"] {
-  color: #6b6b63;
+  color: var(--muted);
   cursor: default;
 }
 
 .pageStatus {
   margin: 0;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 12px;
   text-align: center;
 }
 
 .pageStatus strong {
-  color: #282824;
+  color: var(--foreground);
   font-family: var(--font-geist-mono), monospace;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
@@ -178,7 +178,7 @@
 }
 
 .separator {
-  color: #a9aa9f;
+  color: var(--border-strong);
   padding: 0 2px;
 }
 
@@ -188,16 +188,16 @@
   border: 0;
   border-radius: 4px;
   background: transparent;
-  color: #54614a;
+  color: var(--accent-ink);
   font: inherit;
   text-decoration: underline;
-  text-decoration-color: #c6c8ba;
+  text-decoration-color: var(--border-hover);
   text-underline-offset: 3px;
   cursor: pointer;
 }
 
 .crumbButton:hover {
-  background: #f1f2ea;
+  background: var(--hover);
   text-decoration-color: currentColor;
 }
 
@@ -213,7 +213,7 @@
   gap: 12px;
   margin-top: 14px;
   padding: 0 2px 10px;
-  border-bottom: 1px solid #deded6;
+  border-bottom: 1px solid var(--border);
 }
 
 .folderTitle {
@@ -241,10 +241,10 @@
   width: 100%;
   min-height: 40px;
   padding: 6px 12px;
-  border: 1px solid #deded6;
+  border: 1px solid var(--border);
   border-radius: 5px;
-  background: #fff;
-  color: #282824;
+  background: var(--field);
+  color: var(--foreground);
   font: inherit;
   font-size: 13px;
   text-align: left;
@@ -253,19 +253,19 @@
 }
 
 .folderButton:hover {
-  border-color: #a3aa95;
-  background: #f7f8f2;
+  border-color: var(--border-strong);
+  background: var(--surface-raised);
 }
 
 .folderIcon {
   flex: none;
-  color: #7a8565;
+  color: var(--accent-muted);
 }
 
 .empty {
   margin: 0;
   padding: 12px 2px;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 12px;
 }
 

@@ -17,13 +17,14 @@ BEHAVIOR
 - Saving changes only the saved view state and preserves all checkbox values. Editing returns to the same values without resetting them.
 
 STYLING
-- The editor is width 100%, max-width 296px, color #282824. The fieldset has no margin, padding, or border; the legend is 13px medium type.
-- Put the option list 17px below the legend with a 1px solid #deded6 top border. Each label is a position-relative flex row, min-height 50px, 12px gap, 13px type, with the same bottom border and pointer cursor.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The editor is width 100%, max-width 296px, color light-dark(#282824, #e8e7e0). The fieldset has no margin, padding, or border; the legend is 13px medium type.
+- Put the option list 17px below the legend with a 1px solid light-dark(#deded6, #34342f) top border. Each label is a position-relative flex row, min-height 50px, 12px gap, 13px type, with the same bottom border and pointer cursor.
 - Keep each real checkbox native and focusable but visually hide it by positioning it at left 0, width and height 19px, margin 0, opacity 0, z-index 1.
-- The custom box is 19px square, flex-shrink 0, 1px solid #868b7c border, 3px radius, #ffffff background, with a centered decorative check. When checked use border #767f63, background #e6eada, and check color #586245. Hover border is #858b75. Input focus-visible gives the custom box a 2px solid #667251 outline at 3px offset.
-- Place actions in a flex row spaced apart with 12px gap and 22px top margin. The count is 10px monospace, #6b6b63, nowrap.
-- The save button is min-height 39px, padding 8px 15px, 5px radius, background #30312b, text #fafaf6, 12px medium type; hover #4d5142, active translateY(1px), focus-visible 2px #667251 outline at 3px offset.
-- The success panel is width 100%, centered, vertical with 18px gap. Its circular check is 36px with border #d8decc, background #eef1e5, color #606c4f. Title is 18px medium with -0.5px tracking; description is 12px #6b6b63 with margin -9px 0 0. Edit is a white secondary button with #ddddd5 border and #464640 text.
+- The custom box is 19px square, flex-shrink 0, 1px solid light-dark(#868b7c, #a0a892) border, 3px radius, light-dark(#ffffff, #1a1a17) background, with a centered decorative check. When checked use border light-dark(#767f63, #97a37f), background light-dark(#e6eada, #2b3125), and check color light-dark(#586245, #a9b894). Hover border is light-dark(#858b75, #717b5f). Input focus-visible gives the custom box a 2px solid light-dark(#667251, #8e9c78) outline at 3px offset.
+- Place actions in a flex row spaced apart with 12px gap and 22px top margin. The count is 10px monospace, light-dark(#6b6b63, #9c9c91), nowrap.
+- The save button is min-height 39px, padding 8px 15px, 5px radius, background light-dark(#30312b, #e8e7e0), text light-dark(#fafaf6, #1a1a17), 12px medium type; hover light-dark(#4d5142, #cdd1c2), active translateY(1px), focus-visible 2px light-dark(#667251, #8e9c78) outline at 3px offset.
+- The success panel is width 100%, centered, vertical with 18px gap. Its circular check is 36px with border light-dark(#d8decc, #3a4231), background light-dark(#eef1e5, #2b3125), color light-dark(#606c4f, #8e9c78). Title is 18px medium with -0.5px tracking; description is 12px light-dark(#6b6b63, #9c9c91) with margin -9px 0 0. Edit is a light-dark(#ffffff, #1a1a17) secondary button with light-dark(#ddddd5, #34342f) border and light-dark(#464640, #c3c3b9) text.
 - Checkbox and button transitions run 120ms and 150ms ease respectively and are removed under reduced motion.
 
 DONE WHEN

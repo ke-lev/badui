@@ -11,18 +11,19 @@ export const ENVELOPE_BEHAVIOR = `- The envelope is four springs, x, y, width, a
 
 export const TAB_BEHAVIOR = `- The tab sits 9px below the envelope. If its bottom would come within 4px of the area's bottom edge, place it 9px above the envelope instead. Its left edge matches the envelope's, clamped to stay at least 4px inside the area's left and right edges. Position it with transform translate3d.`;
 
-export const SPECIMEN_STYLING = `- The specimen is a vertical flex column that grows to fill its container (flex: 1, align-self: stretch), 12px gap, min-width 0, color #282824.
+export const SPECIMEN_STYLING = `- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The specimen is a vertical flex column that grows to fill its container (flex: 1, align-self: stretch), 12px gap, min-width 0, color light-dark(#282824, #e8e7e0).
 - The area is position relative, flex 1, min-height 160px, touch-action manipulation.`;
 
-export const BUTTON_STYLING = `inline-flex centred; min-height 39px; padding 8px 16px; 1px solid transparent border; 5px radius; background #30312b; text #fafaf6; inherited sans-serif font at 12px, weight 500, line-height 1.5; nowrap; cursor pointer; transition background 150ms ease. Focus-visible outline is 2px solid #667251 with 3px offset`;
+export const BUTTON_STYLING = `inline-flex centred; min-height 39px; padding 8px 16px; 1px solid transparent border; 5px radius; background light-dark(#30312b, #e8e7e0); text light-dark(#fafaf6, #1a1a17); inherited sans-serif font at 12px, weight 500, line-height 1.5; nowrap; cursor pointer; transition background 150ms ease. Focus-visible outline is 2px solid light-dark(#667251, #8e9c78) with 3px offset`;
 
 export const ENVELOPE_STYLING = `- The layer is absolutely positioned to fill the area with pointer-events none.
 - The envelope is absolutely positioned at top 0, left 0, initially 24px square with a 12px radius, opacity 0, transition opacity 150ms ease and border-radius 160ms ease, will-change transform. While shown its opacity is 1.`;
 
 export const TAB_STYLING = `- The tab is absolutely positioned at top 0, left 0; padding 5px 9px; 5px radius; sans-serif 11px, line-height 1.45; nowrap; opacity 0 with transition opacity 150ms ease. While shown its opacity is 1.`;
 
-export const ARROW_MARKUP = `- The drawn pointer is a div with aria-hidden="true" holding an inline SVG, viewBox "0 0 16 22", width 16, height 22, with one path: d="M1.5 1.5v16.2l4.3-4.1 2.9 6.6 2.6-1.1-2.9-6.5h6z", fill #282824, stroke #fafaf6, stroke-width 1.25, stroke-linejoin round.`;
+export const ARROW_MARKUP = `- The drawn pointer is a div with aria-hidden="true" holding an inline SVG, viewBox "0 0 16 22", width 16, height 22, with one path: d="M1.5 1.5v16.2l4.3-4.1 2.9 6.6 2.6-1.1-2.9-6.5h6z", fill light-dark(#282824, #e8e7e0), stroke light-dark(#fafaf6, #1a1a17), stroke-width 1.25, stroke-linejoin round.`;
 
 export const ARROW_STYLING = `- The drawn pointer div is absolutely positioned at top -1.5px, left -1.5px, 16px by 22px, visibility hidden initially, pointer-events none, will-change transform. The SVG is display block.`;
 
-export const READOUT_STYLING = `- The readout is a flex row with space-between, margin 0, 11px, color #6b6b63. Count spans are #282824 in a monospace stack with tabular numerals.`;
+export const READOUT_STYLING = `- The readout is a flex row with space-between, margin 0, 11px, color light-dark(#6b6b63, #9c9c91). Count spans are light-dark(#282824, #e8e7e0) in a monospace stack with tabular numerals.`;

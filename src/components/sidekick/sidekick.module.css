@@ -19,25 +19,25 @@
   align-items: center;
   gap: 6px;
   min-height: 44px;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 12px;
   cursor: pointer;
 }
 
 .option:hover {
-  color: #282824;
+  color: var(--foreground);
 }
 
 .option input {
   width: 13px;
   height: 13px;
   margin: 0;
-  accent-color: #4e6145;
+  accent-color: var(--accent);
   cursor: pointer;
 }
 
 .option input:checked + span {
-  color: #282824;
+  color: var(--foreground);
 }
 
 /* Centred on the page width rather than the viewport, so the control lands on
@@ -49,7 +49,7 @@
   bottom: 0;
   z-index: 50;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   width: var(--shell-width);
   margin: 0 auto;
   padding: 0 0 6px;
@@ -63,8 +63,7 @@
 }
 
 @media (pointer: coarse), (hover: none) {
-  .control,
-  .dock {
+  .control {
     display: none;
   }
 }
@@ -80,8 +79,8 @@
    surface here — restyle one and the other follows rather than drifting. */
 .cuff,
 .mark {
-  --cuff-border: 1.5px solid #4e6145;
-  --cuff-fill: rgba(137, 145, 118, 0.09);
+  --cuff-border: 1.5px solid var(--accent);
+  --cuff-fill: color-mix(in srgb, var(--accent-soft) 9%, transparent);
 }
 
 .cuff {
@@ -111,8 +110,8 @@
   max-width: 320px;
   padding: 5px 9px;
   border-radius: 5px;
-  background: #282824;
-  color: #fbfaf8;
+  background: var(--foreground);
+  color: var(--background);
   font-size: 11px;
   line-height: 1.45;
   white-space: nowrap;

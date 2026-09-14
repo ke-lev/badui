@@ -2,13 +2,13 @@
   width: 100%;
   max-width: 320px;
   margin-inline: auto;
-  color: #282824;
+  color: var(--foreground);
 }
 
 .surface {
-  border: 1px solid #deded6;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  background: #fff;
+  background: var(--field);
 }
 
 .primaryButton,
@@ -31,30 +31,30 @@
 }
 
 .primaryButton {
-  background: #30312b;
-  color: #fafaf6;
+  background: var(--inverse);
+  color: var(--on-inverse);
 }
 
 .primaryButton:hover:not([aria-disabled="true"]) {
-  background: #4d5142;
+  background: var(--inverse-hover);
 }
 
 .primaryButton[aria-disabled="true"] {
-  border-color: #deded6;
-  background: #f3f3ec;
-  color: #54544d;
+  border-color: var(--border);
+  background: var(--surface);
+  color: light-dark(#54544d, #adada3);
   cursor: default;
 }
 
 .secondaryButton {
-  border-color: #ddddd5;
-  background: #fff;
-  color: #464640;
+  border-color: var(--border);
+  background: var(--field);
+  color: var(--ink-soft);
 }
 
 .secondaryButton:hover {
-  border-color: #bdbeb1;
-  background: #f5f5ef;
+  border-color: light-dark(#bdbeb1, #4a4b43);
+  background: var(--surface);
 }
 
 .primaryButton:focus-visible,
@@ -62,7 +62,7 @@
 .rowButton:focus-visible,
 .textInput:focus-visible,
 .listTitle:focus-visible {
-  outline: 2px solid #667251;
+  outline: 2px solid var(--accent-line);
   outline-offset: 3px;
 }
 
@@ -87,7 +87,7 @@
 
 .meta {
   margin: 0;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 11px;
 }
 
@@ -104,13 +104,13 @@
   height: 6px;
   overflow: hidden;
   border-radius: 999px;
-  background: #ecece4;
+  background: var(--selected);
 }
 
 .fill {
   height: 100%;
   border-radius: inherit;
-  background: #54614a;
+  background: var(--accent-ink);
   transform-origin: left center;
   transition: transform 250ms linear;
 }
@@ -161,20 +161,20 @@
 }
 
 .file + .file {
-  border-top: 1px solid #eeeee8;
+  border-top: 1px solid var(--rule);
 }
 
 .rowButton {
   min-height: 32px;
   padding: 4px 10px;
   background: transparent;
-  color: #6b6b63;
+  color: var(--muted);
   font-weight: 400;
 }
 
 .rowButton:hover {
-  background: #f3f3ec;
-  color: #282824;
+  background: var(--surface);
+  color: var(--foreground);
 }
 
 .emptyFiles {
@@ -182,7 +182,7 @@
   justify-items: center;
   gap: 12px;
   padding: 28px 16px;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 12px;
 }
 
@@ -202,10 +202,10 @@
   overflow: hidden;
   padding: 10px 8px 12px 14px;
   border-radius: 6px;
-  background: #30312b;
-  color: #fafaf6;
+  background: var(--inverse);
+  color: var(--on-inverse);
   font-size: 12px;
-  box-shadow: 0 8px 20px rgba(40, 40, 36, 0.14);
+  box-shadow: 0 8px 20px light-dark(rgb(40 40 36 / 14%), rgb(0 0 0 / 45%));
   animation: toastIn 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -215,7 +215,7 @@
   border: 0;
   border-radius: 4px;
   background: transparent;
-  color: #e6e9dc;
+  color: var(--accent-tint);
   font: inherit;
   font-weight: 500;
   text-decoration: underline;
@@ -224,11 +224,11 @@
 }
 
 .toastUndo:hover {
-  background: #4d5142;
+  background: var(--inverse-hover);
 }
 
 .toastUndo:focus-visible {
-  outline: 2px solid #e6e9dc;
+  outline: 2px solid var(--accent-tint);
   outline-offset: 1px;
 }
 
@@ -238,7 +238,7 @@
   bottom: 0;
   left: 0;
   height: 3px;
-  background: #a3aa95;
+  background: light-dark(#a3aa95, #8f9880);
   transform-origin: left center;
   animation: countdown 5000ms linear forwards;
 }
@@ -273,17 +273,17 @@
   width: 100%;
   min-height: 42px;
   padding: 8px 12px;
-  border: 1px solid #deded6;
+  border: 1px solid var(--border);
   border-radius: 5px;
-  background: #fff;
-  color: #282824;
+  background: var(--field);
+  color: var(--foreground);
   font: inherit;
   font-size: 14px;
   transition: border-color 140ms ease;
 }
 
 .textInput:hover {
-  border-color: #a3aa95;
+  border-color: light-dark(#a3aa95, #8f9880);
 }
 
 .saveFoot {
@@ -299,7 +299,7 @@
   align-items: center;
   gap: 7px;
   margin: 0;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 11px;
 }
 
@@ -307,15 +307,15 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #a9aa9f;
+  background: var(--border-strong);
 }
 
 .dotDirty {
-  background: #9a6b2f;
+  background: var(--warning);
 }
 
 .dotSaved {
-  background: #54614a;
+  background: var(--accent-ink);
 }
 
 .saveButton {

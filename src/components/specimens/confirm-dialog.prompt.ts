@@ -21,12 +21,13 @@ BEHAVIOR
 - Do not add modal focus trapping, Escape handling, automatic focus movement, or a portal; this remains inline and nonmodal.
 
 STYLING
-- The stack is position relative, isolated, width calc(100% - 12px), max-width 304px, color #282824.
-- Draw two absolute backing cards behind it, each inset 0 with 1px solid #d8d8d0 border and 7px radius. The first uses #f6f6f1 and translate(6px, -6px); the second uses #eeeee7 and translate(12px, -12px). Hide both for layer 0 and hide the second for layer 1. Fade opacity over 160ms ease.
-- The dialog has padding 26px 23px 22px, 1px solid #deded6 border, 7px radius, #ffffff background, and 0 5px 12px rgba(40,40,36,0.03) shadow.
-- Position the close control top 13px and right 12px, 27px square, no border, 3px radius, transparent background, #82827a; hover uses #f3f3ec and #282824.
-- The counter has margin 0 20px 16px 0, 10px monospace, line-height 1.5, letter-spacing 0.07em, uppercase, color #6b6b63. The title is 21px medium, line-height 1.2, tracking -0.7px, margin bottom 9px. The message has min-height 42px, margin bottom 22px, 12px type, line-height 1.6, color #6b6b63.
-- Actions use a two-column equal grid with 9px gap. Buttons have min-height 39px, 8px 10px padding, 5px radius, 12px medium type. Primary is #30312b on #fafaf6; secondary is #464640 on #ffffff with #ddddd5 border. Preserve hover, active translateY(1px), and 2px #667251 focus outlines at 3px offset.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The stack is position relative, isolated, width calc(100% - 12px), max-width 304px, color light-dark(#282824, #e8e7e0).
+- Draw two absolute backing cards behind it, each inset 0 with 1px solid light-dark(#d8d8d0, #34342f) border and 7px radius. The first uses light-dark(#f6f6f1, #1d1d1a) and translate(6px, -6px); the second uses light-dark(#eeeee7, #2d2d28) and translate(12px, -12px). Hide both for layer 0 and hide the second for layer 1. Fade opacity over 160ms ease.
+- The dialog has padding 26px 23px 22px, 1px solid light-dark(#deded6, #34342f) border, 7px radius, light-dark(#ffffff, #1a1a17) background, and 0 5px 12px light-dark(rgba(40,40,36,0.03), rgba(0,0,0,0.15)) shadow.
+- Position the close control top 13px and right 12px, 27px square, no border, 3px radius, transparent background, light-dark(#82827a, #75756b); hover uses light-dark(#f3f3ec, #1d1d1a) and light-dark(#282824, #e8e7e0).
+- The counter has margin 0 20px 16px 0, 10px monospace, line-height 1.5, letter-spacing 0.07em, uppercase, color light-dark(#6b6b63, #9c9c91). The title is 21px medium, line-height 1.2, tracking -0.7px, margin bottom 9px. The message has min-height 42px, margin bottom 22px, 12px type, line-height 1.6, color light-dark(#6b6b63, #9c9c91).
+- Actions use a two-column equal grid with 9px gap. Buttons have min-height 39px, 8px 10px padding, 5px radius, 12px medium type. Primary is light-dark(#30312b, #e8e7e0) on light-dark(#fafaf6, #1a1a17); secondary is light-dark(#464640, #c3c3b9) on light-dark(#ffffff, #1a1a17) with light-dark(#ddddd5, #34342f) border. Preserve hover, active translateY(1px), and 2px light-dark(#667251, #8e9c78) focus outlines at 3px offset.
 - The canceled panel is centered, width 100%, vertical with 18px gap; its title is 18px medium with -0.5px tracking. Remove transitions under reduced motion.
 
 DONE WHEN

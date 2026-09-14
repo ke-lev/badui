@@ -37,9 +37,9 @@ ${ENVELOPE_BEHAVIOR}
 STYLING
 ${SPECIMEN_STYLING}
 - The area also has overflow hidden.
-- Each button is absolutely positioned at top 50% with transform translate(-50%, -50%) before the first frame; Stay at left 30% and Leave at left 70%. Each is ${BUTTON_STYLING}. On hover its background is #4d5142.
+- Each button is absolutely positioned at top 50% with transform translate(-50%, -50%) before the first frame; Stay at left 30% and Leave at left 70%. Each is ${BUTTON_STYLING}. On hover its background is light-dark(#4d5142, #cdd1c2).
 ${ENVELOPE_STYLING}
-- The envelope has a 1.5px solid #4e6145 border and background rgba(137, 145, 118, 0.09).
+- The envelope has a 1.5px solid light-dark(#4e6145, #a9b894) border and background light-dark(rgba(137, 145, 118, 0.09), rgba(113, 123, 95, 0.09)).
 ${READOUT_STYLING}
 - Under prefers-reduced-motion, remove the button and envelope transitions.
 

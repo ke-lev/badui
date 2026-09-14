@@ -18,11 +18,12 @@ BEHAVIOR
 - No animation is used for reordering.
 
 STYLING
-- The container is width 100%, max-width 360px, centered, 1px solid #deded6 border, 6px radius, white background, color #282824.
-- The tablist is a flex row with 2px gap, 4px padding, a 1px solid #deded6 bottom border, and horizontal overflow auto.
-- Each tab is flex 0 0 auto, min-height 34px, padding 6px 9px, no border, 4px radius, transparent background, color #6b6b63, 12px inherited sans-serif, pointer cursor, with 120ms ease transitions on background and color. Hover uses #f3f3ec and #282824. The selected tab uses #ecece4, #282824, and font-weight 500.
-- The panel has min-height 118px and padding 18px 16px. The title is 17px, weight 500, letter-spacing -0.4px, margin 0 0 6px. The description is 12px, line-height 1.6, color #6b6b63, margin 0.
-- Tabs and panel use a 2px solid #667251 focus-visible outline at 2px offset. Remove transitions under prefers-reduced-motion: reduce.
+- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
+- The container is width 100%, max-width 360px, centered, 1px solid light-dark(#deded6, #34342f) border, 6px radius, light-dark(#ffffff, #1a1a17) background, color light-dark(#282824, #e8e7e0).
+- The tablist is a flex row with 2px gap, 4px padding, a 1px solid light-dark(#deded6, #34342f) bottom border, and horizontal overflow auto.
+- Each tab is flex 0 0 auto, min-height 34px, padding 6px 9px, no border, 4px radius, transparent background, color light-dark(#6b6b63, #9c9c91), 12px inherited sans-serif, pointer cursor, with 120ms ease transitions on background and color. Hover uses light-dark(#f1f1ea, #262622) and light-dark(#282824, #e8e7e0). The selected tab uses light-dark(#ecece4, #2d2d28), light-dark(#282824, #e8e7e0), and font-weight 500.
+- The panel has min-height 118px and padding 18px 16px. The title is 17px, weight 500, letter-spacing -0.4px, margin 0 0 6px. The description is 12px, line-height 1.6, color light-dark(#6b6b63, #9c9c91), margin 0.
+- Tabs and panel use a 2px solid light-dark(#667251, #8e9c78) focus-visible outline at 2px offset. Remove transitions under prefers-reduced-motion: reduce.
 
 DONE WHEN
 - Selecting any tab shows its panel and places that tab last, with the others shifting left in order.

@@ -121,8 +121,7 @@ export function PointerGlyph() {
     <svg viewBox="0 0 16 22" width="16" height="22">
       <path
         d="M1.5 1.5v16.2l4.3-4.1 2.9 6.6 2.6-1.1-2.9-6.5h6z"
-        fill="#282824"
-        stroke="#fafaf6"
+        style={{ fill: "var(--foreground)", stroke: "var(--on-inverse)" }}
         strokeWidth="1.25"
         strokeLinejoin="round"
       />

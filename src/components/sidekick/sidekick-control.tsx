@@ -1,5 +1,6 @@
 "use client";
 
+import { ThemeControl } from "@/components/theme/theme";
 import styles from "./sidekick.module.css";
 import { useSidekickMode, type SidekickMode } from "./sidekick-mode";
 
@@ -38,10 +39,13 @@ export function SidekickControl() {
 // there — a visitor landing on "/" with talk already stored had no way to turn
 // it off until they navigated. This docks the control in the corner instead:
 // a real contentinfo landmark (which "/" otherwise lacks) with no surface of
-// its own, so it sits on the page rather than on a bar.
+// its own, so it sits on the page rather than on a bar. The theme control
+// shares it on the left, and stays when a touch screen hides the sidekick
+// control.
 export function SidekickDock() {
   return (
     <footer className={styles.dock}>
+      <ThemeControl />
       <SidekickControl />
     </footer>
   );

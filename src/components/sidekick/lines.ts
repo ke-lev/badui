@@ -16,6 +16,8 @@ export const FRAME_LINES: Record<string, string> = {
   "sidekick-dom": "Facts only. No personality.",
   "sidekick-talk": "You are already here.",
   "sidekick-off": "...",
+  "theme-light": "Lights on.",
+  "theme-dark": "Same collection, less light.",
   enter: "Go on, then.",
   "rail-toggle": "A list, folded.",
   "rail-category": "Ummm...",

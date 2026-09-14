@@ -46,12 +46,12 @@ STYLING
 ${SPECIMEN_STYLING}
 - The area also has overflow hidden and cursor none.
 - The group is absolutely positioned at top 50%, left 50%, transform translate(-50%, -50%), a flex row with an 8px gap.
-- Each button is ${BUTTON_STYLING}. With data-hover its background is #4d5142.
+- Each button is ${BUTTON_STYLING}. With data-hover its background is light-dark(#4d5142, #cdd1c2).
 ${ARROW_STYLING}
 ${ENVELOPE_STYLING}
-- The envelope has a 1.5px solid #4e6145 border and background rgba(137, 145, 118, 0.09).
+- The envelope has a 1.5px solid light-dark(#4e6145, #a9b894) border and background light-dark(rgba(137, 145, 118, 0.09), rgba(113, 123, 95, 0.09)).
 ${TAB_STYLING}
-- The tab has background #282824 and color #fbfaf8.
+- The tab has background light-dark(#282824, #e8e7e0) and color light-dark(#fbfaf8, #161614).
 ${READOUT_STYLING}
 - Under prefers-reduced-motion, remove the button, envelope, and tab transitions.
 

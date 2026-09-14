@@ -10,7 +10,7 @@
 }
 
 .area .target[data-hover] {
-  background: #4d5142;
+  background: var(--inverse-hover);
 }
 
 .area .offset {
@@ -61,10 +61,10 @@
   height: 32px;
   padding: 0;
   place-items: center;
-  border: 1px solid #deded6;
+  border: 1px solid var(--border);
   border-radius: 50%;
-  background: #fafaf6;
-  color: #282824;
+  background: var(--on-inverse);
+  color: var(--foreground);
   cursor: pointer;
   transition: background 120ms ease, box-shadow 120ms ease;
   touch-action: manipulation;
@@ -79,21 +79,21 @@
   width: 40px;
   height: 40px;
   border-color: transparent;
-  background: #30312b;
-  color: #fafaf6;
+  background: var(--inverse);
+  color: var(--on-inverse);
 }
 
 .control[data-near] {
-  box-shadow: 0 0 0 5px rgba(102, 114, 81, 0.22);
-  background: #eceee4;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-line) 22%, transparent);
+  background: var(--selected);
 }
 
 .primary[data-near] {
-  background: #4d5142;
+  background: var(--inverse-hover);
 }
 
 .control:focus-visible {
-  outline: 2px solid #667251;
+  outline: 2px solid var(--accent-line);
   outline-offset: 3px;
 }
 
@@ -101,12 +101,12 @@
   display: flex;
   justify-content: space-between;
   margin: 0;
-  color: #6b6b63;
+  color: var(--muted);
   font-size: 11px;
 }
 
 .state {
-  color: #282824;
+  color: var(--foreground);
   font-family: var(--font-geist-mono), monospace;
   font-variant-numeric: tabular-nums;
 }
