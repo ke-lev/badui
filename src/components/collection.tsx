@@ -276,7 +276,13 @@ export function Collection() {
                 {section.entries.map((item, index) => {
                   const Specimen = item.component;
                   return (
-                    <article className={`specimen specimen-${index + 1}`} id={item.id} key={item.id} aria-labelledby={`${item.id}-title`}>
+                    <article
+                      className={`specimen specimen-${index + 1}`}
+                      id={item.id}
+                      key={item.id}
+                      aria-labelledby={`${item.id}-title`}
+                      data-sidekick-off={item.meta.sidekick === false ? "" : undefined}
+                    >
                       <div className="specimen-caption">
                         <span className="specimen-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                         <h2 id={`${item.id}-title`}>
@@ -445,7 +451,12 @@ function EntryPane({
           <ResetIcon /> Reset
         </button>
       </div>
-      <div className="specimen-stage entry-stage" role="group" aria-label={`${entry.meta.name} specimen`}>
+      <div
+        className="specimen-stage entry-stage"
+        role="group"
+        aria-label={`${entry.meta.name} specimen`}
+        data-sidekick-off={entry.meta.sidekick === false ? "" : undefined}
+      >
         <Specimen key={version} switches={switches} />
       </div>
       {entry.meta.switches && (

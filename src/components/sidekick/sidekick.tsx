@@ -123,6 +123,7 @@ export function Sidekick() {
   const cuffRef = useRef<HTMLDivElement>(null);
   const tabRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<Element | null>(null);
+  const offRef = useRef<Element | null>(null);
   const textRef = useRef("");
   const pointerRef = useRef({ x: -100, y: -100 });
   const modeRef = useRef(mode);
@@ -158,6 +159,7 @@ export function Sidekick() {
 
     let lock = 0;
     let tabAlpha = 0;
+    let cuffAlpha = 1;
     let frame = 0;
     let last = performance.now();
     let lastRadiusTarget: Element | null = null;
@@ -184,13 +186,18 @@ export function Sidekick() {
       pointerRef.current = { x: event.clientX, y: event.clientY };
     }
 
+    // Inside a [data-sidekick-off] region the companion fades out entirely and
+    // locks onto nothing, so it cannot cover a component's own pointer effect.
     function onPointerOver(event: PointerEvent) {
       const origin = event.target;
-      targetRef.current = origin instanceof Element ? origin.closest(TARGETS) : null;
+      const el = origin instanceof Element ? origin : null;
+      offRef.current = el ? el.closest("[data-sidekick-off]") : null;
+      targetRef.current = el && !offRef.current ? el.closest(TARGETS) : null;
     }
 
     function onPointerLeave() {
       targetRef.current = null;
+      offRef.current = null;
     }
 
     const tick = (now: number) => {
@@ -200,6 +207,8 @@ export function Sidekick() {
 
       const el = targetRef.current;
       if (el && !el.isConnected) targetRef.current = null;
+      if (offRef.current && !offRef.current.isConnected) offRef.current = null;
+      const off = Boolean(offRef.current);
 
       const locked = Boolean(targetRef.current);
 
@@ -236,7 +245,9 @@ export function Sidekick() {
       const ratio = DAMPING_IDLE + (DAMPING_LOCK - DAMPING_IDLE) * lock;
       const damping = dampingFor(stiffness, ratio);
 
-      if (reduced) {
+      // Once faded out, the box waits at the pointer so it reappears there
+      // rather than sweeping in from where it vanished.
+      if (reduced || (off && cuffAlpha < 0.05)) {
         settle(box.x, tx);
         settle(box.y, ty);
         settle(box.w, tw);
@@ -290,6 +301,8 @@ export function Sidekick() {
       // Fade the tab through every target change, and swap the string at the
       // trough so the text never hard-cuts mid-flight.
       const fadeRate = reduced ? 1 : FADE_BLEND;
+      cuffAlpha = blend(cuffAlpha, off ? 0 : 1, fadeRate, dt);
+      cuff.style.opacity = `${cuffAlpha}`;
       if (targetRef.current !== shownTarget) {
         tabAlpha = blend(tabAlpha, 0, fadeRate, dt);
         if (tabAlpha < 0.05) {

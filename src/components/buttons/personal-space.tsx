@@ -198,6 +198,7 @@ export const personalSpaceMeta: ComponentMeta = {
     "area displaced.",
   usage: "<PersonalSpace />",
   prompt: personalSpacePrompt,
+  sidekick: false,
   notes:
     "The shape is drawn with clip-path, which also bounds what receives the " +
     "pointer, so the cleared disc is not part of the button. The disc's centre " +

@@ -57,6 +57,11 @@ export type ComponentMeta = {
    * when it renders no key, or a key with no line here.
    */
   lines: Record<string, string>;
+  /**
+   * Set false to hide the cursor companion while the pointer is inside this
+   * entry's card, for components whose pointer effect it would cover.
+   */
+  sidekick?: false;
   /** Switches drawn beneath the card, outside the component, in this order. */
   switches?: EntrySwitch[];
 };

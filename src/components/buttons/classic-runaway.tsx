@@ -265,7 +265,7 @@ export function ClassicRunaway({ switches = NO_SWITCHES }: { switches?: SwitchSt
 }
 
 export const classicRunawayMeta: ComponentMeta = {
-  name: "Classic Runaway",
+  name: "Classic runaway",
   kind: "hostile",
   category: "buttons",
   summary:

@@ -234,7 +234,7 @@ export function CorneredButton() {
 }
 
 export const corneredButtonMeta: ComponentMeta = {
-  name: "Cornered Animal",
+  name: "Cornered animal",
   kind: "hostile",
   category: "buttons",
   summary:
