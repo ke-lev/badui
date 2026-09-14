@@ -22,7 +22,7 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <Link className="wordmark" href="/" aria-label="badui — back to home" data-sidekick="home">
-        <CollectionMark /><span>badui</span>
+        <CollectionMark /><span className="wordmark-text">bad<span>ui</span></span>
       </Link>
       <nav aria-label="Main navigation">
         <a className="github-link" href="https://github.com/ke-lev/badui" data-sidekick="github">

@@ -9,6 +9,37 @@ import type { EntrySwitch, SwitchState } from "@/components/meta";
 const sections = buildLibrary(entries);
 const OPENING_CATEGORY: CategoryId = "buttons";
 const NO_SWITCHES: SwitchState = {};
+const PLACE_KEY = "badui:collection-place";
+
+type Place = {
+  category: CategoryId;
+  openCategory: CategoryId | null;
+  entryId: string | null;
+  scrollY: number;
+};
+
+// A place is restored at most once per document, so arriving here later by
+// client navigation (from the splash, say) still opens at the top.
+let placeConsumed = false;
+
+/** The place saved before this document reloaded, if it was a reload of this page. */
+function takeReloadedPlace(): Place | null {
+  if (placeConsumed) return null;
+  placeConsumed = true;
+  try {
+    const [navigation] = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[];
+    if (navigation?.type !== "reload") return null;
+    if (new URL(navigation.name).pathname !== window.location.pathname) return null;
+    const saved = JSON.parse(sessionStorage.getItem(PLACE_KEY) ?? "null") as Place | null;
+    const shelf = sections.find((candidate) => candidate.id === saved?.category);
+    if (!saved || !shelf) return null;
+    if (saved.entryId && !shelf.entries.some((candidate) => candidate.id === saved.entryId)) return null;
+    if (saved.openCategory && !sections.some((candidate) => candidate.id === saved.openCategory)) return null;
+    return saved;
+  } catch {
+    return null;
+  }
+}
 
 function ResetIcon() {
   return (
@@ -78,6 +109,35 @@ export function Collection() {
 
   const section = sections.find((candidate) => candidate.id === category)!;
   const entry = entryId ? section.entries.find((candidate) => candidate.id === entryId) : undefined;
+
+  // Read before the save effect below first writes the opening place over it.
+  useLayoutEffect(() => {
+    const place = takeReloadedPlace();
+    if (!place) return;
+    // Not cancelled on cleanup: the place is taken once per document, and
+    // StrictMode's remount keeps this state, so the update still lands.
+    requestAnimationFrame(() => {
+      setCategory(place.category);
+      setOpenCategory(place.openCategory);
+      setEntryId(place.entryId);
+      // A frame later the restored pane is laid out and tall enough to scroll.
+      requestAnimationFrame(() => window.scrollTo(0, place.scrollY));
+    });
+  }, []);
+
+  useEffect(() => {
+    function save() {
+      try {
+        const place: Place = { category, openCategory, entryId, scrollY: window.scrollY };
+        sessionStorage.setItem(PLACE_KEY, JSON.stringify(place));
+      } catch {
+        // Storage unavailable: a reload opens at the top.
+      }
+    }
+    save();
+    window.addEventListener("pagehide", save);
+    return () => window.removeEventListener("pagehide", save);
+  }, [category, openCategory, entryId]);
 
   useEffect(() => {
     if (!pendingFocus.current) return;

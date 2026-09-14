@@ -90,6 +90,35 @@
   right: 26%;
 }
 
+/* Close to the pointer, each eye's inner top corner is cut away into a slant. */
+.hungry[data-angry] .eyeLeft {
+  clip-path: polygon(0 0, 100% 45%, 100% 100%, 0 100%);
+}
+
+.hungry[data-angry] .eyeRight {
+  clip-path: polygon(0 45%, 100% 0, 100% 100%, 0 100%);
+}
+
+/* While eating, each eye becomes a shallow upward arc on the same centre:
+   the mouth's smile, inverted. */
+.hungry[data-eating] .eye {
+  top: 31%;
+  width: 22%;
+  height: 12%;
+  border-top: 1.5px solid var(--foreground);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: none;
+  clip-path: none;
+}
+
+.hungry[data-eating] .eyeLeft {
+  left: 22%;
+}
+
+.hungry[data-eating] .eyeRight {
+  right: 22%;
+}
+
 .mouth {
   position: absolute;
   top: 56%;

@@ -12,6 +12,8 @@ import { chew, HUNGRY_SIZE, hungryModel } from "./models";
 
 /** How far the face travels toward the pointer, as a fraction of the companion's size. */
 const LOOK_REACH = 0.1;
+/** Within this many diameters of the pointer, the eyes turn angry. */
+const ANGRY_REACH = 2;
 
 /* The eating mouth, in pixels: two meeting strokes when shut, a hollow ellipse when open. */
 const MOUTH_WIDTH = 7;
@@ -88,10 +90,12 @@ export function HungryBuddy() {
       // The face leans toward the drawn pointer, fully once it is a diameter away.
       let lookX = 0;
       let lookY = 0;
+      let angry = false;
       if (arrow) {
         const dx = arrow.x - next.centre.x;
         const dy = arrow.y - next.centre.y;
         const distance = Math.hypot(dx, dy);
+        angry = distance <= HUNGRY_SIZE * ANGRY_REACH;
         if (distance > 0) {
           const reach = (Math.min(distance / HUNGRY_SIZE, 1) * HUNGRY_SIZE * LOOK_REACH) / distance;
           lookX = dx * reach;
@@ -99,6 +103,7 @@ export function HungryBuddy() {
         }
       }
       face!.style.transform = `translate3d(${lookX}px, ${lookY}px, 0)`;
+      buddy!.toggleAttribute("data-angry", angry);
       if (next.meals !== eaten) {
         eaten = next.meals;
         setMeals(eaten);
@@ -193,7 +198,9 @@ export const hungryBuddyMeta: ComponentMeta = {
     "The system pointer is hidden and redrawn. A click presses the centred Continue " +
     "button only while the drawn pointer is visible and over it. After eating, the " +
     "companion holds still for a further 0.8 seconds, and it does not move while the " +
-    "pointer is outside the area. Tab, Enter, and Space operate the button natively. " +
+    "pointer is outside the area. Its eyes slant inward while the pointer is within " +
+    "48 pixels of its centre, and become upward arcs while eating. Tab, Enter, and " +
+    "Space operate the button natively. " +
     "Presses and meals are counted in a polite live region; reduced motion removes " +
     "the chewing and holds the mouth open.",
   lines: {

@@ -79,6 +79,7 @@ button, a { touch-action: manipulation; }
 .site-shell { width: var(--shell-width); margin-inline: auto; }
 .site-header { height: 102px; display: flex; align-items: center; justify-content: space-between; }
 .wordmark { min-height: 44px; display: flex; align-items: center; gap: 11px; font-size: 20px; font-weight: 600; letter-spacing: -1px; }
+.wordmark-text > span { font-family: var(--font-instrument-serif), Georgia, serif; font-weight: 400; font-style: italic; letter-spacing: -.055em; margin-left: .015em; }
 .collection-mark { width: 19px; height: 19px; display: grid; grid-template-columns: repeat(2, 7px); grid-template-rows: repeat(2, 7px); gap: 3px; }
 .collection-mark span { background: currentColor; }
 .collection-mark span:nth-child(2) { transform: translate(2px, -2px) rotate(12deg); background: var(--accent-soft); }
