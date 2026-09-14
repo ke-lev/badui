@@ -8,7 +8,18 @@ import { PointerGlyph } from "@/components/cursor/drawn-pointer";
 import type { ComponentMeta } from "@/components/meta";
 import styles from "./buddies.module.css";
 import { hungryBuddyPrompt } from "./hungry-buddy.prompt";
-import { CHEW_AMOUNT, CHEW_HZ, hungryModel } from "./models";
+import { chew, HUNGRY_SIZE, hungryModel } from "./models";
+
+/** How far the face travels toward the pointer, as a fraction of the companion's size. */
+const LOOK_REACH = 0.1;
+
+/* The eating mouth, in pixels: two meeting strokes when shut, a hollow ellipse when open. */
+const MOUTH_WIDTH = 7;
+const MOUTH_LINE = 3;
+const MOUTH_GAPE = 3.5;
+/** How much narrower the mouth gets when wide open. */
+const MOUTH_NARROW = 0.1;
+const JAW_SWAY = 0.8;
 
 export function HungryBuddy() {
   const [presses, setPresses] = useState(0);
@@ -17,18 +28,24 @@ export function HungryBuddy() {
   const pointerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const buddyRef = useRef<HTMLDivElement>(null);
+  const faceRef = useRef<HTMLSpanElement>(null);
+  const mouthRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const area = areaRef.current;
     const pointer = pointerRef.current;
     const button = buttonRef.current;
     const buddy = buddyRef.current;
-    if (!area || !pointer || !button || !buddy) return;
+    const face = faceRef.current;
+    const mouth = mouthRef.current;
+    if (!area || !pointer || !button || !buddy || !face || !mouth) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const model = hungryModel();
     let arrow: Point | null = null;
     let eaten = 0;
+    let chewing = false;
+    let mealStart = 0;
     let frame = 0;
     let last = 0;
 
@@ -51,12 +68,37 @@ export function HungryBuddy() {
       button!.toggleAttribute("data-hover", over());
 
       const eating = next.phase === "eating";
-      const chew = eating && !reduced ? 1 + CHEW_AMOUNT * Math.sin((now / 1000) * CHEW_HZ * 2 * Math.PI) : 1;
-      const half = next.size / 2;
-      buddy!.style.width = `${next.size}px`;
-      buddy!.style.height = `${next.size}px`;
-      buddy!.style.transform = `translate3d(${next.centre.x - half}px, ${next.centre.y - half}px, 0) scale(${chew})`;
+      if (eating && !chewing) mealStart = now;
+      if (eating) {
+        // Reduced motion holds the mouth open and still.
+        const jaw = reduced ? { open: 1, side: 0 } : chew(now - mealStart);
+        mouth!.style.width = `${MOUTH_WIDTH * (1 - MOUTH_NARROW * jaw.open)}px`;
+        mouth!.style.height = `${MOUTH_LINE + MOUTH_GAPE * jaw.open}px`;
+        mouth!.style.transform = `translate(-50%, -50%) translateX(${JAW_SWAY * jaw.side}px)`;
+      } else if (chewing) {
+        mouth!.style.width = "";
+        mouth!.style.height = "";
+        mouth!.style.transform = "";
+      }
+      chewing = eating;
+      const half = HUNGRY_SIZE / 2;
+      buddy!.style.transform = `translate3d(${next.centre.x - half}px, ${next.centre.y - half}px, 0)`;
       buddy!.toggleAttribute("data-eating", eating);
+
+      // The face leans toward the drawn pointer, fully once it is a diameter away.
+      let lookX = 0;
+      let lookY = 0;
+      if (arrow) {
+        const dx = arrow.x - next.centre.x;
+        const dy = arrow.y - next.centre.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance > 0) {
+          const reach = (Math.min(distance / HUNGRY_SIZE, 1) * HUNGRY_SIZE * LOOK_REACH) / distance;
+          lookX = dx * reach;
+          lookY = dy * reach;
+        }
+      }
+      face!.style.transform = `translate3d(${lookX}px, ${lookY}px, 0)`;
       if (next.meals !== eaten) {
         eaten = next.meals;
         setMeals(eaten);
@@ -117,7 +159,13 @@ export function HungryBuddy() {
         <div className={cursorStyles.pointer} ref={pointerRef} aria-hidden="true">
           <PointerGlyph />
         </div>
-        <div className={styles.hungry} ref={buddyRef} aria-hidden="true" />
+        <div className={styles.hungry} ref={buddyRef} aria-hidden="true">
+          <span className={styles.face} ref={faceRef}>
+            <span className={`${styles.eye} ${styles.eyeLeft}`} />
+            <span className={`${styles.eye} ${styles.eyeRight}`} />
+            <span className={styles.mouth} ref={mouthRef} />
+          </span>
+        </div>
       </div>
       <p className={buttonStyles.readout} role="status" aria-live="polite" aria-atomic="true">
         <span>
@@ -138,7 +186,7 @@ export const hungryBuddyMeta: ComponentMeta = {
   summary:
     "A companion that follows the pointer on a slow, critically damped spring and " +
     "swallows it once within a quarter of its own diameter. The pointer is gone for " +
-    "1.4 seconds, and the companion grows by 6 pixels per meal, up to 72.",
+    "1.4 seconds. The companion stays 24 pixels across throughout.",
   usage: "<HungryBuddy />",
   prompt: hungryBuddyPrompt,
   notes:
@@ -147,7 +195,7 @@ export const hungryBuddyMeta: ComponentMeta = {
     "companion holds still for a further 0.8 seconds, and it does not move while the " +
     "pointer is outside the area. Tab, Enter, and Space operate the button natively. " +
     "Presses and meals are counted in a polite live region; reduced motion removes " +
-    "the chewing pulse.",
+    "the chewing and holds the mouth open.",
   lines: {
     "hungry-buddy": "It is always glad to see you.",
   },

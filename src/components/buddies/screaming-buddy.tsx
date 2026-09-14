@@ -122,9 +122,10 @@ export function ScreamingBuddy() {
               name="name"
               autoComplete="off"
               data-sidekick="screaming-name"
+              data-sidekick-quiet=""
             />
           </div>
-          <button type="submit" className={`${buttonStyles.button} ${styles.submit}`} data-sidekick="screaming-submit">
+          <button type="submit" className={`${buttonStyles.button} ${styles.submit}`} data-sidekick="screaming-submit" data-sidekick-quiet="">
             Submit
           </button>
         </form>

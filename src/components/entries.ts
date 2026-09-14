@@ -4,6 +4,7 @@ import { OpinionatedBuddy, opinionatedBuddyMeta } from "@/components/buddies/opi
 import { ScreamingBuddy, screamingBuddyMeta } from "@/components/buddies/screaming-buddy";
 import { ClassicRunaway, classicRunawayMeta } from "@/components/buttons/classic-runaway";
 import { CorneredButton, corneredButtonMeta } from "@/components/buttons/cornered-button";
+import { PersonalSpace, personalSpaceMeta } from "@/components/buttons/personal-space";
 import { ShrinkingButton, shrinkingButtonMeta } from "@/components/buttons/shrinking-button";
 import { DelayedPointer, delayedPointerMeta } from "@/components/cursor/delayed-pointer";
 import { HeavyPointer, heavyPointerMeta } from "@/components/cursor/heavy-pointer";
@@ -53,6 +54,7 @@ export const entries: LibraryEntry[] = [
   { id: "classic-runaway", component: ClassicRunaway, meta: classicRunawayMeta },
   { id: "cornered", component: CorneredButton, meta: corneredButtonMeta },
   { id: "shrinking", component: ShrinkingButton, meta: shrinkingButtonMeta },
+  { id: "personal-space", component: PersonalSpace, meta: personalSpaceMeta },
   { id: "quantity", component: QuantityStepper, meta: quantityStepperMeta },
   { id: "letter-name", component: LetterName, meta: letterNameMeta },
   { id: "leading-caret", component: LeadingCaret, meta: leadingCaretMeta },

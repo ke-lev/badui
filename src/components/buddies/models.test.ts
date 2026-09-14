@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
+  chew,
+  CHEW_COUNT,
+  CHEW_OPEN_SHARE,
   clingOffset,
   EAT_MS,
   envelope,
-  HUNGRY_GROWTH,
-  HUNGRY_MAX,
-  HUNGRY_SIZE,
   HUNGRY_START,
   hungryModel,
   preferredIndex,
@@ -36,14 +36,13 @@ describe("hungryModel", () => {
     expect(frame.moving).toBe(false);
   });
 
-  it("swallows a pointer that holds still, and grows", () => {
+  it("swallows a pointer that holds still", () => {
     const model = hungryModel();
     model.input({ x: 200, y: 100 });
     const { now, frame } = untilEating(model, 0);
     expect(frame.phase).toBe("eating");
     expect(frame.arrow).toBeNull();
     expect(frame.meals).toBe(1);
-    expect(frame.size).toBe(HUNGRY_SIZE + HUNGRY_GROWTH);
 
     const resting = model.step(now + EAT_MS, FRAME / 1000);
     expect(resting.phase).toBe("resting");
@@ -59,17 +58,39 @@ describe("hungryModel", () => {
     expect(again.phase).toBe("eating");
     expect(again.meals).toBe(2);
   });
+});
 
-  it("stops growing at its maximum size", () => {
-    const model = hungryModel();
-    model.input({ x: 200, y: 100 });
-    let now = 0;
-    let frame = model.step(now, 0);
-    while (frame.meals < 12 && now < 120_000) {
-      now += FRAME;
-      frame = model.step(now, FRAME / 1000);
+describe("chew", () => {
+  const cycle = EAT_MS / CHEW_COUNT;
+
+  it("starts shut and still", () => {
+    expect(chew(0).open).toBe(0);
+    expect(chew(0).side).toBeCloseTo(0);
+  });
+
+  it("is wide open at the end of the opening share", () => {
+    expect(chew(cycle * CHEW_OPEN_SHARE).open).toBeCloseTo(1);
+  });
+
+  it("opens gradually and bites shut faster", () => {
+    const opening = chew(cycle * 0.1).open;
+    const closing = 1 - chew(cycle * (1 - 0.1)).open;
+    expect(opening).toBeLessThan(0.1);
+    expect(closing).toBeGreaterThan(0.3);
+  });
+
+  it("ends the meal shut, after exactly its chews", () => {
+    expect(chew(EAT_MS - 0.001).open).toBeLessThan(0.001);
+    expect(chew(cycle * 1.3).open).toBeCloseTo(chew(cycle * 0.3).open);
+  });
+
+  it("stays within its range", () => {
+    for (let ms = 0; ms < EAT_MS; ms += 7) {
+      const { open, side } = chew(ms);
+      expect(open).toBeGreaterThanOrEqual(0);
+      expect(open).toBeLessThanOrEqual(1);
+      expect(Math.abs(side)).toBeLessThanOrEqual(1);
     }
-    expect(frame.size).toBe(HUNGRY_MAX);
   });
 });
 

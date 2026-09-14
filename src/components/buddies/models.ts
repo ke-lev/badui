@@ -72,18 +72,32 @@ export function envelope(reduced: boolean): Envelope {
 export const HUNGRY_STIFFNESS = 9;
 export const HUNGRY_START: Point = { x: 28, y: 28 };
 export const HUNGRY_SIZE = 24;
-export const HUNGRY_GROWTH = 6;
-export const HUNGRY_MAX = 72;
 export const EAT_MS = 1400;
 export const REST_MS = 800;
-export const CHEW_AMOUNT = 0.08;
-export const CHEW_HZ = 4;
+export const CHEW_COUNT = 3;
+/** The share of each chew spent opening; the rest is the bite shut. */
+export const CHEW_OPEN_SHARE = 0.6;
+
+/**
+ * The jaw `ms` into a meal. `open` runs from 0 (shut) to 1 (wide): it eases
+ * open on a half cosine over the first 60% of each chew, then accelerates shut
+ * on a square, so each chew ends on a bite. `side` is the jaw's sideways grind,
+ * one sine per chew. A meal holds exactly CHEW_COUNT chews, so it ends shut.
+ */
+export function chew(ms: number): { open: number; side: number } {
+  const cycle = EAT_MS / CHEW_COUNT;
+  const p = (((ms % cycle) + cycle) % cycle) / cycle;
+  const open =
+    p < CHEW_OPEN_SHARE
+      ? (1 - Math.cos((Math.PI * p) / CHEW_OPEN_SHARE)) / 2
+      : 1 - ((p - CHEW_OPEN_SHARE) / (1 - CHEW_OPEN_SHARE)) ** 2;
+  return { open, side: Math.sin(2 * Math.PI * p) };
+}
 
 export type HungryPhase = "hunting" | "eating" | "resting";
 
 export type HungryFrame = {
   centre: Point;
-  size: number;
   phase: HungryPhase;
   meals: number;
   /** Where to draw the pointer, or null when it is outside or eaten. */
@@ -93,8 +107,8 @@ export type HungryFrame = {
 
 /**
  * Follows the pointer on a slow critical spring. Within a quarter of its own
- * diameter it swallows the pointer, grows, and holds still through eating and
- * resting before following again. It does not move while the pointer is out.
+ * diameter it swallows the pointer, and holds still through eating and resting
+ * before following again. Its size never changes. It does not move while the pointer is out.
  */
 export function hungryModel() {
   const x = spring(HUNGRY_START.x);
@@ -103,7 +117,6 @@ export function hungryModel() {
   let real: Point | null = null;
   let phase: HungryPhase = "hunting";
   let since = 0;
-  let size = HUNGRY_SIZE;
   let meals = 0;
 
   return {
@@ -119,16 +132,14 @@ export function hungryModel() {
       if (phase === "hunting" && real) {
         advance(x, real.x, dt, HUNGRY_STIFFNESS, damping);
         advance(y, real.y, dt, HUNGRY_STIFFNESS, damping);
-        if (Math.hypot(x.value - real.x, y.value - real.y) <= size / 4) {
+        if (Math.hypot(x.value - real.x, y.value - real.y) <= HUNGRY_SIZE / 4) {
           phase = "eating";
           since = now;
           meals += 1;
-          size = Math.min(size + HUNGRY_GROWTH, HUNGRY_MAX);
         }
       }
       return {
         centre: { x: x.value, y: y.value },
-        size,
         phase,
         meals,
         arrow: phase === "eating" ? null : real,

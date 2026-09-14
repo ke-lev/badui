@@ -66,6 +66,60 @@
   overflow: hidden;
 }
 
+/* The box reaches 36px past the drawn 200 x 60 shape on every side. clip-path
+   draws the shape and also bounds what receives the pointer; the server render
+   is the undisturbed rounded rectangle. */
+.squish {
+  width: 272px;
+  height: 132px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  font-size: 14px;
+  clip-path: inset(36px round 10px);
+}
+
+.squish:focus-visible {
+  outline: none;
+}
+
+/* A clip would cut an outline on the button itself, so the ring is a sibling
+   around the undisturbed shape. */
+.squishRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 60px;
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.squish:focus-visible + .squishRing {
+  outline: 2px solid #667251;
+  outline-offset: 3px;
+}
+
+.letters {
+  display: flex;
+}
+
+.letter {
+  display: inline-block;
+  white-space: pre;
+}
+
+.hiddenLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .readout {
   display: flex;
   justify-content: space-between;

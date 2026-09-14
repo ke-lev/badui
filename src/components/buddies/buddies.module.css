@@ -59,11 +59,58 @@
   transform: translate3d(16px, 16px, 0);
   transform-origin: center;
   pointer-events: none;
-  will-change: transform, width, height;
+  will-change: transform;
 }
 
 .hungry[data-eating] {
   background: rgba(78, 97, 69, 0.55);
+}
+
+/* The face is sized in percentages of the companion. */
+.face {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.eye {
+  position: absolute;
+  top: 26%;
+  width: 14%;
+  height: 22%;
+  border-radius: 999px;
+  background: #282824;
+}
+
+.eyeLeft {
+  left: 26%;
+}
+
+.eyeRight {
+  right: 26%;
+}
+
+.mouth {
+  position: absolute;
+  top: 56%;
+  left: 50%;
+  width: 34%;
+  height: 14%;
+  border-bottom: 1.5px solid #282824;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  transform: translateX(-50%);
+}
+
+/* While eating, the mouth is a hollow ellipse centred on one line. Its width,
+   height, and sway are set per frame; shut, its two strokes meet in a line. */
+.hungry[data-eating] .mouth {
+  top: 62%;
+  width: 7px;
+  height: 3px;
+  border: 1.5px solid #282824;
+  border-radius: 999px;
+  background: none;
+  transform: translate(-50%, -50%);
 }
 
 /* Opinionated */

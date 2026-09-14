@@ -173,8 +173,11 @@ export function Sidekick() {
       setText(next);
     }
 
+    // A component that talks for itself marks its controls data-sidekick-quiet,
+    // and the Talk tab stays out of its way there. The cuff still envelops.
     function describe(el: Element): string {
-      return modeRef.current === "talk" ? line(el) : inspect(el);
+      if (modeRef.current !== "talk") return inspect(el);
+      return el.closest("[data-sidekick-quiet]") ? "" : line(el);
     }
 
     function onPointerMove(event: PointerEvent) {
@@ -294,8 +297,8 @@ export function Sidekick() {
           publish(shownTarget ? describe(shownTarget) : "");
         }
       } else {
-        tabAlpha = blend(tabAlpha, shownTarget ? 1 : 0, fadeRate, dt);
         if (shownTarget) publish(describe(shownTarget));
+        tabAlpha = blend(tabAlpha, textRef.current ? 1 : 0, fadeRate, dt);
       }
 
       const below = box.y.value + box.h.value + TAB_GAP;
