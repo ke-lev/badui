@@ -1,14 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { SidekickControl } from "@/components/sidekick/sidekick-control";
 import { ThemeControl } from "@/components/theme/theme";
-
-function CollectionMark() {
-  return (
-    <span className="collection-mark" aria-hidden="true">
-      <span /><span /><span /><span />
-    </span>
-  );
-}
 
 function GitHubMark() {
   return (
@@ -22,7 +15,8 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <Link className="wordmark" href="/" aria-label="badui — back to home" data-sidekick="home">
-        <CollectionMark /><span className="wordmark-text">bad<span>ui</span></span>
+        <Image className="wordmark-logo" src="/pointer.png" alt="" width={280} height={400} />
+        <span className="wordmark-text">bad<span>ui</span><i aria-hidden="true">.</i></span>
       </Link>
       <nav aria-label="Main navigation">
         <a className="github-link" href="https://github.com/ke-lev/badui" data-sidekick="github">

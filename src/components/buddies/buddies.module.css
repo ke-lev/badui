@@ -158,6 +158,15 @@
   transform: none;
 }
 
+.row > .choice.danger {
+  background: var(--danger);
+  color: var(--on-inverse);
+}
+
+.row > .choice.danger[data-hover] {
+  background: light-dark(#8f1e18, #f29a90);
+}
+
 /* Screaming */
 
 .loud {

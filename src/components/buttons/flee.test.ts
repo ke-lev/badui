@@ -119,36 +119,42 @@ describe("advance", () => {
 
 describe("herd", () => {
   it("moves straight away from the pointer in open space", () => {
-    const next = herd({ x: 0, y: 0 }, { x: -30, y: -40 }, SQUARE, 10);
-    expect(next.x).toBeCloseTo(6);
-    expect(next.y).toBeCloseTo(8);
+    const { position, blocked } = herd({ x: 0, y: 0 }, { x: -30, y: -40 }, SQUARE, 10);
+    expect(position.x).toBeCloseTo(6);
+    expect(position.y).toBeCloseTo(8);
+    expect(blocked).toEqual({ x: 0, y: 0 });
   });
 
-  it("turns a push into a wall along the wall, away from the pointer", () => {
-    // Away is (0.8, 0.6); the 8 into the right wall joins the 6 going down.
-    const next = herd({ x: 100, y: 0 }, { x: 60, y: -30 }, SQUARE, 10);
-    expect(next.x).toBe(100);
-    expect(next.y).toBeCloseTo(14);
+  it("drops the part of a push into a wall and reports it as blocked", () => {
+    // Away is (0.8, 0.6); the 0.8 into the right wall goes nowhere.
+    const { position, blocked } = herd({ x: 100, y: 0 }, { x: 60, y: -30 }, SQUARE, 10);
+    expect(position.x).toBe(100);
+    expect(position.y).toBeCloseTo(6);
+    expect(blocked.x).toBeCloseTo(0.8);
+    expect(blocked.y).toBe(0);
   });
 
-  it("slides toward the roomier side when the pointer is level", () => {
-    const next = herd({ x: 100, y: 40 }, { x: 60, y: 40 }, SQUARE, 10);
-    expect(next).toEqual({ x: 100, y: 30 });
+  it("holds still against a wall when the pointer is level", () => {
+    const { position, blocked } = herd({ x: 100, y: 40 }, { x: 60, y: 40 }, SQUARE, 10);
+    expect(position).toEqual({ x: 100, y: 40 });
+    expect(blocked).toEqual({ x: 1, y: 0 });
   });
 
   it("holds still in a corner with the pointer inward on both axes", () => {
-    expect(herd({ x: 100, y: 100 }, { x: 80, y: 70 }, SQUARE, 10)).toEqual({ x: 100, y: 100 });
+    const { position, blocked } = herd({ x: 100, y: 100 }, { x: 80, y: 70 }, SQUARE, 10);
+    expect(position).toEqual({ x: 100, y: 100 });
+    expect(Math.hypot(blocked.x, blocked.y)).toBeCloseTo(1);
   });
 
   it("slides out of a corner when the pointer is outward on one axis", () => {
-    const next = herd({ x: 100, y: 100 }, { x: 80, y: 110 }, SQUARE, 10);
-    expect(next.x).toBe(100);
-    expect(next.y).toBeLessThan(100);
+    const { position } = herd({ x: 100, y: 100 }, { x: 80, y: 110 }, SQUARE, 10);
+    expect(position.x).toBe(100);
+    expect(position.y).toBeLessThan(100);
   });
 
   it("never leaves the bounds", () => {
-    const next = herd({ x: 95, y: 0 }, { x: 0, y: 0 }, SQUARE, 500);
-    expect(next.x).toBe(100);
+    const { position } = herd({ x: 95, y: 0 }, { x: 0, y: 0 }, SQUARE, 500);
+    expect(position.x).toBe(100);
   });
 });
 

@@ -4,15 +4,17 @@ import {
   CHEW_COUNT,
   CHEW_OPEN_SHARE,
   clingOffset,
+  contains,
   EAT_MS,
   envelope,
   HUNGRY_START,
   hungryModel,
-  preferredIndex,
+  OPINION_REACH,
   REST_MS,
   scream,
   SCREAM_MAX,
   shake,
+  steer,
 } from "./models";
 
 const FRAME = 16;
@@ -116,15 +118,29 @@ describe("envelope", () => {
   });
 });
 
-describe("preferredIndex", () => {
-  it("prefers the next button along, wrapping", () => {
-    expect(preferredIndex(0, 3)).toBe(1);
-    expect(preferredIndex(1, 3)).toBe(2);
-    expect(preferredIndex(2, 3)).toBe(0);
+describe("steer", () => {
+  const avoid = { x: 100, y: 100, w: 110, h: 40 };
+  const prefer = { x: 218, y: 100, w: 75, h: 40 };
+
+  it("never lands inside the avoided box while it is in reach", () => {
+    for (let x = avoid.x - OPINION_REACH; x <= avoid.x + avoid.w + OPINION_REACH; x += 5) {
+      for (let y = avoid.y - OPINION_REACH; y <= avoid.y + avoid.h + OPINION_REACH; y += 5) {
+        const goal = steer({ x, y }, avoid, prefer);
+        expect(goal).not.toBeNull();
+        expect(contains(avoid, goal!)).toBe(false);
+        expect(contains(prefer, goal!)).toBe(true);
+      }
+    }
   });
 
-  it("has no preference when nothing is near", () => {
-    expect(preferredIndex(-1, 3)).toBe(-1);
+  it("maps the edges of the reach onto the preferred box's inset edges", () => {
+    expect(steer({ x: 60, y: 60 }, avoid, prefer)).toEqual({ x: 224, y: 106 });
+    expect(steer({ x: 250, y: 180 }, avoid, prefer)).toEqual({ x: 287, y: 134 });
+  });
+
+  it("lets go outside the reach", () => {
+    expect(steer({ x: 59, y: 120 }, avoid, prefer)).toBeNull();
+    expect(steer({ x: 251, y: 120 }, avoid, prefer)).toBeNull();
   });
 });
 

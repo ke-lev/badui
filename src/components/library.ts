@@ -11,7 +11,9 @@ import type { ComponentMeta, SwitchState } from "./meta";
 export const CATEGORIES = [
   { id: "buttons", label: "Buttons" },
   { id: "inputs", label: "Inputs" },
+  { id: "sliders", label: "Sliders" },
   { id: "cursor", label: "Cursor" },
+  { id: "experiments", label: "Experiments" },
   { id: "buddies", label: "Cursor buddies" },
   { id: "navigation", label: "Navigation" },
   { id: "feedback", label: "Feedback" },

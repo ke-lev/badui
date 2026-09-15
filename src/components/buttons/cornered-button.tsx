@@ -36,7 +36,7 @@ const MIN_PRESSURE = 0.001; // below this the push is nothing
 const STIFFNESS = 1000;
 const DAMPING = dampingFor(STIFFNESS, 0.6);
 const PRESS_SQUASH = 5;
-// Held in a corner, the push compresses it into the walls instead.
+// Pushed into a wall, the blocked part of the push compresses it there instead.
 const MAX_SQUISH = 0.3;
 
 export function CorneredButton() {
@@ -75,23 +75,21 @@ export function CorneredButton() {
       alarmAt = now;
     }
 
-    /** Moves the target; returns whether it moved and how hard it is pinned. */
+    /** Moves the target; returns whether it moved and how hard walls pin it. */
     function push(dt: number, now: number): { moved: boolean; pinned: number } {
       if (!pointer) return { moved: false, pinned: 0 };
       const closeness = Math.max(0, 1 - gapTo(pointer, target, half) / RADIUS);
       const pressure = closeness * closeness * alarmLevel(now);
       if (pressure < MIN_PRESSURE) return { moved: false, pinned: 0 };
-      const next = herd(target, pointer, bounds, MAX_SPEED * pressure * dt);
-      if (next.x !== target.x || next.y !== target.y) {
-        target = next;
-        return { moved: true, pinned: 0 };
-      }
-      const dx = target.x - pointer.x;
-      const dy = target.y - pointer.y;
-      const length = Math.hypot(dx, dy);
-      if (length > 0) body.travel = { x: dx / length, y: dy / length };
+      const { position, blocked } = herd(target, pointer, bounds, MAX_SPEED * pressure * dt);
+      const moved = position.x !== target.x || position.y !== target.y;
+      target = position;
+      // The part of the push aimed into a wall compresses it against that wall.
+      const force = Math.hypot(blocked.x, blocked.y);
+      if (force === 0) return { moved, pinned: 0 };
+      body.travel = { x: blocked.x / force, y: blocked.y / force };
       anchored = true;
-      return { moved: false, pinned: pressure };
+      return { moved, pinned: pressure * force };
     }
 
     function tick(now: number) {
@@ -240,9 +238,9 @@ export const corneredButtonMeta: ComponentMeta = {
   summary:
     "A Confirm button pushed directly away from a moving pointer, harder the " +
     "closer and faster the pointer comes. A pointer that moves slowly enough " +
-    "does not push it. Against a wall the push turns along the wall, toward the " +
-    "side farther from the pointer. In a corner, with the pointer inward of it on " +
-    "both axes, it stays where it is and compresses into the walls.",
+    "does not push it. Against a wall, the part of the push aimed into the wall " +
+    "compresses the button against it and only the part along the wall moves " +
+    "it; pushed squarely into a wall or a corner, it stays where it is.",
   usage: "<CorneredButton />",
   prompt: corneredButtonPrompt,
   notes:
@@ -251,8 +249,9 @@ export const corneredButtonMeta: ComponentMeta = {
     "speed, averaged over 80 ms, raises none of it below 30 pixels per second " +
     "and all of it at 180; the alarm then decays with a 0.6-second time " +
     "constant. A press that arrives without a prior pointer position raises it " +
-    "fully. Cornered, the button compresses by up to 30% along the push, its " +
-    "wall-side edge held in place. The button trails the push on a spring and " +
+    "fully. Pushed into a wall, the button compresses by up to 30% toward it, in " +
+    "proportion to the share of the push aimed into it, its wall-side edge held " +
+    "in place. The button trails the push on a spring and " +
     "squashes where it meets a wall. Presses count from any input, in a polite " +
     "live region. Under prefers-reduced-motion it follows the push directly, " +
     "with no compression.",

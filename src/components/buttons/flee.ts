@@ -98,43 +98,37 @@ export function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }
 
-// Within half a pixel, the pointer counts as level with the box on that axis.
-const LEVEL = 0.5;
-
 /**
  * One step of being pushed `distance` directly away from the pointer, inside
- * `bounds`. Where the push would drive into a wall, that part of it is turned
- * along the wall instead: toward the side farther from the pointer, or the
- * roomier side when the pointer is level. Only two walls at once — a corner,
- * with the pointer inward of it on both axes — leave it nowhere to go.
+ * `bounds`. Where the push drives into a wall already reached, that part of it
+ * goes nowhere: `blocked` is the share of the unit push pressing into walls,
+ * per axis, and only the rest moves the position.
  */
-export function herd(position: Point, pointer: Point, bounds: Bounds, distance: number): Point {
+export function herd(
+  position: Point,
+  pointer: Point,
+  bounds: Bounds,
+  distance: number,
+): { position: Point; blocked: Point } {
   const [minX, maxX] = span(bounds.minX, bounds.maxX);
   const [minY, maxY] = span(bounds.minY, bounds.maxY);
   const dx = position.x - pointer.x;
   const dy = position.y - pointer.y;
   const length = Math.hypot(dx, dy);
 
-  let mx = length > 0 ? (dx / length) * distance : roomier(position.x, minX, maxX) * distance;
-  let my = length > 0 ? (dy / length) * distance : 0;
+  const ux = length > 0 ? dx / length : roomier(position.x, minX, maxX);
+  const uy = length > 0 ? dy / length : 0;
 
-  const blockedX = (mx > 0 && position.x >= maxX) || (mx < 0 && position.x <= minX);
-  const blockedY = (my > 0 && position.y >= maxY) || (my < 0 && position.y <= minY);
+  const blockedX = (ux > 0 && position.x >= maxX) || (ux < 0 && position.x <= minX);
+  const blockedY = (uy > 0 && position.y >= maxY) || (uy < 0 && position.y <= minY);
 
-  if (blockedX && blockedY) return position;
-  if (blockedX) {
-    my += sideOf(dy, position.y, minY, maxY) * Math.abs(mx);
-    mx = 0;
-  } else if (blockedY) {
-    mx += sideOf(dx, position.x, minX, maxX) * Math.abs(my);
-    my = 0;
-  }
-
-  return { x: clamp(position.x + mx, minX, maxX), y: clamp(position.y + my, minY, maxY) };
-}
-
-function sideOf(delta: number, value: number, min: number, max: number): number {
-  return Math.abs(delta) > LEVEL ? Math.sign(delta) : roomier(value, min, max);
+  return {
+    position: {
+      x: blockedX ? position.x : clamp(position.x + ux * distance, minX, maxX),
+      y: blockedY ? position.y : clamp(position.y + uy * distance, minY, maxY),
+    },
+    blocked: { x: blockedX ? ux : 0, y: blockedY ? uy : 0 },
+  };
 }
 
 function roomier(value: number, min: number, max: number): number {

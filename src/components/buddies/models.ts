@@ -154,9 +154,32 @@ export function hungryModel() {
 export const OPINION_REACH = 40;
 export const SHIFT_STIFFNESS = 120;
 
-/** The button after the nearest one, wrapping; -1 when nothing is near. */
-export function preferredIndex(nearest: number, count: number): number {
-  return nearest < 0 || count < 1 ? -1 : (nearest + 1) % count;
+/** An inset that keeps a steered point clear of the preferred box's edges. */
+export const STEER_INSET = 6;
+
+export function contains(box: Box, point: Point): boolean {
+  return point.x >= box.x && point.x <= box.x + box.w && point.y >= box.y && point.y <= box.y + box.h;
+}
+
+/**
+ * Where the drawn pointer belongs while the real one is within OPINION_REACH of
+ * `avoid`: the same relative spot inside `prefer`. Null when `avoid` is out of reach.
+ */
+export function steer(real: Point, avoid: Box, prefer: Box): Point | null {
+  const zone = {
+    x: avoid.x - OPINION_REACH,
+    y: avoid.y - OPINION_REACH,
+    w: avoid.w + OPINION_REACH * 2,
+    h: avoid.h + OPINION_REACH * 2,
+  };
+  if (!contains(zone, real)) return null;
+  const inset = Math.min(STEER_INSET, prefer.w / 2, prefer.h / 2);
+  const tx = (real.x - zone.x) / zone.w;
+  const ty = (real.y - zone.y) / zone.h;
+  return {
+    x: prefer.x + inset + tx * (prefer.w - inset * 2),
+    y: prefer.y + inset + ty * (prefer.h - inset * 2),
+  };
 }
 
 /* Screaming */

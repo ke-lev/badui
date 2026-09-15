@@ -15,6 +15,11 @@
   touch-action: manipulation;
 }
 
+.mitosisArena {
+  min-height: 200px;
+  overflow: hidden;
+}
+
 /* Centred by CSS so the server render is already at rest; the effects write
    the whole transform from then on, starting with the same translate. */
 .button {
@@ -55,6 +60,51 @@
 .button svg {
   width: 12px;
   height: 12px;
+}
+
+/* Positioned entirely by transform; only an in-flight split promotes a layer. */
+.mitosisCell {
+  will-change: auto;
+}
+
+.gooFilter {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Blobs shadow each splitting pair. The blur and alpha threshold fuse them
+   while they are close, which draws the neck. */
+.goo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.blob,
+.neck {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--inverse);
+}
+
+.blob {
+  border-radius: 5px;
+}
+
+.neck {
+  border-radius: 50%;
+}
+
+.mitosisReadout {
+  gap: 18px;
+}
+
+.mitosisReadout > span {
+  display: flex;
+  gap: 7px;
 }
 
 .shrinking {

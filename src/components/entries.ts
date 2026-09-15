@@ -4,12 +4,14 @@ import { OpinionatedBuddy, opinionatedBuddyMeta } from "@/components/buddies/opi
 import { ScreamingBuddy, screamingBuddyMeta } from "@/components/buddies/screaming-buddy";
 import { ClassicRunaway, classicRunawayMeta } from "@/components/buttons/classic-runaway";
 import { CorneredButton, corneredButtonMeta } from "@/components/buttons/cornered-button";
+import { MitosisButton, mitosisButtonMeta } from "@/components/buttons/mitosis-button";
 import { PersonalSpace, personalSpaceMeta } from "@/components/buttons/personal-space";
 import { ShrinkingButton, shrinkingButtonMeta } from "@/components/buttons/shrinking-button";
 import { DelayedPointer, delayedPointerMeta } from "@/components/cursor/delayed-pointer";
 import { HeavyPointer, heavyPointerMeta } from "@/components/cursor/heavy-pointer";
 import { MirroredPointer, mirroredPointerMeta } from "@/components/cursor/mirrored-pointer";
 import { NearestTarget, nearestTargetMeta } from "@/components/cursor/nearest-target";
+import { FogOfWar, fogOfWarMeta } from "@/components/experiments/fog-of-war";
 import { SaveButton, saveButtonMeta } from "@/components/feedback/save-button";
 import { UndoToast, undoToastMeta } from "@/components/feedback/undo-toast";
 import { UploadProgress, uploadProgressMeta } from "@/components/feedback/upload-progress";
@@ -22,6 +24,12 @@ import type { LibraryEntry } from "@/components/library";
 import { Breadcrumbs, breadcrumbsMeta } from "@/components/navigation/breadcrumbs";
 import { Pagination, paginationMeta } from "@/components/navigation/pagination";
 import { TabBar, tabBarMeta } from "@/components/navigation/tab-bar";
+import { Brightness, brightnessMeta } from "@/components/sliders/brightness";
+import { DatePicker, datePickerMeta } from "@/components/sliders/date-picker";
+import { PointerSpeed, pointerSpeedMeta } from "@/components/sliders/pointer-speed";
+import { PriceRange, priceRangeMeta } from "@/components/sliders/price-range";
+import { Thermostat, thermostatMeta } from "@/components/sliders/thermostat";
+import { TipSlider, tipSliderMeta } from "@/components/sliders/tip-slider";
 import {
   CheckboxGroup,
   checkboxGroupMeta,
@@ -31,8 +39,6 @@ import {
   passwordFieldMeta,
 } from "@/components/specimens/form-specimens";
 import {
-  DatePicker,
-  datePickerMeta,
   PhoneNumber,
   phoneNumberMeta,
   VolumeControl,
@@ -46,13 +52,13 @@ import {
  */
 export const entries: LibraryEntry[] = [
   { id: "volume-control", component: VolumeControl, meta: volumeControlMeta },
-  { id: "date-picker", component: DatePicker, meta: datePickerMeta },
   { id: "password-field", component: PasswordField, meta: passwordFieldMeta },
   { id: "checkboxes", component: CheckboxGroup, meta: checkboxGroupMeta },
   { id: "phone-number", component: PhoneNumber, meta: phoneNumberMeta },
   { id: "confirmation-dialog", component: ConfirmDialog, meta: confirmDialogMeta },
   { id: "classic-runaway", component: ClassicRunaway, meta: classicRunawayMeta },
   { id: "cornered", component: CorneredButton, meta: corneredButtonMeta },
+  { id: "mitosis", component: MitosisButton, meta: mitosisButtonMeta },
   { id: "shrinking", component: ShrinkingButton, meta: shrinkingButtonMeta },
   { id: "personal-space", component: PersonalSpace, meta: personalSpaceMeta },
   { id: "quantity", component: QuantityStepper, meta: quantityStepperMeta },
@@ -60,10 +66,17 @@ export const entries: LibraryEntry[] = [
   { id: "leading-caret", component: LeadingCaret, meta: leadingCaretMeta },
   { id: "sorted-email", component: SortedEmail, meta: sortedEmailMeta },
   { id: "one-time-code", component: OneTimeCode, meta: oneTimeCodeMeta },
+  { id: "date-picker", component: DatePicker, meta: datePickerMeta },
+  { id: "brightness", component: Brightness, meta: brightnessMeta },
+  { id: "tip", component: TipSlider, meta: tipSliderMeta },
+  { id: "thermostat", component: Thermostat, meta: thermostatMeta },
+  { id: "pointer-speed", component: PointerSpeed, meta: pointerSpeedMeta },
+  { id: "price-range", component: PriceRange, meta: priceRangeMeta },
   { id: "mirrored-pointer", component: MirroredPointer, meta: mirroredPointerMeta },
   { id: "delayed-pointer", component: DelayedPointer, meta: delayedPointerMeta },
   { id: "heavy-pointer", component: HeavyPointer, meta: heavyPointerMeta },
   { id: "nearest-target", component: NearestTarget, meta: nearestTargetMeta },
+  { id: "fog-of-war", component: FogOfWar, meta: fogOfWarMeta },
   { id: "hungry-buddy", component: HungryBuddy, meta: hungryBuddyMeta },
   { id: "opinionated-buddy", component: OpinionatedBuddy, meta: opinionatedBuddyMeta },
   { id: "screaming-buddy", component: ScreamingBuddy, meta: screamingBuddyMeta },

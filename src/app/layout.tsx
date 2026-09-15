@@ -26,7 +26,7 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   title: "badui",
   description: "a working collection of intentionally bad ui components",
-  icons: { icon: "/icon.svg" },
+  icons: { icon: "/pointer.png" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

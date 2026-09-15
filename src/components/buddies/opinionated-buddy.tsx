@@ -10,21 +10,18 @@ import type { ComponentMeta } from "@/components/meta";
 import styles from "./buddies.module.css";
 import {
   around,
+  contains,
   envelope,
   LOCKED_RADIUS,
   OPINION_REACH,
   padded,
-  preferredIndex,
   SHIFT_STIFFNESS,
+  steer,
 } from "./models";
 import { opinionatedBuddyPrompt } from "./opinionated-buddy.prompt";
 import { paintEnvelope, placeTab, relative } from "./paint";
 
-const CHOICES = ["Keep", "Archive", "Delete"] as const;
-
-function centre(rect: DOMRect): Point {
-  return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
-}
+const CHOICES = ["Unsubscribe", "Cancel"] as const;
 
 export function OpinionatedBuddy() {
   const [pressed, setPressed] = useState<string | null>(null);
@@ -58,16 +55,16 @@ export function OpinionatedBuddy() {
       const bounds = area!.getBoundingClientRect();
       const boxes = buttons.map((button) => button.getBoundingClientRect());
 
-      let preferred = -1;
+      const avoid = relative(boxes[0], bounds);
+      const prefer = relative(boxes[1], bounds);
+      let locked = false;
       let goal: Point = { x: 0, y: 0 };
       if (real) {
-        const nearest = nearestIndex({ x: bounds.left + real.x, y: bounds.top + real.y }, boxes, OPINION_REACH);
-        preferred = preferredIndex(nearest, boxes.length);
-        if (preferred >= 0) {
-          const from = centre(boxes[nearest]);
-          const to = centre(boxes[preferred]);
-          goal = { x: to.x - from.x, y: to.y - from.y };
-        }
+        const target = steer(real, avoid, prefer);
+        if (target) goal = { x: target.x - real.x, y: target.y - real.y };
+        locked =
+          target !== null ||
+          nearestIndex({ x: bounds.left + real.x, y: bounds.top + real.y }, boxes, OPINION_REACH) >= 0;
       }
       if (reduced) {
         shift.x.value = goal.x;
@@ -77,7 +74,14 @@ export function OpinionatedBuddy() {
         advance(shift.y, goal.y, dt, SHIFT_STIFFNESS, damping);
       }
 
-      const drawn = real && { x: real.x + shift.x.value, y: real.y + shift.y.value };
+      let drawn = real && { x: real.x + shift.x.value, y: real.y + shift.y.value };
+      // The slide never carries the pointer across Unsubscribe; it jumps to the goal instead.
+      if (real && drawn && contains(avoid, drawn)) {
+        shift.x.value = goal.x;
+        shift.y.value = goal.y;
+        shift.x.velocity = shift.y.velocity = 0;
+        drawn = { x: real.x + goal.x, y: real.y + goal.y };
+      }
       pointer!.style.visibility = drawn ? "visible" : "hidden";
       if (drawn) pointer!.style.transform = `translate3d(${drawn.x}px, ${drawn.y}px, 0)`;
 
@@ -90,9 +94,8 @@ export function OpinionatedBuddy() {
         : -1;
       buttons.forEach((button, index) => button.toggleAttribute("data-hover", index === hovered));
 
-      const locked = preferred >= 0;
       if (drawn) {
-        cuff.step(locked ? padded(relative(boxes[preferred], bounds)) : around(drawn), locked, dt);
+        cuff.step(locked ? padded(prefer) : around(drawn), locked, dt);
         paintEnvelope(cuffEl!, cuff.box(), locked ? LOCKED_RADIUS : undefined);
         placeTab(tab!, cuff.box(), bounds);
       }
@@ -151,12 +154,14 @@ export function OpinionatedBuddy() {
         ref={areaRef}
         data-sidekick="opinionated-buddy"
       >
-        <div className={styles.row} ref={rowRef} role="group" aria-label="Message actions">
+        <div className={styles.row} ref={rowRef} role="group" aria-label="Subscription actions">
           {CHOICES.map((choice) => (
             <button
               key={choice}
               type="button"
-              className={`${buttonStyles.button} ${cursorStyles.target} ${styles.choice}`}
+              className={`${buttonStyles.button} ${cursorStyles.target} ${styles.choice} ${
+                choice === "Unsubscribe" ? styles.danger : ""
+              }`}
               onClick={() => setPressed(choice)}
             >
               {choice}
@@ -186,14 +191,16 @@ export const opinionatedBuddyMeta: ComponentMeta = {
   kind: "hostile",
   category: "buddies",
   summary:
-    "A companion that, whenever the pointer is within 40 pixels of one of three " +
-    "buttons, wraps the next button along instead and slides the drawn pointer onto " +
-    "it. Keep leads to Archive, Archive to Delete, and Delete back to Keep.",
+    "A companion that, whenever the pointer is within 40 pixels of either of two " +
+    "buttons, wraps Cancel. Anywhere within 40 pixels of Unsubscribe, the drawn " +
+    "pointer is carried to the matching spot inside Cancel, and it never rests on " +
+    "or passes over Unsubscribe.",
   usage: "<OpinionatedBuddy />",
   prompt: opinionatedBuddyPrompt,
   notes:
     "The system pointer is hidden and redrawn at the real position plus a shift that " +
-    "springs, critically damped, between button centres. A click presses whichever " +
+    "springs, critically damped, toward its goal; if the spring would put the drawn " +
+    "pointer inside Unsubscribe, the shift jumps to the goal. A click presses whichever " +
     "button the drawn pointer is over. The buttons are native and grouped; Tab, " +
     "Enter, and Space operate them directly. The last button pressed is announced in " +
     "a polite live region.",
