@@ -13,11 +13,11 @@ export const CATEGORIES = [
   { id: "inputs", label: "Inputs" },
   { id: "sliders", label: "Sliders" },
   { id: "cursor", label: "Cursor" },
-  { id: "experiments", label: "Experiments" },
   { id: "buddies", label: "Cursor buddies" },
   { id: "navigation", label: "Navigation" },
   { id: "feedback", label: "Feedback" },
   { id: "specimens", label: "Specimens" },
+  { id: "experiments", label: "Experiments" },
 ] as const;
 
 export type CategoryId = (typeof CATEGORIES)[number]["id"];

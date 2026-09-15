@@ -76,7 +76,6 @@ export const entries: LibraryEntry[] = [
   { id: "delayed-pointer", component: DelayedPointer, meta: delayedPointerMeta },
   { id: "heavy-pointer", component: HeavyPointer, meta: heavyPointerMeta },
   { id: "nearest-target", component: NearestTarget, meta: nearestTargetMeta },
-  { id: "fog-of-war", component: FogOfWar, meta: fogOfWarMeta },
   { id: "hungry-buddy", component: HungryBuddy, meta: hungryBuddyMeta },
   { id: "opinionated-buddy", component: OpinionatedBuddy, meta: opinionatedBuddyMeta },
   { id: "screaming-buddy", component: ScreamingBuddy, meta: screamingBuddyMeta },
@@ -87,4 +86,5 @@ export const entries: LibraryEntry[] = [
   { id: "upload-progress", component: UploadProgress, meta: uploadProgressMeta },
   { id: "undo-toast", component: UndoToast, meta: undoToastMeta },
   { id: "save-button", component: SaveButton, meta: saveButtonMeta },
+  { id: "fog-of-war", component: FogOfWar, meta: fogOfWarMeta },
 ];
