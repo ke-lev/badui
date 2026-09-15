@@ -8,17 +8,17 @@ import { Readout } from "./parts";
 import { shrinkingButtonPrompt } from "./shrinking-button.prompt";
 import styles from "./buttons.module.css";
 
-const FAR = 16; // full size with the pointer this far from its edge, or farther
+export const FAR = 16; // full size with the pointer this far from its edge, or farther
 const NEAR = 1; // smallest with the pointer this close, or closer
 const MIN_SIZE = 3;
-const LABEL_FADE = 0.35; // the label is gone by this much of the shrink
+export const LABEL_FADE = 0.35; // the label is gone by this much of the shrink
 
 // Width and height shrink on separate springs. Height is stiffer and leads, so
 // the button narrows through a pill on the way down and fattens on the way up.
-const HEIGHT_STIFFNESS = 1100;
-const WIDTH_STIFFNESS = 650;
-const RATIO = 0.6;
-const EPSILON = 0.0005;
+export const HEIGHT_STIFFNESS = 1100;
+export const WIDTH_STIFFNESS = 650;
+export const RATIO = 0.6;
+export const EPSILON = 0.0005;
 
 export function ShrinkingButton() {
   const [presses, setPresses] = useState(0);

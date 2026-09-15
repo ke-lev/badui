@@ -58,10 +58,7 @@
 
 .tab:focus-visible,
 .panel:focus-visible,
-.pageButton:focus-visible,
-.crumbButton:focus-visible,
-.folderButton:focus-visible,
-.folderTitle:focus-visible {
+.pageButton:focus-visible {
   outline: 2px solid var(--accent-line);
   outline-offset: 2px;
 }
@@ -158,121 +155,9 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Breadcrumbs */
-
-.trail {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 12px;
-}
-
-.trail li {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.separator {
-  color: var(--border-strong);
-  padding: 0 2px;
-}
-
-.crumbButton {
-  min-height: 30px;
-  padding: 4px 6px;
-  border: 0;
-  border-radius: 4px;
-  background: transparent;
-  color: var(--accent-ink);
-  font: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--border-hover);
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
-
-.crumbButton:hover {
-  background: var(--hover);
-  text-decoration-color: currentColor;
-}
-
-.crumbCurrent {
-  padding: 4px 6px;
-  font-weight: 500;
-}
-
-.folderHead {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 14px;
-  padding: 0 2px 10px;
-  border-bottom: 1px solid var(--border);
-}
-
-.folderTitle {
-  margin: 0;
-  border-radius: 3px;
-  font-size: 19px;
-  font-weight: 500;
-  letter-spacing: -0.5px;
-}
-
-.folders {
-  display: grid;
-  align-content: start;
-  gap: 4px;
-  min-height: 132px;
-  margin: 10px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.folderButton {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  min-height: 40px;
-  padding: 6px 12px;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  background: var(--field);
-  color: var(--foreground);
-  font: inherit;
-  font-size: 13px;
-  text-align: left;
-  cursor: pointer;
-  transition: background 140ms ease, border-color 140ms ease;
-}
-
-.folderButton:hover {
-  border-color: var(--border-strong);
-  background: var(--surface-raised);
-}
-
-.folderIcon {
-  flex: none;
-  color: var(--accent-muted);
-}
-
-.empty {
-  margin: 0;
-  padding: 12px 2px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .tab,
-  .pageButton,
-  .folderButton {
+  .pageButton {
     transition: none;
   }
 }

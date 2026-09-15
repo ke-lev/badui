@@ -1,3 +1,4 @@
+import { BTC_CLOSES, BTC_FIRST_DAY } from "./btc-closes";
 import { PI_DIGITS } from "./pi-digits";
 
 export function clamp(value: number, min: number, max: number): number {
@@ -36,6 +37,61 @@ export function speakEquation({ a, b, c, d }: Equation): string {
   return `${side(a, b, "plus", "minus")} equals ${side(c, d, "plus", "minus")}`;
 }
 
+/** Brightness per percent of daily price change, either side of 50. */
+export const BRIGHTNESS_PER_PERCENT = 10;
+
+export const BTC_LAST_DAY = BTC_CLOSES.length - 1;
+
+/** The Catmull-Rom tangent at a whole day, in dollars per day. */
+function closeTangent(day: number): number {
+  if (day === 0) return BTC_CLOSES[1] - BTC_CLOSES[0];
+  if (day === BTC_LAST_DAY) return BTC_CLOSES[day] - BTC_CLOSES[day - 1];
+  return (BTC_CLOSES[day + 1] - BTC_CLOSES[day - 1]) / 2;
+}
+
+function segment(x: number) {
+  const day = Math.min(BTC_LAST_DAY - 1, Math.floor(x));
+  return { day, t: x - day };
+}
+
+/** The price at x days, on a cubic Hermite curve through the daily closes. */
+export function priceAt(x: number): number {
+  const { day, t } = segment(x);
+  const t2 = t * t;
+  const t3 = t2 * t;
+  return (
+    (2 * t3 - 3 * t2 + 1) * BTC_CLOSES[day] +
+    (t3 - 2 * t2 + t) * closeTangent(day) +
+    (-2 * t3 + 3 * t2) * BTC_CLOSES[day + 1] +
+    (t3 - t2) * closeTangent(day + 1)
+  );
+}
+
+/** The slope of that curve at x, in dollars per day. */
+export function slopeAt(x: number): number {
+  const { day, t } = segment(x);
+  const t2 = t * t;
+  return (
+    (6 * t2 - 6 * t) * BTC_CLOSES[day] +
+    (3 * t2 - 4 * t + 1) * closeTangent(day) +
+    (-6 * t2 + 6 * t) * BTC_CLOSES[day + 1] +
+    (3 * t2 - 2 * t) * closeTangent(day + 1)
+  );
+}
+
+export function brightnessAt(x: number): number {
+  const percentPerDay = (100 * slopeAt(x)) / priceAt(x);
+  return Math.round(clamp(50 + BRIGHTNESS_PER_PERCENT * percentPerDay, 0, 100));
+}
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/** The UTC date of the day containing x, as "14 Mar 2026". */
+export function formatDay(x: number): string {
+  const date = new Date(BTC_FIRST_DAY + Math.floor(x) * 86_400_000);
+  return `${date.getUTCDate()} ${MONTHS[date.getUTCMonth()]} ${date.getUTCFullYear()}`;
+}
+
 /* Tip */
 
 /** The last step: every pair from 00 to 99 has appeared by here. */
@@ -47,7 +103,7 @@ export function tipAt(position: number): number {
 }
 
 /** The digits of π around a step's pair, padded so the pair stays centred. */
-export function digitWindow(position: number, reach = 7) {
+export function digitWindow(position: number, reach = 10) {
   const full = `3.${PI_DIGITS}`;
   const at = position + 2;
   return {
@@ -126,19 +182,4 @@ export function nudgeSpeed(speed: number, direction: 1 | -1): number {
 
 export function roundSpeed(speed: number): number {
   return Math.round(speed * 10) / 10;
-}
-
-/* Price range */
-
-export const PRICE_MAX = 500;
-export const PRICE_STEP = 10;
-
-/** The minimum, kept at least one step below the maximum. */
-export function lowerPrice(value: number, high: number): number {
-  return Math.min(value, high - PRICE_STEP);
-}
-
-/** The maximum, kept at least one step above the minimum. */
-export function upperPrice(value: number, low: number): number {
-  return Math.max(value, low + PRICE_STEP);
 }

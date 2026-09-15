@@ -23,14 +23,14 @@ describe("buildLibrary", () => {
 
   it("keeps entries of one category in the order they were declared", () => {
     const sections = buildLibrary([
-      entry("volume-control", "specimens"),
-      entry("date-picker", "specimens"),
-      entry("phone-number", "specimens"),
+      entry("password-field", "inputs"),
+      entry("checkboxes", "inputs"),
+      entry("phone-number", "inputs"),
     ]);
-    const specimens = sections.find((section) => section.id === "specimens")!;
-    expect(specimens.entries.map((item) => item.id)).toEqual([
-      "volume-control",
-      "date-picker",
+    const inputs = sections.find((section) => section.id === "inputs")!;
+    expect(inputs.entries.map((item) => item.id)).toEqual([
+      "password-field",
+      "checkboxes",
       "phone-number",
     ]);
   });
@@ -43,7 +43,7 @@ describe("buildLibrary", () => {
 
   it("carries the display label for each section", () => {
     const sections = buildLibrary([]);
-    expect(sections.find((section) => section.id === "specimens")!.label).toBe("Specimens");
+    expect(sections.find((section) => section.id === "feedback")!.label).toBe("Feedback");
   });
 });
 

@@ -1,21 +1,25 @@
 import { describe, expect, it } from "vitest";
+import { BTC_CLOSES } from "./btc-closes";
 import { PI_DIGITS } from "./pi-digits";
 import {
+  brightnessAt,
+  BTC_LAST_DAY,
   coast,
   digitWindow,
   equationFor,
+  formatDay,
   formatEquation,
   LOOSE_MAX_SPEED,
-  lowerPrice,
   nudgeSpeed,
+  priceAt,
   releaseVelocity,
   roundSpeed,
   scaleSpeed,
+  slopeAt,
   speakEquation,
   thermostatValue,
   TIP_LAST,
   tipAt,
-  upperPrice,
 } from "./rules";
 
 describe("equationFor", () => {
@@ -39,6 +43,47 @@ describe("equationFor", () => {
 
   it("speaks the operators", () => {
     expect(speakEquation(equationFor(0))).toBe("3x minus 9 equals 2x minus 9");
+  });
+});
+
+describe("brightness curve", () => {
+  it("passes through every daily close", () => {
+    for (let day = 0; day <= BTC_LAST_DAY; day++) {
+      expect(priceAt(day), `day ${day}`).toBeCloseTo(BTC_CLOSES[day], 6);
+    }
+  });
+
+  it("gives the derivative of the curve as its slope", () => {
+    for (let day = 0; day < BTC_LAST_DAY; day++) {
+      const x = day + 0.37;
+      const numeric = (priceAt(x + 1e-4) - priceAt(x - 1e-4)) / 2e-4;
+      expect(slopeAt(x), `x = ${x}`).toBeCloseTo(numeric, 1);
+    }
+  });
+
+  it("keeps the curve inside the plot", () => {
+    for (let i = 0; i <= BTC_LAST_DAY * 100; i++) {
+      const price = priceAt(i / 100);
+      expect(price).toBeGreaterThan(50_000);
+      expect(price).toBeLessThan(130_000);
+    }
+  });
+
+  it("reaches every brightness at hundredth-of-a-day steps", () => {
+    const reached = new Set<number>();
+    for (let i = 0; i <= BTC_LAST_DAY * 100; i++) reached.add(brightnessAt(i / 100));
+    expect(reached.size).toBe(101);
+  });
+
+  it("starts at 63 on 14 March 2026", () => {
+    expect(brightnessAt(180)).toBe(63);
+    expect(formatDay(180)).toBe("14 Mar 2026");
+  });
+
+  it("dates the first and last days", () => {
+    expect(formatDay(0)).toBe("15 Sep 2025");
+    expect(formatDay(BTC_LAST_DAY)).toBe("14 Sep 2026");
+    expect(formatDay(0.99)).toBe("15 Sep 2025");
   });
 });
 
@@ -77,8 +122,8 @@ describe("tip", () => {
   });
 
   it("centres the pair in its strip of digits", () => {
-    expect(digitWindow(0)).toEqual({ before: " ".repeat(5) + "3.", pair: "14", after: "1592653" });
-    expect(digitWindow(TIP_LAST).after).toBe(" ".repeat(7));
+    expect(digitWindow(0)).toEqual({ before: " ".repeat(8) + "3.", pair: "14", after: "1592653589" });
+    expect(digitWindow(TIP_LAST).after).toBe(" ".repeat(10));
   });
 });
 
@@ -157,14 +202,5 @@ describe("pointer speed", () => {
     expect(nudgeSpeed(2.2, -1)).toBeCloseTo(2);
     expect(roundSpeed(1.04)).toBe(1);
     expect(roundSpeed(1.06)).toBe(1.1);
-  });
-});
-
-describe("price range", () => {
-  it("keeps the thumbs a step apart", () => {
-    expect(lowerPrice(200, 320)).toBe(200);
-    expect(lowerPrice(400, 320)).toBe(310);
-    expect(upperPrice(400, 80)).toBe(400);
-    expect(upperPrice(50, 80)).toBe(90);
   });
 });

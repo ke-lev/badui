@@ -30,6 +30,19 @@ export const PUSH_WIDTH = 0.5;
 /** Spring constants for a dot's offset from its lattice point. */
 export const DOT_STIFFNESS = 170;
 export const DOT_DAMPING_RATIO = 0.55;
+/** Seconds the fog takes to move between Fog and Spray. */
+export const MODE_DURATION = 0.3;
+/** Spray: the brush's radius as a fraction of the light's. */
+export const BRUSH_RATIO = 0.7;
+/** Spray: map dots laid per CSS pixel the pointer moves. */
+export const SPRAY_RATE = 1.2;
+/** Spray: spring constants for a map dot's scale as it lands or leaves. */
+export const POP_STIFFNESS = 260;
+export const POP_DAMPING_RATIO = 0.45;
+/** Spray: distance, in brush radii, past which a laid dot leaves. */
+export const FORGET_REACH = 2.5;
+/** Spray: each dot's forget distance is scaled by a fixed factor between 1 − SPREAD / 2 and 1 + SPREAD / 2. */
+export const FORGET_SPREAD = 0.4;
 
 export function clamp01(value: number): number {
   return Math.min(1, Math.max(0, value));
@@ -84,9 +97,57 @@ export function dotClarity(lit: number, remembered: number): number {
   return clamp01(Math.max(lit, remembered * MEMORY_CLARITY));
 }
 
+/** Moves the Fog-to-Spray mix linearly toward `target`, taking MODE_DURATION end to end. */
+export function stepMix(mix: number, target: number, dt: number): number {
+  const change = Math.max(0, dt) / MODE_DURATION;
+  return mix < target ? Math.min(target, mix + change) : Math.max(target, mix - change);
+}
+
+/** The mix eased in and out, as drawn. */
+export function easeMix(mix: number): number {
+  const t = clamp01(mix);
+  return t * t * (3 - 2 * t);
+}
+
 /** The radius of a dot of the given clarity. */
 export function coverRadius(clarity: number): number {
   return (1 - clamp01(clarity)) * COVER_RADIUS;
+}
+
+/** The radius of a laid map dot at the given scale; the scale may overshoot 1 as it lands. */
+export function mapDotRadius(scale: number): number {
+  return Math.max(0, scale) * COVER_RADIUS;
+}
+
+/** The spray brush's radius for a given light radius. */
+export function brushRadius(light: number): number {
+  return light * BRUSH_RATIO;
+}
+
+/**
+ * How many dots a move of `distance` pixels lays, carrying the fraction left
+ * over into the next move.
+ */
+export function sprayCount(distance: number, carry: number): { count: number; carry: number } {
+  const total = carry + Math.max(0, distance) * SPRAY_RATE;
+  const count = Math.floor(total);
+  return { count, carry: total - count };
+}
+
+/**
+ * Where one sprayed dot lands relative to the pointer, from two uniform random
+ * numbers in [0, 1). Distance from the pointer is linear in `u`, so the spray
+ * is densest at its centre.
+ */
+export function sprayOffset(u: number, v: number, brush: number): { x: number; y: number } {
+  const distance = brush * clamp01(u);
+  const angle = Math.PI * 2 * v;
+  return { x: distance * Math.cos(angle), y: distance * Math.sin(angle) };
+}
+
+/** How far the pointer may be from one laid dot before it leaves. */
+export function forgetDistance(brush: number, column: number, row: number): number {
+  return brush * FORGET_REACH * (1 - FORGET_SPREAD / 2 + FORGET_SPREAD * latticeHash(column + 911, row + 353));
 }
 
 /** The radius of the pip on a dot of the given clarity. */

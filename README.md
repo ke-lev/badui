@@ -19,7 +19,7 @@ npm start
 
 ## The collection
 
-Currently thirteen hostile entries and one benign, with the library open to more of both kinds.
+The library is open to more hostile and benign entries.
 
 - **Volume control:** a rotary dial that takes twelve and a half turns to reach 100%.
 - **Date picker:** every day from 1900 through 2026 on one slider.
@@ -30,11 +30,9 @@ Currently thirteen hostile entries and one benign, with the library open to more
 - **Classic runaway:** springs to the far side of its area when the pointer comes near, with switches for what sends it, whether it shivers, and whether it talks.
 - **Cornered:** pushed directly away from the pointer, sliding along walls it meets.
 - **Shrinking:** stays put and shrinks to a 3-pixel square as the pointer arrives.
-- **Quantity:** each step is ten percent of the current quantity, rounded.
 - **Letter-by-letter name:** one dropdown per letter, the alphabet listed by frequency in English.
 - **Leading caret:** the caret returns to the start of the field after every keystroke.
 - **Sorted email:** the address is sorted by character code as it is typed.
-- **One-time code** (benign): six cells over one input that takes typing, pasting, and SMS autofill.
 
 Each entry has an independent reset. **Reset all** restores the entire collection. State lives in memory; the forms do not submit data or create accounts.
 
@@ -55,7 +53,6 @@ Next.js 16 App Router, React 19, TypeScript, and Tailwind CSS v4. The page and l
 - `src/app/collection/page.tsx` — collection route
 - `src/components/site-chrome.tsx` — shared header and footer
 - `src/components/collection.tsx` — specimen roster, resets, and scroll reveals
-- `src/components/specimens/` — the working interfaces
 - `src/components/buttons/` — button entries and their shared motion
 - `src/components/entries.ts` — every entry; the index and the Talk lines are both built from it
 - `src/components/sidekick/` — the cursor companion, its two modes, and its control

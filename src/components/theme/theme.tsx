@@ -73,10 +73,7 @@ export function ThemeControl() {
 
   return (
     <fieldset className={styles.control}>
-      <legend className={sidekickStyles.legend}>
-        <span className={styles.mark} aria-hidden="true" />
-        <span className="sr-only">Theme</span>
-      </legend>
+      <legend className="sr-only">Theme</legend>
       {OPTIONS.map((option) => (
         <label className={sidekickStyles.option} key={option.value} data-sidekick={`theme-${option.value}`}>
           <input

@@ -11,8 +11,19 @@ import {
   PIP_FADE,
   PIP_RADIUS,
   PUSH_DISTANCE,
+  BRUSH_RATIO,
+  FORGET_REACH,
+  FORGET_SPREAD,
+  SPRAY_RATE,
+  brushRadius,
   coverRadius,
   dotClarity,
+  easeMix,
+  forgetDistance,
+  mapDotRadius,
+  sprayCount,
+  sprayOffset,
+  stepMix,
   halfLifeScale,
   lightRadius,
   memoryDecay,
@@ -71,6 +82,69 @@ describe("fog memory", () => {
     }
     expect(halfLifeScale(7, 3)).toBe(halfLifeScale(7, 3));
     expect(new Set(scales.map((scale) => scale.toFixed(3))).size).toBeGreaterThan(200);
+  });
+});
+
+describe("blur mix", () => {
+  it("crosses end to end in the blur duration and stops at its target", () => {
+    expect(stepMix(0, 1, 0.15)).toBeCloseTo(0.5);
+    expect(stepMix(0.5, 1, 0.15)).toBe(1);
+    expect(stepMix(1, 1, 0.15)).toBe(1);
+    expect(stepMix(1, 0, 0.15)).toBeCloseTo(0.5);
+    expect(stepMix(0.2, 0, 1)).toBe(0);
+    expect(stepMix(0.4, 1, 0)).toBe(0.4);
+  });
+
+  it("eases in and out", () => {
+    expect(easeMix(0)).toBe(0);
+    expect(easeMix(0.5)).toBe(0.5);
+    expect(easeMix(1)).toBe(1);
+    expect(easeMix(0.1)).toBeLessThan(0.1);
+    expect(easeMix(0.9)).toBeGreaterThan(0.9);
+  });
+});
+
+describe("spray", () => {
+  it("sizes the brush from the light", () => {
+    expect(brushRadius(100)).toBeCloseTo(100 * BRUSH_RATIO);
+  });
+
+  it("lays dots in proportion to distance moved, carrying the remainder", () => {
+    expect(sprayCount(10, 0)).toEqual({ count: Math.floor(10 * SPRAY_RATE), carry: expect.any(Number) });
+    const first = sprayCount(0.5, 0);
+    expect(first.count).toBe(0);
+    const second = sprayCount(0.5, first.carry);
+    expect(second.count).toBe(1);
+    expect(second.carry).toBeCloseTo(SPRAY_RATE - 1);
+    expect(sprayCount(-5, 0.3)).toEqual({ count: 0, carry: 0.3 });
+  });
+
+  it("lands within the brush, at the pointer when u is 0", () => {
+    const centre = sprayOffset(0, 0.3, 80);
+    expect(Math.hypot(centre.x, centre.y)).toBe(0);
+    for (let index = 0; index < 50; index += 1) {
+      const point = sprayOffset(index / 50, (index * 7) / 50, 80);
+      expect(Math.hypot(point.x, point.y)).toBeLessThanOrEqual(80 + 1e-9);
+    }
+    const edge = sprayOffset(1, 0.25, 80);
+    expect(edge.x).toBeCloseTo(0);
+    expect(edge.y).toBeCloseTo(80);
+  });
+
+  it("forgets each dot at a fixed distance within the spread", () => {
+    for (let index = 0; index < 200; index += 1) {
+      const distance = forgetDistance(80, index % 17, Math.floor(index / 17));
+      expect(distance).toBeGreaterThanOrEqual(80 * FORGET_REACH * (1 - FORGET_SPREAD / 2));
+      expect(distance).toBeLessThanOrEqual(80 * FORGET_REACH * (1 + FORGET_SPREAD / 2));
+    }
+    expect(forgetDistance(80, 4, 9)).toBe(forgetDistance(80, 4, 9));
+  });
+
+  it("sizes a laid dot by its scale, overshoot included", () => {
+    expect(mapDotRadius(0)).toBe(0);
+    expect(mapDotRadius(1)).toBe(COVER_RADIUS);
+    expect(mapDotRadius(1.2)).toBeCloseTo(COVER_RADIUS * 1.2);
+    expect(mapDotRadius(-0.1)).toBe(0);
   });
 });
 

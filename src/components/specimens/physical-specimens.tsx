@@ -110,7 +110,7 @@ export function VolumeControl() {
 export const volumeControlMeta: ComponentMeta = {
   name: "Volume control",
   kind: "hostile",
-  category: "specimens",
+  category: "sliders",
   summary:
     "A rotary dial read in percent. One full turn of the dial moves it eight " +
     "percent, so reaching 100% takes twelve and a half turns; each arrow-key " +
@@ -183,7 +183,7 @@ export function PhoneNumber() {
 export const phoneNumberMeta: ComponentMeta = {
   name: "Phone number",
   kind: "hostile",
-  category: "specimens",
+  category: "inputs",
   summary:
     "Ten digits, each raised by its own stepper and wrapping from 9 back to 0. " +
     "Raising a digit also raises the one after it, wrapping from the tenth " +

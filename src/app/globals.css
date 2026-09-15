@@ -98,7 +98,7 @@ button, a { touch-action: manipulation; }
 .collection-page { display: flex; flex-direction: column; min-height: 100svh; }
 .collection-page > main { flex: 1; }
 .library { display: grid; grid-template-columns: 196px minmax(0, 1fr); gap: 46px; align-items: start; }
-.collection-page .library { padding-top: 70px; }
+.collection-page .library { padding-top: 30px; }
 .library-rail { position: sticky; top: 28px; padding-top: 4px; }
 .rail-list, .rail-entries { list-style: none; margin: 0; padding: 0; }
 .rail-category, .rail-entry { display: flex; align-items: center; width: 100%; min-height: 36px; padding: 4px 10px 4px 8px; border: 0; border-radius: 4px; background: transparent; text-align: left; font-size: 13px; color: var(--muted); transition: color 120ms ease, background 120ms ease; }
@@ -259,6 +259,7 @@ button, a { touch-action: manipulation; }
   .specimen-caption { min-height: 55px; }
   .collection { padding-bottom: 29px; }
   .site-footer { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; min-height: 91px; }
+  .site-footer > :first-child { margin-right: auto; }
   .site-footer a { font-size: 11px; gap: 7px; }
 }
 

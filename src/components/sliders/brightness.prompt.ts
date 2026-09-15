@@ -1,36 +1,38 @@
-export const brightnessPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript brightness slider named Brightness. It takes no props and is used as <Brightness />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+import { BTC_CLOSES } from "./btc-closes";
+
+export const brightnessPrompt = `What to build
+Build a portable React + TypeScript component named Brightness. It takes no props and is used as <Brightness />. It is a brightness control drawn as a coordinate graph of the daily closing price of BTC/USD from 15 September 2025 to 14 September 2026, joined by a smooth curve. A tangent line is drawn at the selected point, and brightness is derived from the tangent’s slope.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 
-MARKUP AND SEMANTICS
-- Render a heading row with a label reading “Brightness” and a decorative aria-hidden sun icon: a 17px SVG with a 20 by 20 viewBox, a circle of radius 3.5 at its centre, and the path “M10 1.75v2M10 16.25v2M1.75 10h2M16.25 10h2M4.17 4.17l1.41 1.41M14.42 14.42l1.41 1.41M4.17 15.83l1.41-1.41M14.42 5.58l1.41-1.41”, both stroked in currentColor at 1.25 with no fill.
-- Generate a stable input id with useId and connect the label to a native input type="range" with min=0, max=100, step=1, and a controlled numeric value starting at 60.
-- Above the range, render an output connected to it with htmlFor and set to aria-live="off". It shows the written equation for the current value, with every letter x wrapped in its own var element.
-- Set the range's aria-valuetext to the spoken equation. aria-valuenow stays the native numeric value.
-- Beneath the range, render aria-hidden endpoint labels “0” and “100”.
+Markup and semantics
+- Render one focusable horizontal div with role="slider", aria-label="Brightness", aria-valuemin=0, aria-valuemax=100, aria-valuenow equal to the brightness, and aria-valuetext in the form “slope on 14 Mar 2026, brightness 63”.
+- Inside the slider, render an aria-hidden SVG with a 294 by 220 viewBox containing, in order: two faint dashed grid lines (horizontal at y=114 from 8 to 286; vertical at x=147 from 16 to 212), the x axis (8,212 to 293,212), the y axis (8,212 to 8,12), the brightness value as text at (286,42), the curve, dotted guides from the selected point straight down to the x axis and straight left to the y axis, the tangent line, a selected circular point of radius 5.5, and the axis labels “x” at (290,206) and “y” at (4,10). There are no price or date labels.
 
-BEHAVIOR
-- On change, store Number(event.target.value) as x.
-- Derive four integers from x: a = 3 + ((x * 5) % 7); c = a − 1 − ((x * 3) % (a − 1)); b = ((x * 11) % 19) − 9; d = (a − c) * x + b. The equation a·x + b = c·x + d has exactly one solution, which is x.
-- Write each side from its coefficient and constant. The term is “x” when the coefficient is 1, and otherwise the coefficient followed directly by “x”, e.g. “9x”. When the constant is 0 the side is the term alone; otherwise it is the term, a space, a sign, a space, and the constant's absolute value.
-- The written equation uses “+” for a positive constant and “−” (U+2212) for a negative one, and joins the sides with “ = ”. At 60 it reads “9x + 5 = 4x + 305”; at 0 it reads “3x − 9 = 2x − 9”.
-- The spoken equation uses “plus” and “minus” as the signs and joins the sides with “ equals ”, e.g. “9x plus 5 equals 4x plus 305”.
-- Preserve native range keyboard behavior, including its step of 1. Nothing animates.
+Behavior
+- The data is 365 daily closes in whole US dollars, one per UTC day, day 0 being 15 September 2025 and day 364 being 14 September 2026. Use exactly this array, P:
+[${BTC_CLOSES.join(", ")}]
+- x is a position in days. Start with x=180. Store x rounded to two decimal places and clamped from 0 to 364.
+- The tangent at whole day i is m(i) = P[1] − P[0] for i=0, P[364] − P[363] for i=364, and (P[i+1] − P[i−1]) / 2 otherwise.
+- For any x, let i = min(363, floor(x)) and t = x − i. The price is (2t³ − 3t² + 1)·P[i] + (t³ − 2t² + t)·m(i) + (−2t³ + 3t²)·P[i+1] + (t³ − t²)·m(i+1). The slope, in dollars per day, is (6t² − 6t)·P[i] + (3t² − 4t + 1)·m(i) + (−6t² + 6t)·P[i+1] + (3t² − 2t)·m(i+1).
+- Brightness = Math.round(min(100, max(0, 50 + 10 · (100 · slope / price)))). At x=180 this is 63.
+- The date shown is the UTC date of day floor(x), formatted as day of month without padding, a three-letter English month (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec), and the four-digit year, separated by single spaces.
+- Map the plot so day 0 is at SVG x 8 and day 364 at 286 (278/364 units per day), and $50,000 is at SVG y 212 and $130,000 at 16 (196/80,000 units per dollar). Build the curve path from 1,457 samples, x=0 through 364 in increments of 0.25.
+- Draw the tangent as a segment centred on the selected point with a fixed total length of 60 SVG units. Its direction is the vector (278/364, −slope·196/80,000), normalised.
+- On primary pointer down, capture the pointer, focus the slider without scrolling, and set x from the pointer: take the pointer’s horizontal share of the slider’s bounding width, multiply by 294, subtract 8, and divide by 278/364. While that pointer remains captured, pointer movement updates x the same way.
+- Arrow Right and Arrow Up add 1; Arrow Left and Arrow Down subtract 1. Holding Shift changes each arrow increment to 30. Home selects 0 and End selects 364. Prevent default for every handled key. Nothing animates.
 
-STYLING
-- Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
-- The specimen is width 100%, max-width 310px, centered, color light-dark(#282824, #e8e7e0).
-- The heading is a 12px flex row with 20px line-height, items centered, spaced apart, 12px gap; the icon is light-dark(#8c8c80, #75756b).
-- The output is block-level with no margin, 24px top and 21px bottom padding, a 1px solid light-dark(#deded6, #34342f) bottom border, nowrap, tabular numerals, and a monospace stack at 24px, line-height 1.3, letter-spacing -1px. Each var is italic and light-dark(#54614a, #b6c2a2).
-- Put the track group 31px below the output. The range is 100% wide and 28px tall with no margin or padding, transparent background, no native appearance, cursor ew-resize, and 5px outline offset.
-- The track is 2px high with background light-dark(#c6c8ba, #4a4b43). The WebKit thumb is 14px by 26px with margin-top -12px, 4px solid light-dark(#ffffff, #1a1a17) border, 3px radius, 1px solid light-dark(#c6c8ba, #4a4b43) outline, and light-dark(#899176, #717b5f) fill. The Firefox thumb is 6px by 18px with the same border, radius, outline, and fill.
-- The range focus-visible outline is 2px solid light-dark(#667251, #8e9c78) with 2px radius.
-- Endpoint labels are a flex row spaced apart, 7px top margin, 10px monospace, color light-dark(#6b6b63, #9c9c91).
-- At widths up to 600px, the output uses clamp(20px, 6vw, 24px).
+Styling
+- Set the specimen to width 100%, max-width 310px, centered, with text color light-dark(#282824, #e8e7e0).
+- The graph is the specimen’s only content. It spans the specimen width, uses a crosshair cursor and touch-action:none, and has a 2px light-dark(#667251, #8e9c78) focus-visible outline with 5px offset and 2px radius. The SVG is display block, width 100%, height auto, overflow visible.
+- Draw axes 1.25px in light-dark(#c6c8ba, #4a4b43) and the curve 1.5px with no fill in the main foreground. Grid lines are 1px light-dark(#deded6, #34342f) with a 2 4 dash pattern. Point guides are 1px light-dark(#54614a, #b6c2a2) at 45% opacity with a 3 3 dash pattern. The tangent is a solid 1.5px light-dark(#54614a, #b6c2a2) line with round caps. The point is filled light-dark(#899176, #717b5f) with a 3px stroke matching the page field, light-dark(#ffffff, #1a1a17).
+- Graph labels are 10px muted light-dark(#6b6b63, #9c9c91) monospace text, centred with text-anchor middle.
+- The brightness value is 30px, weight 650, -1.5px letter-spacing, tabular monospace text in the main foreground, right-aligned with text-anchor end.
 
-DONE WHEN
-- The output reads “9x + 5 = 4x + 305” on load and a different equation at every step, each solved by the slider's value.
-- A coefficient of 1 is written as “x”, a constant of 0 is omitted, and negative constants use U+2212.
-- aria-valuenow carries the number and aria-valuetext carries the spoken equation.
+Done when
+- The initial point sits on the curve at 14 Mar 2026, the tangent touches it there, and 63 is drawn in the top right of the plot.
+- The curve passes exactly through every daily close.
+- Moving the pointer horizontally moves the point along the curve, swings the tangent, and updates the brightness from the slope.
+- Every brightness from 0 to 100 is produced by some x in hundredth-of-a-day steps.
+- Keyboard controls, role, name, minimum, maximum, current value, and descriptive value text all work.
 `;

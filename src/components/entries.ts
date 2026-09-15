@@ -10,26 +10,20 @@ import { ShrinkingButton, shrinkingButtonMeta } from "@/components/buttons/shrin
 import { DelayedPointer, delayedPointerMeta } from "@/components/cursor/delayed-pointer";
 import { HeavyPointer, heavyPointerMeta } from "@/components/cursor/heavy-pointer";
 import { MirroredPointer, mirroredPointerMeta } from "@/components/cursor/mirrored-pointer";
-import { NearestTarget, nearestTargetMeta } from "@/components/cursor/nearest-target";
 import { FogOfWar, fogOfWarMeta } from "@/components/experiments/fog-of-war";
-import { SaveButton, saveButtonMeta } from "@/components/feedback/save-button";
 import { UndoToast, undoToastMeta } from "@/components/feedback/undo-toast";
 import { UploadProgress, uploadProgressMeta } from "@/components/feedback/upload-progress";
 import { LeadingCaret, leadingCaretMeta } from "@/components/inputs/leading-caret";
 import { LetterName, letterNameMeta } from "@/components/inputs/letter-name";
-import { OneTimeCode, oneTimeCodeMeta } from "@/components/inputs/one-time-code";
-import { QuantityStepper, quantityStepperMeta } from "@/components/inputs/quantity-stepper";
 import { SortedEmail, sortedEmailMeta } from "@/components/inputs/sorted-email";
 import type { LibraryEntry } from "@/components/library";
-import { Breadcrumbs, breadcrumbsMeta } from "@/components/navigation/breadcrumbs";
 import { Pagination, paginationMeta } from "@/components/navigation/pagination";
 import { TabBar, tabBarMeta } from "@/components/navigation/tab-bar";
 import { Brightness, brightnessMeta } from "@/components/sliders/brightness";
 import { DatePicker, datePickerMeta } from "@/components/sliders/date-picker";
 import { PointerSpeed, pointerSpeedMeta } from "@/components/sliders/pointer-speed";
-import { PriceRange, priceRangeMeta } from "@/components/sliders/price-range";
 import { Thermostat, thermostatMeta } from "@/components/sliders/thermostat";
-import { TipSlider, tipSliderMeta } from "@/components/sliders/tip-slider";
+import { PiCker, piCkerMeta } from "@/components/sliders/tip-slider";
 import {
   CheckboxGroup,
   checkboxGroupMeta,
@@ -51,40 +45,34 @@ import {
  * entry's `meta`. `entries.test.ts` checks every entry here ships its lines.
  */
 export const entries: LibraryEntry[] = [
-  { id: "volume-control", component: VolumeControl, meta: volumeControlMeta },
-  { id: "password-field", component: PasswordField, meta: passwordFieldMeta },
-  { id: "checkboxes", component: CheckboxGroup, meta: checkboxGroupMeta },
-  { id: "phone-number", component: PhoneNumber, meta: phoneNumberMeta },
-  { id: "confirmation-dialog", component: ConfirmDialog, meta: confirmDialogMeta },
   { id: "classic-runaway", component: ClassicRunaway, meta: classicRunawayMeta },
   { id: "cornered", component: CorneredButton, meta: corneredButtonMeta },
   { id: "mitosis", component: MitosisButton, meta: mitosisButtonMeta },
   { id: "shrinking", component: ShrinkingButton, meta: shrinkingButtonMeta },
   { id: "personal-space", component: PersonalSpace, meta: personalSpaceMeta },
-  { id: "quantity", component: QuantityStepper, meta: quantityStepperMeta },
+  { id: "password-field", component: PasswordField, meta: passwordFieldMeta },
+  { id: "checkboxes", component: CheckboxGroup, meta: checkboxGroupMeta },
+  { id: "phone-number", component: PhoneNumber, meta: phoneNumberMeta },
   { id: "letter-name", component: LetterName, meta: letterNameMeta },
   { id: "leading-caret", component: LeadingCaret, meta: leadingCaretMeta },
   { id: "sorted-email", component: SortedEmail, meta: sortedEmailMeta },
-  { id: "one-time-code", component: OneTimeCode, meta: oneTimeCodeMeta },
-  { id: "date-picker", component: DatePicker, meta: datePickerMeta },
   { id: "brightness", component: Brightness, meta: brightnessMeta },
-  { id: "tip", component: TipSlider, meta: tipSliderMeta },
+  { id: "picker", component: PiCker, meta: piCkerMeta },
+  { id: "date-picker", component: DatePicker, meta: datePickerMeta },
   { id: "thermostat", component: Thermostat, meta: thermostatMeta },
   { id: "pointer-speed", component: PointerSpeed, meta: pointerSpeedMeta },
-  { id: "price-range", component: PriceRange, meta: priceRangeMeta },
+  { id: "volume-control", component: VolumeControl, meta: volumeControlMeta },
   { id: "mirrored-pointer", component: MirroredPointer, meta: mirroredPointerMeta },
   { id: "delayed-pointer", component: DelayedPointer, meta: delayedPointerMeta },
   { id: "heavy-pointer", component: HeavyPointer, meta: heavyPointerMeta },
-  { id: "nearest-target", component: NearestTarget, meta: nearestTargetMeta },
   { id: "hungry-buddy", component: HungryBuddy, meta: hungryBuddyMeta },
   { id: "opinionated-buddy", component: OpinionatedBuddy, meta: opinionatedBuddyMeta },
   { id: "screaming-buddy", component: ScreamingBuddy, meta: screamingBuddyMeta },
   { id: "clingy-buddy", component: ClingyBuddy, meta: clingyBuddyMeta },
   { id: "tabs", component: TabBar, meta: tabBarMeta },
   { id: "pagination", component: Pagination, meta: paginationMeta },
-  { id: "breadcrumbs", component: Breadcrumbs, meta: breadcrumbsMeta },
   { id: "upload-progress", component: UploadProgress, meta: uploadProgressMeta },
   { id: "undo-toast", component: UndoToast, meta: undoToastMeta },
-  { id: "save-button", component: SaveButton, meta: saveButtonMeta },
+  { id: "confirmation-dialog", component: ConfirmDialog, meta: confirmDialogMeta },
   { id: "fog-of-war", component: FogOfWar, meta: fogOfWarMeta },
 ];

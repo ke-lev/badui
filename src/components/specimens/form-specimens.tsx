@@ -143,7 +143,7 @@ export function PasswordField() {
 export const passwordFieldMeta: ComponentMeta = {
   name: "Password field",
   kind: "hostile",
-  category: "specimens",
+  category: "inputs",
   summary:
     "A password field that reveals its requirements as they are met: eight " +
     "characters and a number bring out a rule about how many numbers, and " +
@@ -223,7 +223,7 @@ export function ConfirmDialog() {
 export const confirmDialogMeta: ComponentMeta = {
   name: "Confirmation dialog",
   kind: "hostile",
-  category: "specimens",
+  category: "feedback",
   summary:
     "A confirmation dialog that counts. Continue and the close button each " +
     "raise the count by one and ask again; Cancel lowers it by one, and " +
@@ -297,7 +297,7 @@ export function CheckboxGroup() {
 export const checkboxGroupMeta: ComponentMeta = {
   name: "Checkboxes",
   kind: "hostile",
-  category: "specimens",
+  category: "inputs",
   summary:
     "Three preference checkboxes. Toggling one also toggles the next in the " +
     "list, wrapping from the last back to the first; a running count sits " +

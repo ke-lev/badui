@@ -16,7 +16,6 @@ export const CATEGORIES = [
   { id: "buddies", label: "Cursor buddies" },
   { id: "navigation", label: "Navigation" },
   { id: "feedback", label: "Feedback" },
-  { id: "specimens", label: "Specimens" },
   { id: "experiments", label: "Experiments" },
 ] as const;
 
