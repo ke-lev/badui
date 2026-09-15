@@ -93,7 +93,7 @@
 
 .percent {
   margin: 18px 0 8px;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--font-geist-sans), sans-serif;
   font-size: 34px;
   line-height: 1.1;
   letter-spacing: -1.5px;

@@ -12,6 +12,9 @@ import {
   PIP_RADIUS,
   PUSH_DISTANCE,
   BRUSH_RATIO,
+  CORE_RATE,
+  CORE_RATIO,
+  coreOffset,
   FORGET_REACH,
   FORGET_SPREAD,
   SPRAY_RATE,
@@ -129,6 +132,18 @@ describe("spray", () => {
     const edge = sprayOffset(1, 0.25, 80);
     expect(edge.x).toBeCloseTo(0);
     expect(edge.y).toBeCloseTo(80);
+  });
+
+  it("lays extra dots evenly across a core at the pointer", () => {
+    expect(sprayCount(10, 0, CORE_RATE).count).toBe(Math.floor(10 * CORE_RATE));
+    const centre = coreOffset(0, 0.6, 80);
+    expect(Math.hypot(centre.x, centre.y)).toBe(0);
+    const edge = coreOffset(1, 0, 80);
+    expect(edge.x).toBeCloseTo(80 * CORE_RATIO);
+    expect(edge.y).toBeCloseTo(0);
+    // Uniform in area: half the dots land inside 1/√2 of the core's radius.
+    const half = coreOffset(0.5, 0, 80);
+    expect(half.x).toBeCloseTo((80 * CORE_RATIO) / Math.SQRT2);
   });
 
   it("forgets each dot at a fixed distance within the spread", () => {

@@ -16,7 +16,7 @@
 
 .aside {
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--font-geist-sans), sans-serif;
   font-size: 11px;
 }
 
@@ -38,7 +38,7 @@
   border-radius: 4px;
   background: var(--field);
   color: var(--foreground);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--font-geist-sans), sans-serif;
   font-size: 15px;
   transition: border-color 140ms ease;
 }
@@ -63,7 +63,7 @@
   min-height: 42px;
   padding: 14px 0 12px;
   border-bottom: 1px solid var(--border);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--font-geist-sans), sans-serif;
   font-size: 26px;
   line-height: 1.2;
   letter-spacing: -1px;
@@ -85,7 +85,7 @@
   border-radius: 4px;
   background: var(--field);
   color: var(--foreground);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--font-geist-sans), sans-serif;
   font-size: 15px;
   cursor: pointer;
 }

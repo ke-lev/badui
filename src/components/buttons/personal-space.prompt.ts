@@ -29,7 +29,7 @@ STYLING
 - The button is top 50%, left 50%, transform translate(-50%, -50%), 272px by 132px, inline-flex centered, padding 0, border 0, border-radius 0, background light-dark(#30312b, #e8e7e0), text light-dark(#fafaf6, #1a1a17), 14px medium inherited sans-serif, line-height 1.5, nowrap, pointer cursor, touch-action manipulation, and a default clip-path of inset(36px round 10px). Hover background is light-dark(#4d5142, #cdd1c2) with a 150ms ease background transition, removed under reduced motion.
 - The button has no outline on focus-visible. The ring span is absolutely centered in the arena with translate(-50%, -50%), 200px by 60px, 10px radius; when the button is focus-visible, the ring shows a 2px solid light-dark(#667251, #8e9c78) outline with 3px offset.
 - Letter spans are inline-block with white-space: pre. The hidden label is absolute, 1px by 1px, overflow hidden, clip-path inset(50%), nowrap.
-- The readout is a flex row spaced apart, margin 0, 11px, color light-dark(#6b6b63, #9c9c91). The count is light-dark(#282824, #e8e7e0) in a monospace stack with tabular numerals.
+- The readout is a flex row spaced apart, margin 0, 11px, color light-dark(#6b6b63, #9c9c91). The count is light-dark(#282824, #e8e7e0) in a sans-serif stack with tabular numerals.
 
 DONE WHEN
 - At rest the button is a plain 200 by 60 rounded rectangle; with the pointer outside it nearby, its edge dents away from the pointer; with the pointer over it, a 26px-radius hole surrounds the pointer and the outline bulges, conserving area.

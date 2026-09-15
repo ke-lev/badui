@@ -23,11 +23,11 @@ STYLING
 - Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
 - The specimen is width 100%, max-width 310px, centered, color light-dark(#282824, #e8e7e0).
 - The heading is a 12px flex row with 20px line-height, items centered, spaced apart, 12px gap; the icon is light-dark(#8c8c80, #75756b).
-- The reading paragraph is block-level with no margin, 24px top and 21px bottom padding, a 1px solid light-dark(#deded6, #34342f) bottom border, nowrap, tabular numerals, and a monospace stack. Its font size is clamp(25px, 2.8vw, 32px), line-height 1.3, letter-spacing -1.5px.
+- The reading paragraph is block-level with no margin, 24px top and 21px bottom padding, a 1px solid light-dark(#deded6, #34342f) bottom border, nowrap, tabular numerals, and a sans-serif stack. Its font size is clamp(25px, 2.8vw, 32px), line-height 1.3, letter-spacing -1.5px.
 - Put the track group 31px below the reading. The slider is position relative, 28px tall, cursor grab (grabbing while dragging), touch-action none, 5px outline offset; its focus-visible outline is 2px solid light-dark(#667251, #8e9c78) with 2px radius.
 - The rail is absolute, spanning the full width, 13px from the top, 2px high, light-dark(#c6c8ba, #4a4b43). The lane is absolute with inset 0 7px and pointer-events none.
 - The thumb is absolute, top 1px, border-box 14px by 26px with margin-left -7px, 4px solid light-dark(#ffffff, #1a1a17) border, 3px radius, 1px solid light-dark(#c6c8ba, #4a4b43) outline, and light-dark(#899176, #717b5f) fill.
-- Endpoint labels are a flex row spaced apart, 7px top margin, 10px monospace, color light-dark(#6b6b63, #9c9c91).
+- Endpoint labels are a flex row spaced apart, 7px top margin, 10px sans-serif, color light-dark(#6b6b63, #9c9c91).
 - At widths up to 600px, the reading uses clamp(24px, 7vw, 30px).
 
 DONE WHEN

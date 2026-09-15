@@ -27,7 +27,7 @@ STYLING
 - The area is position relative, flex 1, min-height 160px, overflow hidden, cursor none, touch-action manipulation.
 - The button is absolutely positioned at top 50%, left 50%, transform translate(-50%, -50%); inline-flex centred; min-height 39px; padding 8px 16px; 1px solid transparent border; 5px radius; background light-dark(#30312b, #e8e7e0); text light-dark(#fafaf6, #1a1a17); inherited sans-serif font at 12px, weight 500, line-height 1.5; nowrap; transition background 150ms ease. With data-hover its background is light-dark(#4d5142, #cdd1c2). Focus-visible outline is 2px solid light-dark(#667251, #8e9c78) with 3px offset.
 - The pointer div is absolutely positioned at top -1.5px, left -1.5px, 16px by 22px, visibility hidden initially, pointer-events none, will-change transform. The SVG is display block.
-- The readout is a flex row with space-between, margin 0, 11px, color light-dark(#6b6b63, #9c9c91). The count span is light-dark(#282824, #e8e7e0) in a monospace stack with tabular numerals.
+- The readout is a flex row with space-between, margin 0, 11px, color light-dark(#6b6b63, #9c9c91). The count span is light-dark(#282824, #e8e7e0) in a sans-serif stack with tabular numerals.
 - Under prefers-reduced-motion, remove the button's background transition.
 
 DONE WHEN

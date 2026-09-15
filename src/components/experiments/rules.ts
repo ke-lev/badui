@@ -36,6 +36,10 @@ export const MODE_DURATION = 0.3;
 export const BRUSH_RATIO = 0.7;
 /** Spray: map dots laid per CSS pixel the pointer moves. */
 export const SPRAY_RATE = 1.2;
+/** Spray: the core's radius as a fraction of the brush's. */
+export const CORE_RATIO = 0.4;
+/** Spray: extra map dots laid per CSS pixel the pointer moves, spread evenly across the core. */
+export const CORE_RATE = 4;
 /** Spray: spring constants for a map dot's scale as it lands or leaves. */
 export const POP_STIFFNESS = 260;
 export const POP_DAMPING_RATIO = 0.45;
@@ -128,8 +132,12 @@ export function brushRadius(light: number): number {
  * How many dots a move of `distance` pixels lays, carrying the fraction left
  * over into the next move.
  */
-export function sprayCount(distance: number, carry: number): { count: number; carry: number } {
-  const total = carry + Math.max(0, distance) * SPRAY_RATE;
+export function sprayCount(
+  distance: number,
+  carry: number,
+  rate: number = SPRAY_RATE,
+): { count: number; carry: number } {
+  const total = carry + Math.max(0, distance) * rate;
   const count = Math.floor(total);
   return { count, carry: total - count };
 }
@@ -141,6 +149,16 @@ export function sprayCount(distance: number, carry: number): { count: number; ca
  */
 export function sprayOffset(u: number, v: number, brush: number): { x: number; y: number } {
   const distance = brush * clamp01(u);
+  const angle = Math.PI * 2 * v;
+  return { x: distance * Math.cos(angle), y: distance * Math.sin(angle) };
+}
+
+/**
+ * Where one core dot lands relative to the pointer, from two uniform random
+ * numbers in [0, 1). Distance grows with √u, so the core fills evenly.
+ */
+export function coreOffset(u: number, v: number, brush: number): { x: number; y: number } {
+  const distance = brush * CORE_RATIO * Math.sqrt(clamp01(u));
   const angle = Math.PI * 2 * v;
   return { x: distance * Math.cos(angle), y: distance * Math.sin(angle) };
 }

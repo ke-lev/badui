@@ -33,7 +33,7 @@ STYLING
 - The specimen stretches to its container, is a vertical flex layout with 12px gap, min-width 0, and color light-dark(#282824, #e8e7e0). The arena flexes to fill available height, has position relative, min-height 160px, and touch-action manipulation.
 - The button is top 50%, left 50%, initially translate(-50%, -50%), inline-flex centered, min-height 39px, padding 8px 16px, 1px transparent border, 5px radius, background light-dark(#30312b, #e8e7e0), text light-dark(#fafaf6, #1a1a17), 12px medium inherited sans-serif, line-height 1.5, nowrap, pointer cursor, will-change transform, and touch-action manipulation.
 - Button hover background is light-dark(#4d5142, #cdd1c2). Focus-visible outline is 2px solid light-dark(#667251, #8e9c78) with 3px offset.
-- The readout is a flex row spaced apart, margin 0, 11px, color light-dark(#6b6b63, #9c9c91). The count is light-dark(#282824, #e8e7e0) in a monospace stack with tabular numerals.
+- The readout is a flex row spaced apart, margin 0, 11px, color light-dark(#6b6b63, #9c9c91). The count is light-dark(#282824, #e8e7e0) in a sans-serif stack with tabular numerals.
 - Use a 150ms ease background transition for the button and remove it under reduced motion.
 
 DONE WHEN

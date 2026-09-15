@@ -26,8 +26,8 @@ Styling
 - Set the specimen to width 100%, max-width 310px, centered, with text color light-dark(#282824, #e8e7e0).
 - The graph is the specimen’s only content. It spans the specimen width, uses a crosshair cursor and touch-action:none, and has a 2px light-dark(#667251, #8e9c78) focus-visible outline with 5px offset and 2px radius. The SVG is display block, width 100%, height auto, overflow visible.
 - Draw axes 1.25px in light-dark(#c6c8ba, #4a4b43) and the curve 1.5px with no fill in the main foreground. Grid lines are 1px light-dark(#deded6, #34342f) with a 2 4 dash pattern. Point guides are 1px light-dark(#54614a, #b6c2a2) at 45% opacity with a 3 3 dash pattern. The tangent is a solid 1.5px light-dark(#54614a, #b6c2a2) line with round caps. The point is filled light-dark(#899176, #717b5f) with a 3px stroke matching the page field, light-dark(#ffffff, #1a1a17).
-- Graph labels are 10px muted light-dark(#6b6b63, #9c9c91) monospace text, centred with text-anchor middle.
-- The brightness value is 30px, weight 650, -1.5px letter-spacing, tabular monospace text in the main foreground, right-aligned with text-anchor end.
+- Graph labels are 10px muted light-dark(#6b6b63, #9c9c91) sans-serif text, centred with text-anchor middle.
+- The brightness value is 30px, weight 650, -1.5px letter-spacing, tabular sans-serif text in the main foreground, right-aligned with text-anchor end.
 
 Done when
 - The initial point sits on the curve at 14 Mar 2026, the tangent touches it there, and 63 is drawn in the top right of the plot.

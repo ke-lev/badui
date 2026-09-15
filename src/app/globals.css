@@ -110,7 +110,7 @@ button, a { touch-action: manipulation; }
 .rail-category:not([aria-expanded]) .rail-twisty { visibility: hidden; }
 .rail-category[aria-expanded="true"] .rail-twisty { transform: rotate(90deg); }
 .rail-label { flex: 1; min-width: 0; }
-.rail-count { font-family: var(--font-geist-mono), monospace; font-size: 10px; color: var(--muted); }
+.rail-count { font-family: var(--font-geist-sans), sans-serif; font-size: 10px; color: var(--muted); }
 /* A shelf unfolds by growing its row from 0fr to 1fr while the entries slide
    down into place; folding runs the same motion back. */
 .rail-drawer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 240ms cubic-bezier(.2, .8, .2, 1); }
@@ -137,7 +137,7 @@ button, a { touch-action: manipulation; }
 .entry-description { min-width: 0; max-width: 64ch; }
 .entry-summary { margin: 0; font-size: 15px; line-height: 1.66; }
 .entry-facts { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 11px 20px; margin: 26px 0 0; padding-top: 22px; border-top: 1px solid var(--rule); }
-.entry-facts dt { font-family: var(--font-geist-mono), monospace; text-transform: uppercase; font-size: 9px; letter-spacing: .05em; color: var(--muted); padding-top: 4px; }
+.entry-facts dt { font-family: var(--font-geist-sans), sans-serif; text-transform: uppercase; font-size: 9px; letter-spacing: .05em; color: var(--muted); padding-top: 4px; }
 .entry-facts dd { margin: 0; font-size: 13px; line-height: 1.6; }
 .entry-facts code { font-family: var(--font-geist-mono), monospace; font-size: 12px; background: var(--surface-sunk); border-radius: 3px; padding: 3px 7px; }
 .prompt-card { min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
@@ -150,7 +150,7 @@ button, a { touch-action: manipulation; }
 .copy-prompt:focus-visible { outline-offset: 1px; }
 .copy-prompt svg { transition: transform 160ms cubic-bezier(.2, .8, .2, 1); }
 .copy-prompt[data-copied] svg { transform: scale(1.08); }
-.prompt-text { min-width: 0; max-width: 100%; max-height: 320px; margin: 0; overflow: auto; padding: 18px 17px 21px; background: var(--surface); color: var(--ink-soft); font-family: var(--font-geist-mono), monospace; font-size: 11px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; scrollbar-color: var(--border-strong) var(--surface-sunk); scrollbar-width: thin; }
+.prompt-text { min-width: 0; max-width: 100%; max-height: 320px; margin: 0; overflow: auto; padding: 18px 17px 21px; background: var(--surface); color: var(--ink-soft); font-family: var(--font-geist-sans), sans-serif; font-size: 11px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; scrollbar-color: var(--border-strong) var(--surface-sunk); scrollbar-width: thin; }
 .prompt-text code { font: inherit; }
 .prompt-text:focus-visible { outline-offset: -3px; }
 
@@ -159,7 +159,7 @@ button, a { touch-action: manipulation; }
 .collection-heading { display: flex; align-items: center; gap: 17px; }
 .collection-heading h1 { font-size: 13px; font-weight: 500; margin: 0; }
 .collection-heading h1:focus-visible { outline-offset: 3px; }
-.collection-count { color: var(--muted); font-family: var(--font-geist-mono), monospace; font-size: 10px; }
+.collection-count { color: var(--muted); font-family: var(--font-geist-sans), sans-serif; font-size: 10px; }
 .reset-all { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 0 0 12px; border: 0; background: transparent; font-size: 12px; color: var(--muted); }
 .reset-all:hover { color: var(--foreground); }
 .reset-all:active svg { transform: rotate(-45deg); }
@@ -186,7 +186,7 @@ button, a { touch-action: manipulation; }
 .entry-switch:hover .entry-switch-track { border-color: var(--accent-line); }
 .entry-switch:focus-visible { outline-offset: 3px; }
 .specimen-caption { display: flex; align-items: center; min-height: 61px; gap: 14px; }
-.specimen-number { color: var(--muted); font-family: var(--font-geist-mono), monospace; font-size: 10px; }
+.specimen-number { color: var(--muted); font-family: var(--font-geist-sans), sans-serif; font-size: 10px; }
 .specimen-caption h2 { font-size: 13px; font-weight: 500; letter-spacing: -.1px; margin: 0; }
 .specimen-open { padding: 0; border: 0; background: transparent; font: inherit; text-align: left; }
 .specimen-open:hover { color: var(--accent-ink); }

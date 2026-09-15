@@ -26,4 +26,4 @@ export const ARROW_MARKUP = `- The drawn pointer is a div with aria-hidden="true
 
 export const ARROW_STYLING = `- The drawn pointer div is absolutely positioned at top -1.5px, left -1.5px, 16px by 22px, visibility hidden initially, pointer-events none, will-change transform. The SVG is display block.`;
 
-export const READOUT_STYLING = `- The readout is a flex row with space-between, margin 0, 11px, color light-dark(#6b6b63, #9c9c91). Count spans are light-dark(#282824, #e8e7e0) in a monospace stack with tabular numerals.`;
+export const READOUT_STYLING = `- The readout is a flex row with space-between, margin 0, 11px, color light-dark(#6b6b63, #9c9c91). Count spans are light-dark(#282824, #e8e7e0) in a sans-serif stack with tabular numerals.`;

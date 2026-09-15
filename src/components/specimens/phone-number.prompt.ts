@@ -20,9 +20,9 @@ BEHAVIOR
 
 STYLING
 - Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
-- The specimen is width 100%, max-width 310px, centered, color light-dark(#282824, #e8e7e0). The heading is a 12px flex row with 20px line-height and space between; the country code is 12px monospace in light-dark(#6b6b63, #9c9c91).
+- The specimen is width 100%, max-width 310px, centered, color light-dark(#282824, #e8e7e0). The heading is a 12px flex row with 20px line-height and space between; the country code is 12px sans-serif in light-dark(#6b6b63, #9c9c91).
 - Lay out digits with flex, space-between, 3px gap, and 22px top margin. Each digit group is flex: 1 1 0 with a 3px gap; the final group has flex-grow 1.25.
-- Each digit button is a vertical centered flex item, flex 1, min-width 0, height 87px, padding 9px 0 15px, 1px solid light-dark(#deded6, #34342f) border, 4px radius, light-dark(#ffffff, #1a1a17) background, light-dark(#282824, #e8e7e0) text, 22px monospace type, and 8px internal gap.
+- Each digit button is a vertical centered flex item, flex 1, min-width 0, height 87px, padding 9px 0 15px, 1px solid light-dark(#deded6, #34342f) border, 4px radius, light-dark(#ffffff, #1a1a17) background, light-dark(#282824, #e8e7e0) text, 22px sans-serif type, and 8px internal gap.
 - On hover use background light-dark(#f7f8f2, #20201d) and border light-dark(#a3aa95, #62635a); active background light-dark(#e3e9d8, #3a4231); focus-visible outline 2px solid light-dark(#6c7660, #8e9c78) at 3px offset. The connected button uses background light-dark(#f3f0e5, #1e1c18) and border light-dark(#ccc5ad, #4a4b43).
 - The chevron is 11px square in light-dark(#939389, #75756b). The underline is absolute at bottom 10px, 6px by 1px, background light-dark(#d3d3c9, #4a4b43). Separators use 13px 1px 0 padding, 12px type, color light-dark(#8c8c80, #75756b).
 - The footer is a flex row spaced apart with 21px top margin and color light-dark(#6b6b63, #9c9c91); its hint is 11px. Transitions for button background and border are 140ms ease and are removed for reduced motion.

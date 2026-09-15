@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import type { ComponentMeta, SwitchState } from "@/components/meta";
 import { fogOfWarPrompt } from "./fog-of-war.prompt";
 import {
+  CORE_RATE,
   DOT_DAMPING_RATIO,
   DOT_PITCH,
   DOT_STIFFNESS,
@@ -12,6 +13,7 @@ import {
   POP_DAMPING_RATIO,
   POP_STIFFNESS,
   brushRadius,
+  coreOffset,
   coverRadius,
   dotClarity,
   easeMix,
@@ -55,12 +57,14 @@ type Point = { x: number; y: number };
 
 export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState }) {
   const spray = switches.spray === true;
+  const remember = switches.remember === true;
   const mapRef = useRef<HTMLDivElement>(null);
   const shadeRef = useRef<HTMLDivElement>(null);
   const fogRef = useRef<HTMLCanvasElement>(null);
-  // The first render's setting, so the fog mounts already in it rather than easing there.
-  const initialSprayRef = useRef(spray);
+  // The first render's settings, so the fog mounts already in them rather than easing there.
+  const initialRef = useRef({ spray, remember });
   const setSprayRef = useRef<((on: boolean) => void) | null>(null);
+  const setRememberRef = useRef<((on: boolean) => void) | null>(null);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -104,8 +108,11 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
     let target: Point = { x: 0, y: 0 };
     let alpha = 0;
     let targetAlpha = 0;
-    let mix = initialSprayRef.current ? 1 : 0;
+    let mix = initialRef.current.spray ? 1 : 0;
     let mixTarget = mix;
+    /** Remember: crossed ground never fogs over, and laid dots never leave. */
+    let keep = initialRef.current.remember;
+    let coreCarry = 0;
     let frame = 0;
     let last = 0;
 
@@ -162,14 +169,14 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
           const dx = (column - 0.5) * DOT_PITCH - current.x;
           const distance = Math.hypot(dx, dy);
           const lit = visibilityAt(distance, radius) * alpha;
-          let kept = reducedMotion
+          let kept = reducedMotion || keep
             ? explored[dot]
             : explored[dot] * memoryDecay(dt, memoryHalfLife(distance, radius) * halfLives[dot]);
           if (kept < MEMORY_FLOOR) kept = 0;
           const remembered = Math.max(kept, lit);
           explored[dot] = remembered;
           clarity[dot] = dotClarity(lit, remembered);
-          if (remembered > lit && !reducedMotion) active = true;
+          if (remembered > lit && !reducedMotion && !keep) active = true;
 
           if (reducedMotion) {
             offsetX[dot] = 0;
@@ -227,7 +234,7 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
       for (let row = 0; row < rows; row += 1) {
         for (let column = 0; column < columns; column += 1) {
           const dot = row * columns + column;
-          if (sprayTarget[dot] === 1) {
+          if (sprayTarget[dot] === 1 && !keep) {
             const far =
               pointer === null ||
               Math.hypot((column - 0.5) * DOT_PITCH - pointer.x, (row - 0.5) * DOT_PITCH - pointer.y) >
@@ -261,9 +268,8 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
       return active;
     }
 
-    /** Spray: lays one map dot at a random spot within the brush around `point`. */
-    function spray(point: Point): void {
-      const offset = sprayOffset(Math.random(), Math.random(), brush);
+    /** Spray: lays the map dot nearest `point` moved by `offset`, if it is on the lattice. */
+    function spray(point: Point, offset: Point): void {
       const column = Math.round((point.x + offset.x) / DOT_PITCH + 0.5);
       const row = Math.round((point.y + offset.y) / DOT_PITCH + 0.5);
       if (column < 0 || column >= columns || row < 0 || row >= rows) return;
@@ -383,6 +389,7 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
       sprayTarget = new Uint8Array(count);
       brush = brushRadius(radius);
       sprayCarry = 0;
+      coreCarry = 0;
       for (let dot = 0; dot < count; dot += 1) {
         halfLives[dot] = halfLifeScale(dot % columns, Math.floor(dot / columns));
       }
@@ -403,9 +410,17 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
       target = point;
       targetAlpha = 1;
       if (pointer && mixTarget === 1) {
-        const laid = sprayCount(Math.hypot(point.x - pointer.x, point.y - pointer.y), sprayCarry);
+        const moved = Math.hypot(point.x - pointer.x, point.y - pointer.y);
+        const laid = sprayCount(moved, sprayCarry);
         sprayCarry = laid.carry;
-        for (let index = 0; index < laid.count; index += 1) spray(point);
+        for (let index = 0; index < laid.count; index += 1) {
+          spray(point, sprayOffset(Math.random(), Math.random(), brush));
+        }
+        const core = sprayCount(moved, coreCarry, CORE_RATE);
+        coreCarry = core.carry;
+        for (let index = 0; index < core.count; index += 1) {
+          spray(point, coreOffset(Math.random(), Math.random(), brush));
+        }
       }
       pointer = point;
       wake();
@@ -439,6 +454,11 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
       wake();
     };
 
+    setRememberRef.current = (on) => {
+      keep = on;
+      wake();
+    };
+
     resolveColors();
     resize();
     picture.addEventListener("load", onPictureLoad);
@@ -458,6 +478,7 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
     return () => {
       if (frame) cancelAnimationFrame(frame);
       setSprayRef.current = null;
+      setRememberRef.current = null;
       picture.removeEventListener("load", onPictureLoad);
       resizeObserver.disconnect();
       themeObserver.disconnect();
@@ -474,6 +495,10 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
   useEffect(() => {
     setSprayRef.current?.(spray);
   }, [spray]);
+
+  useEffect(() => {
+    setRememberRef.current?.(remember);
+  }, [remember]);
 
   return (
     <div ref={mapRef} className={styles.map} role="img" aria-label="Map of Middle-earth" data-sidekick="fog-of-war">
@@ -502,7 +527,7 @@ export const fogOfWarMeta: ComponentMeta = {
     "aside on springs. Ground already crossed keeps smaller dots, which grow " +
     "back from the outside in: a six-second half-life at the light's edge, " +
     "0.6 seconds three and a half radii away.",
-  usage: "<FogOfWar switches={{ spray: true }} />",
+  usage: "<FogOfWar switches={{ spray: true, remember: true }} />",
   prompt: fogOfWarPrompt,
   sidekick: false,
   notes:
@@ -519,12 +544,16 @@ export const fogOfWarMeta: ComponentMeta = {
     "0.7 and 1.3. With the Spray switch on, the parchment board and its " +
     "pips hold still and the map is sprayed onto it instead: moving the " +
     "pointer lays 1.2 map dots per pixel travelled, at random lattice points " +
-    "within a brush 70% of the light's radius, densest at its centre. A " +
-    "pointer held still lays nothing. Each dot springs to full size with " +
+    "within a brush 70% of the light's radius, densest at its centre, plus " +
+    "4 more per pixel spread evenly across a core 40% of the brush's radius. " +
+    "A pointer held still lays nothing. Each dot springs to full size with " +
     "overshoot (stiffness 260, damping ratio 0.45) and springs back to " +
     "nothing once the pointer is more than two and a half brush radii away, " +
-    "give or take 20% per dot, or leaves the map. The switch eases between " +
-    "the two modes over 0.3 seconds, and is off when absent from the " +
+    "give or take 20% per dot, or leaves the map. The Spray switch eases " +
+    "between the two modes over 0.3 seconds. With the Remember switch on, " +
+    "crossed ground holds its clarity and never fogs over, and laid map dots " +
+    "stay when the pointer moves away or leaves; turning it off lets both " +
+    "resume from where they are. Both switches are off when absent from the " +
     "switches prop. After the pointer leaves, the dots settle back " +
     "and the fog closes toward the light's last position. The animation runs " +
     "only while something is moving. The map has no controls and is exposed " +
@@ -535,6 +564,10 @@ export const fogOfWarMeta: ComponentMeta = {
   lines: {
     "fog-of-war": "Everything is here. Some of it is visible.",
     "fog-spray-switch": "Only where you keep moving.",
+    "fog-remember-switch": "Where you have been, and for how long.",
   },
-  switches: [{ key: "spray", off: "Fog", on: "Spray", sidekick: "fog-spray-switch" }],
+  switches: [
+    { key: "spray", off: "Fog", on: "Spray", sidekick: "fog-spray-switch" },
+    { key: "remember", off: "Forget", on: "Remember", sidekick: "fog-remember-switch" },
+  ],
 };
