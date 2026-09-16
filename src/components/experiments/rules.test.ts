@@ -17,7 +17,9 @@ import {
   coreOffset,
   FORGET_REACH,
   FORGET_SPREAD,
+  SPRAY_MIN_SIZE,
   SPRAY_RATE,
+  spraySize,
   brushRadius,
   coverRadius,
   dotClarity,
@@ -144,6 +146,18 @@ describe("spray", () => {
     // Uniform in area: half the dots land inside 1/√2 of the core's radius.
     const half = coreOffset(0.5, 0, 80);
     expect(half.x).toBeCloseTo((80 * CORE_RATIO) / Math.SQRT2);
+  });
+
+  it("lands dots at full size across the core and smallest at the brush's edge", () => {
+    expect(spraySize(0, 80)).toBe(1);
+    expect(spraySize(80 * CORE_RATIO, 80)).toBe(1);
+    expect(spraySize(80, 80)).toBeCloseTo(SPRAY_MIN_SIZE);
+    expect(spraySize(200, 80)).toBeCloseTo(SPRAY_MIN_SIZE);
+    expect(spraySize(10, 0)).toBe(1);
+    const samples = [0.5, 0.65, 0.8, 0.95].map((ratio) => spraySize(80 * ratio, 80));
+    for (let index = 1; index < samples.length; index += 1) {
+      expect(samples[index]).toBeLessThan(samples[index - 1]);
+    }
   });
 
   it("forgets each dot at a fixed distance within the spread", () => {

@@ -27,6 +27,7 @@ import {
   pushAt,
   sprayCount,
   sprayOffset,
+  spraySize,
   stepMix,
   visibilityAt,
 } from "./rules";
@@ -93,9 +94,11 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
     let offsetY = new Float32Array(0);
     let velocityX = new Float32Array(0);
     let velocityY = new Float32Array(0);
-    // Spray: each dot's laid scale, its velocity, and whether it is laid (1) or leaving (0).
+    // Spray: each dot's laid scale, its velocity, the size it was laid at, and
+    // whether it is laid (1) or leaving (0).
     let sprayScale = new Float32Array(0);
     let sprayVelocity = new Float32Array(0);
+    let sprayWeight = new Float32Array(0);
     let sprayTarget = new Uint8Array(0);
     let brush = 0;
     let sprayCarry = 0;
@@ -239,9 +242,13 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
               pointer === null ||
               Math.hypot((column - 0.5) * DOT_PITCH - pointer.x, (row - 0.5) * DOT_PITCH - pointer.y) >
                 forgetDistance(brush, column, row);
-            if (far) sprayTarget[dot] = 0;
+            if (far) {
+              sprayTarget[dot] = 0;
+              // Forgotten, so a later pass may lay it small again.
+              sprayWeight[dot] = 0;
+            }
           }
-          const goal = sprayTarget[dot];
+          const goal = sprayTarget[dot] === 1 ? sprayWeight[dot] : 0;
           let scale = sprayScale[dot];
           let velocity = sprayVelocity[dot];
           if (scale === goal && velocity === 0) continue;
@@ -268,12 +275,18 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
       return active;
     }
 
-    /** Spray: lays the map dot nearest `point` moved by `offset`, if it is on the lattice. */
+    /**
+     * Spray: lays the map dot nearest `point` moved by `offset`, if it is on
+     * the lattice, at the size its distance from the pointer gives it. A dot
+     * laid nearer than it already was grows to the larger size.
+     */
     function spray(point: Point, offset: Point): void {
       const column = Math.round((point.x + offset.x) / DOT_PITCH + 0.5);
       const row = Math.round((point.y + offset.y) / DOT_PITCH + 0.5);
       if (column < 0 || column >= columns || row < 0 || row >= rows) return;
-      sprayTarget[row * columns + column] = 1;
+      const dot = row * columns + column;
+      sprayTarget[dot] = 1;
+      sprayWeight[dot] = Math.max(sprayWeight[dot], spraySize(Math.hypot(offset.x, offset.y), brush));
     }
 
     /** Adds a circle for every dot whose radius, from `radiusOf`, is visible. */
@@ -386,6 +399,7 @@ export function FogOfWar({ switches = NO_SWITCHES }: { switches?: SwitchState })
       halfLives = new Float32Array(count);
       sprayScale = new Float32Array(count);
       sprayVelocity = new Float32Array(count);
+      sprayWeight = new Float32Array(count);
       sprayTarget = new Uint8Array(count);
       brush = brushRadius(radius);
       sprayCarry = 0;
@@ -546,8 +560,11 @@ export const fogOfWarMeta: ComponentMeta = {
     "pointer lays 1.2 map dots per pixel travelled, at random lattice points " +
     "within a brush 70% of the light's radius, densest at its centre, plus " +
     "4 more per pixel spread evenly across a core 40% of the brush's radius. " +
-    "A pointer held still lays nothing. Each dot springs to full size with " +
-    "overshoot (stiffness 260, damping ratio 0.45) and springs back to " +
+    "A dot lands at full size within the core and smaller the further out it " +
+    "falls, down to 30% of a full dot at the brush's edge; one laid nearer " +
+    "than it already was grows. A pointer held still lays nothing. Each dot " +
+    "springs to its size with overshoot (stiffness 260, damping ratio 0.45) " +
+    "and springs back to " +
     "nothing once the pointer is more than two and a half brush radii away, " +
     "give or take 20% per dot, or leaves the map. The Spray switch eases " +
     "between the two modes over 0.3 seconds. With the Remember switch on, " +

@@ -47,9 +47,9 @@ import {
 export const entries: LibraryEntry[] = [
   { id: "classic-runaway", component: ClassicRunaway, meta: classicRunawayMeta },
   { id: "cornered", component: CorneredButton, meta: corneredButtonMeta },
-  { id: "mitosis", component: MitosisButton, meta: mitosisButtonMeta },
   { id: "shrinking", component: ShrinkingButton, meta: shrinkingButtonMeta },
   { id: "personal-space", component: PersonalSpace, meta: personalSpaceMeta },
+  { id: "mitosis", component: MitosisButton, meta: mitosisButtonMeta },
   { id: "password-field", component: PasswordField, meta: passwordFieldMeta },
   { id: "checkboxes", component: CheckboxGroup, meta: checkboxGroupMeta },
   { id: "phone-number", component: PhoneNumber, meta: phoneNumberMeta },

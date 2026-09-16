@@ -40,6 +40,8 @@ export const SPRAY_RATE = 1.2;
 export const CORE_RATIO = 0.4;
 /** Spray: extra map dots laid per CSS pixel the pointer moves, spread evenly across the core. */
 export const CORE_RATE = 4;
+/** Spray: the size a map dot lands at on the brush's edge, as a fraction of a full dot. */
+export const SPRAY_MIN_SIZE = 0.3;
 /** Spray: spring constants for a map dot's scale as it lands or leaves. */
 export const POP_STIFFNESS = 260;
 export const POP_DAMPING_RATIO = 0.45;
@@ -161,6 +163,16 @@ export function coreOffset(u: number, v: number, brush: number): { x: number; y:
   const distance = brush * CORE_RATIO * Math.sqrt(clamp01(u));
   const angle = Math.PI * 2 * v;
   return { x: distance * Math.cos(angle), y: distance * Math.sin(angle) };
+}
+
+/**
+ * The size a dot lands at, from how far from the pointer it lands: full across
+ * the core, easing down to SPRAY_MIN_SIZE at the brush's edge.
+ */
+export function spraySize(distance: number, brush: number): number {
+  if (brush <= 0) return 1;
+  const t = clamp01((Math.max(0, distance) / brush - CORE_RATIO) / (1 - CORE_RATIO));
+  return 1 + (SPRAY_MIN_SIZE - 1) * t * t * (3 - 2 * t);
 }
 
 /** How far the pointer may be from one laid dot before it leaves. */
