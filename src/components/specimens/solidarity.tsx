@@ -6,7 +6,7 @@ import { Checkmark } from "./checkmark";
 import styles from "./form-specimens.module.css";
 import { solidarityPrompt } from "./solidarity.prompt";
 
-const preferenceLabels = ["Email updates", "Product news", "Research invitations"];
+const preferenceLabels = ["Good", "Cheap", "Fast"];
 
 export function Solidarity() {
   const [preferences, setPreferences] = useState([true, false, true]);
@@ -34,7 +34,12 @@ export function Solidarity() {
 
   return (
     <div className={styles.preferences}>
-      <fieldset className={styles.preferenceFieldset} data-sidekick="checkboxes">
+      <fieldset
+        className={styles.preferenceFieldset}
+        data-sidekick="checkboxes"
+        data-sidekick-group=""
+        data-sidekick-tab="above"
+      >
         <legend className={styles.fieldLabel}>Select your preferences</legend>
         <div className={styles.preferenceOptions}>
           {preferenceLabels.map((label, index) => (
@@ -65,7 +70,7 @@ export const solidarityMeta: ComponentMeta = {
   kind: "hostile",
   category: "inputs",
   summary:
-    "Three preference checkboxes. Toggling one also toggles the next in the " +
+    "Three preference checkboxes: Good, Cheap, and Fast. Toggling one also toggles the next in the " +
     "list, wrapping from the last back to the first; a running count sits " +
     "beside the save button.",
   usage: "<Solidarity />",

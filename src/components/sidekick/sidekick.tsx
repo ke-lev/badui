@@ -5,6 +5,19 @@ import { inspect } from "./inspect";
 import { line, TARGETS } from "./lines";
 import styles from "./sidekick.module.css";
 import { useSidekickMode } from "./sidekick-mode";
+import {
+  advance,
+  DAMPING_IDLE,
+  DAMPING_LOCK,
+  dampingFor,
+  foldedHeading,
+  MAX_STRETCH,
+  settle,
+  spring,
+  STIFFNESS_IDLE,
+  STIFFNESS_LOCK,
+  STRETCH_DIVISOR,
+} from "./spring";
 
 const FINE_POINTER_QUERY = "(pointer: fine) and (hover: hover)";
 
@@ -29,69 +42,13 @@ function getFinePointerServerSnapshot(): boolean {
 const IDLE_RADIUS = 12;
 const PAD = 6;
 
-// Motion is a velocity-carrying spring rather than exponential decay. Decay can
-// only ever approach its target and stop dead; a spring arrives slightly past
-// and settles back, which is what reads as mass. Carrying velocity across a
-// target change is the other half: moving from one element to the next, the
-// cuff flows on its momentum instead of restarting a fresh curve.
-// Idle and locked want opposite things. Trailing the cursor must never
-// overshoot — the blob would oscillate around the pointer — so idle is
-// critically damped and soft. Arrival is where the give belongs, so locked is
-// stiffer and underdamped. Both the stiffness and the ratio lerp on `lock`.
-const STIFFNESS_IDLE = 190;
-const STIFFNESS_LOCK = 1100;
-const DAMPING_IDLE = 1.0; // critically damped: smooth trail, no wobble
-const DAMPING_LOCK = 0.7; // ~3.2% past the edge, peak 133ms, settled 266ms
 const TAB_STIFFNESS_SCALE = 0.75; // the tab trails the cuff slightly
-// 1/240 rather than 1/120: at these stiffnesses semi-implicit Euler adds enough
-// numerical damping at 1/120 to eat more than half the intended overshoot.
-const SUBSTEP = 1 / 240;
-const SETTLE = 0.05;
-const SETTLE_VELOCITY = 0.5;
 
 const LOCK_BLEND = 0.22;
 const FADE_BLEND = 0.35;
-const MAX_STRETCH = 0.26;
-const STRETCH_DIVISOR = 3200;
 const TAB_GAP = 9;
 const TAB_HEIGHT = 26;
 const TAB_CLEARANCE = 80;
-
-type Spring = { value: number; velocity: number };
-
-function spring(value: number): Spring {
-  return { value, velocity: 0 };
-}
-
-function advance(
-  s: Spring,
-  target: number,
-  dt: number,
-  stiffness: number,
-  damping: number,
-) {
-  let remaining = dt;
-  while (remaining > 0) {
-    const h = Math.min(SUBSTEP, remaining);
-    const accel = stiffness * (target - s.value) - damping * s.velocity;
-    s.velocity += accel * h;
-    s.value += s.velocity * h;
-    remaining -= h;
-  }
-  if (Math.abs(target - s.value) < SETTLE && Math.abs(s.velocity) < SETTLE_VELOCITY) {
-    s.value = target;
-    s.velocity = 0;
-  }
-}
-
-function settle(s: Spring, target: number) {
-  s.value = target;
-  s.velocity = 0;
-}
-
-function dampingFor(stiffness: number, ratio: number): number {
-  return 2 * ratio * Math.sqrt(stiffness);
-}
 
 function smoothstep(t: number): number {
   return t * t * (3 - 2 * t);
@@ -192,7 +149,11 @@ export function Sidekick() {
       const origin = event.target;
       const el = origin instanceof Element ? origin : null;
       offRef.current = el ? el.closest("[data-sidekick-off]") : null;
-      targetRef.current = el && !offRef.current ? el.closest(TARGETS) : null;
+      // A [data-sidekick-group] is enveloped as one piece, so the tab clears the
+      // whole group instead of landing on the control beside the one hovered.
+      targetRef.current = el && !offRef.current
+        ? el.closest("[data-sidekick-group]") ?? el.closest(TARGETS)
+        : null;
     }
 
     function onPointerLeave() {
@@ -271,12 +232,7 @@ export function Sidekick() {
         ? 0
         : Math.min(speed / STRETCH_DIVISOR, MAX_STRETCH) * (1 - morph);
 
-      // A symmetric ellipse is unchanged by a half turn, so the heading only
-      // matters modulo pi. Folding it into (-pi/2, pi/2] removes the +/-pi wrap
-      // where a hair of jitter flips the sign by a full turn.
-      let heading = speed > 1 ? Math.atan2(box.y.velocity, box.x.velocity) : 0;
-      if (heading > Math.PI / 2) heading -= Math.PI;
-      else if (heading < -Math.PI / 2) heading += Math.PI;
+      const heading = foldedHeading(box.x.velocity, box.y.velocity);
 
       // Rotation exists only to orient the stretch, so it is derived from the
       // stretch each frame rather than kept as state — no persistent angle
@@ -314,9 +270,15 @@ export function Sidekick() {
         tabAlpha = blend(tabAlpha, textRef.current ? 1 : 0, fadeRate, dt);
       }
 
+      // [data-sidekick-tab="above"] prefers the top edge, for targets whose
+      // bottom edge runs straight into more of the component.
       const below = box.y.value + box.h.value + TAB_GAP;
-      const flip = below + TAB_HEIGHT > window.innerHeight - TAB_CLEARANCE;
-      const targetTabY = flip ? box.y.value - TAB_GAP - TAB_HEIGHT : below;
+      const over = box.y.value - TAB_GAP - TAB_HEIGHT;
+      const prefersAbove = Boolean(el?.closest('[data-sidekick-tab="above"]'));
+      const flip = prefersAbove
+        ? over >= TAB_GAP
+        : below + TAB_HEIGHT > window.innerHeight - TAB_CLEARANCE;
+      const targetTabY = flip ? over : below;
       const targetTabX = Math.max(
         8,
         Math.min(box.x.value, window.innerWidth - tab.offsetWidth - 8),

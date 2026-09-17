@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useSyncExternalStore } from "react";
+import { RadioDot } from "@/components/sidekick/radio-dot";
 import sidekickStyles from "@/components/sidekick/sidekick.module.css";
 import styles from "./theme.module.css";
 import { isTheme, THEME_STORAGE_KEY as STORAGE_KEY, type Theme } from "./theme-script";
@@ -86,6 +87,7 @@ export function ThemeControl() {
           <span>{option.label}</span>
         </label>
       ))}
+      <RadioDot value={theme} />
     </fieldset>
   );
 }

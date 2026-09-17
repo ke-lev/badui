@@ -24,10 +24,10 @@ import { Momentum, momentumMeta } from "@/components/sliders/momentum";
 import { OneGroove, oneGrooveMeta } from "@/components/sliders/one-groove";
 import { PiCker, piCkerMeta } from "@/components/sliders/picker";
 import { Rebound, reboundMeta } from "@/components/sliders/rebound";
-import { Carry, carryMeta } from "@/components/specimens/carry";
 import { LowGear, lowGearMeta } from "@/components/specimens/low-gear";
 import { MovingTarget, movingTargetMeta } from "@/components/specimens/moving-target";
 import { Recursion, recursionMeta } from "@/components/specimens/recursion";
+import { Rotary, rotaryMeta } from "@/components/specimens/rotary";
 import { Solidarity, solidarityMeta } from "@/components/specimens/solidarity";
 
 /**
@@ -43,7 +43,7 @@ export const entries: LibraryEntry[] = [
   { id: "mitosis", component: MitosisButton, meta: mitosisButtonMeta },
   { id: "moving-target", component: MovingTarget, meta: movingTargetMeta },
   { id: "solidarity", component: Solidarity, meta: solidarityMeta },
-  { id: "carry", component: Carry, meta: carryMeta },
+  { id: "rotary", component: Rotary, meta: rotaryMeta },
   { id: "letter-name", component: LetterName, meta: letterNameMeta },
   { id: "leading-caret", component: LeadingCaret, meta: leadingCaretMeta },
   { id: "sorted-email", component: SortedEmail, meta: sortedEmailMeta },

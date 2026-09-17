@@ -1,4 +1,5 @@
 .control {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -28,12 +29,44 @@
   color: var(--foreground);
 }
 
+/* The ring only: the checked dot is a single RadioDot per group that travels
+   between rings. Until it has placed itself (no JS yet), each checked ring
+   paints its own. */
 .option input {
+  appearance: none;
+  display: block;
   width: 13px;
   height: 13px;
   margin: 0;
-  accent-color: var(--accent);
+  border: 1.5px solid var(--muted);
+  border-radius: 50%;
+  background: transparent;
   cursor: pointer;
+  transition: border-color 120ms ease;
+}
+
+.option:hover input {
+  border-color: var(--foreground);
+}
+
+.option input:checked {
+  border-color: var(--accent);
+}
+
+:not([data-dot]) > .option input:checked {
+  background: radial-gradient(circle, var(--accent) 2.5px, transparent 3px);
+}
+
+.dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  pointer-events: none;
+  will-change: transform;
 }
 
 .option input:checked + span {

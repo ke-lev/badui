@@ -5,7 +5,7 @@ Reproduce the behavior exactly as specified; do not adjust thresholds, timings, 
 
 MARKUP AND SEMANTICS
 - Render a fieldset with legend “Select your preferences”.
-- Render three controlled native checkbox inputs inside clickable labels, in this order: “Email updates”, “Product news”, “Research invitations”. Each input has an aria-hidden custom checkbox visual followed by its visible label.
+- Render three controlled native checkbox inputs inside clickable labels, in this order: “Good”, “Cheap”, “Fast”. Each input has an aria-hidden custom checkbox visual followed by its visible label.
 - Beneath the fieldset, show “N selected” in role="status" beside a type="button" labeled “Save preferences”.
 - After saving, replace the editor with a role="status" success panel containing a decorative check, “Preferences saved.”, “N preferences selected.”, and an “Edit preferences” button.
 

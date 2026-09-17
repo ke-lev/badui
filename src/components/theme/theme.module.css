@@ -1,6 +1,7 @@
 /* Laid out like the sidekick control, but kept on touch screens: the theme
    still applies without a cursor. */
 .control {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 14px;

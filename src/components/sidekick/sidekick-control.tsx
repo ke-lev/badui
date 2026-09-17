@@ -1,6 +1,7 @@
 "use client";
 
 import { ThemeControl } from "@/components/theme/theme";
+import { RadioDot } from "./radio-dot";
 import styles from "./sidekick.module.css";
 import { useSidekickMode, type SidekickMode } from "./sidekick-mode";
 
@@ -31,6 +32,7 @@ export function SidekickControl() {
           <span>{option.label}</span>
         </label>
       ))}
+      <RadioDot value={mode} />
     </fieldset>
   );
 }

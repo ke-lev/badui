@@ -52,6 +52,11 @@
   /* The page width. Read by .site-shell and by the splash dock, so the two
      line up on the same right edge at every breakpoint. */
   --shell-width: min(1280px, calc(100% - 80px));
+
+  /* Every specimen card is this tall, whatever it holds; an entry fits its
+     stage rather than the stage growing to fit the entry. */
+  --stage-height: 360px;
+  --entry-stage-height: 430px;
 }
 
 :root[data-theme="light"] { color-scheme: light; }
@@ -132,7 +137,7 @@ button, a { touch-action: manipulation; }
 .rail-toggle { display: none; }
 .library-empty { display: grid; place-items: center; min-height: 268px; margin: 0; border: 1px dashed var(--border); border-radius: 8px; color: var(--muted); font-size: 13px; }
 
-.entry-stage { min-height: 430px; }
+.entry-stage { --stage-height: var(--entry-stage-height); }
 .entry-docs { display: grid; grid-template-columns: minmax(240px, 1.15fr) minmax(300px, .85fr); align-items: start; gap: 32px; padding-top: 30px; }
 .entry-description { min-width: 0; max-width: 64ch; }
 .entry-summary { margin: 0; font-size: 15px; line-height: 1.66; }
@@ -166,7 +171,7 @@ button, a { touch-action: manipulation; }
 .reset-all svg, .specimen-reset svg { transition: transform 180ms ease; }
 .specimen-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 26px; row-gap: 33px; }
 .specimen { min-width: 0; scroll-margin-top: 28px; }
-.specimen-stage { border: 1px solid var(--rule); border-radius: 8px; min-height: 360px; padding: 28px 32px; display: flex; align-items: center; justify-content: center; background: var(--stage); position: relative; isolation: isolate; }
+.specimen-stage { border: 1px solid var(--rule); border-radius: 8px; height: var(--stage-height); padding: 28px 32px; display: flex; align-items: center; justify-content: center; background: var(--stage); position: relative; isolation: isolate; }
 .specimen-2 .specimen-stage { background: var(--stage-2); }
 .specimen-3 .specimen-stage { background: var(--stage-3); }
 .specimen-4 .specimen-stage { background: var(--stage-4); }
@@ -206,10 +211,9 @@ button, a { touch-action: manipulation; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 @media (min-width: 1500px) {
-  :root { --shell-width: min(1400px, calc(100% - 128px)); }
+  :root { --shell-width: min(1400px, calc(100% - 128px)); --stage-height: 384px; }
   .hero { padding-top: 84px; padding-bottom: 88px; }
   .hero h1 { font-size: 204px; }
-  .specimen-stage { min-height: 384px; }
 }
 
 @media (max-width: 900px) {
@@ -234,13 +238,13 @@ button, a { touch-action: manipulation; }
 }
 
 @media (max-width: 760px) {
-  :root { --shell-width: calc(100% - 48px); }
+  :root { --shell-width: calc(100% - 48px); --stage-height: 340px; }
   .site-header { height: 82px; }
   .hero { min-height: 100svh; gap: 42px; padding: 52px 0 51px; }
   .hero h1 { font-size: clamp(100px, 20vw, 150px); }
   .collection-page .library { padding-top: 52px; }
   .specimen-grid { grid-template-columns: minmax(0, 1fr); gap: 22px 18px; }
-  .specimen-stage { padding: 25px 20px; min-height: 340px; }
+  .specimen-stage { padding: 25px 20px; }
   .entry-docs { grid-template-columns: minmax(0, 1fr); gap: 26px; }
 }
 
@@ -252,8 +256,8 @@ button, a { touch-action: manipulation; }
   .collection-heading { gap: 12px; }
   .collection-count { font-size: 9px; }
   .specimen-grid { grid-template-columns: minmax(0, 1fr); row-gap: 22px; }
-  .specimen-stage { min-height: 330px; padding: 25px 24px; }
-  .entry-stage { min-height: 380px; }
+  :root { --stage-height: 330px; --entry-stage-height: 380px; }
+  .specimen-stage { padding: 25px 24px; }
   .entry-description { max-width: none; }
   .prompt-text { max-height: 280px; padding-inline: 14px; font-size: 10px; }
   .specimen-caption { min-height: 55px; }

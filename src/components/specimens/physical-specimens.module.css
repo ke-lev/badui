@@ -1,5 +1,5 @@
 .volumeSpecimen,
-.phoneSpecimen {
+.rotarySpecimen {
   width: 100%;
   max-width: 320px;
   margin: auto;
@@ -120,21 +120,21 @@
   height: 14px;
 }
 
-.phoneSpecimen {
-  max-width: 310px;
+.rotarySpecimen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
-.fieldHeading {
+.numberHeading {
   display: flex;
+  align-self: stretch;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   font-size: 12px;
   line-height: 20px;
-}
-
-.fieldHeading svg {
-  color: var(--faint);
 }
 
 .countryCode {
@@ -143,97 +143,87 @@
   font-size: 12px;
 }
 
-.phoneDigits {
+.number {
   display: flex;
-  justify-content: space-between;
-  gap: 3px;
-  margin-top: 22px;
-}
-
-.digitGroup {
-  display: flex;
-  flex: 1 1 0;
-  align-items: center;
-  gap: 3px;
-}
-
-.digitGroup:last-child {
-  flex-grow: 1.25;
-}
-
-.digitButton {
-  position: relative;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 8px;
-  min-width: 0;
-  height: 87px;
-  padding: 9px 0 15px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: var(--field);
-  color: var(--foreground);
+  gap: 14px;
   font-family: var(--font-geist-sans), sans-serif;
   font-size: 22px;
-  line-height: 1;
-  cursor: pointer;
-  transition: background-color 140ms ease, border-color 140ms ease;
-  touch-action: manipulation;
+  line-height: 30px;
+  font-variant-numeric: tabular-nums;
 }
 
-.digitButton:hover {
-  background: var(--surface-raised);
-  border-color: var(--border-strong);
-}
-
-.digitButton:active {
-  background: var(--selection);
-}
-
-.digitButton:focus-visible {
-  outline: 2px solid var(--accent-line);
-  outline-offset: 3px;
-  z-index: 1;
-}
-
-.connectedDigit {
-  background: var(--stage-2);
-  border-color: var(--border-hover);
-}
-
-.digitArrow {
-  width: 11px;
-  height: 11px;
-  color: var(--faint);
-}
-
-.digitUnderline {
-  position: absolute;
-  bottom: 10px;
-  width: 6px;
-  height: 1px;
-  background: var(--border-hover);
-}
-
-.phoneSeparator {
-  padding: 13px 1px 0;
-  color: var(--faint);
-  font-size: 12px;
-}
-
-.phoneFooter {
+.numberGroup {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 21px;
-  color: var(--muted);
+  gap: 4px;
 }
 
-.phoneHint {
-  font-size: 11px;
+.slot {
+  width: 15px;
+  height: 31px;
+  border-bottom: 1px solid var(--border-strong);
+  text-align: center;
+}
+
+.rotaryDial {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  touch-action: none;
+  user-select: none;
+  outline: none;
+}
+
+.rotaryDial:focus-visible {
+  outline: 2px solid var(--accent-line);
+  outline-offset: 7px;
+}
+
+.rotaryDial svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.dialBase {
+  fill: var(--field);
+  stroke: var(--border-hover);
+  stroke-width: 1;
+}
+
+.dialDigit {
+  fill: var(--ink-soft);
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 14px;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.plate {
+  fill: var(--field);
+}
+
+.plateEdge,
+.hole,
+.dialCard {
+  fill: transparent;
+  stroke: var(--border-hover);
+  stroke-width: 1;
+}
+
+.hole {
+  cursor: grab;
+}
+
+.rotaryDial.dragging,
+.rotaryDial.dragging .hole {
+  cursor: grabbing;
+}
+
+.fingerStop {
+  stroke: var(--accent-soft);
+  stroke-width: 3;
+  stroke-linecap: round;
 }
 
 @media (max-width: 600px) {
@@ -244,15 +234,5 @@
 
   .dialFace {
     inset: 28px;
-  }
-
-  .digitButton {
-    font-size: 20px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .digitButton {
-    transition: none;
   }
 }
