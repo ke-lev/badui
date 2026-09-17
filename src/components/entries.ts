@@ -11,33 +11,24 @@ import { DelayedPointer, delayedPointerMeta } from "@/components/cursor/delayed-
 import { HeavyPointer, heavyPointerMeta } from "@/components/cursor/heavy-pointer";
 import { MirroredPointer, mirroredPointerMeta } from "@/components/cursor/mirrored-pointer";
 import { FogOfWar, fogOfWarMeta } from "@/components/experiments/fog-of-war";
-import { UndoToast, undoToastMeta } from "@/components/feedback/undo-toast";
-import { UploadProgress, uploadProgressMeta } from "@/components/feedback/upload-progress";
+import { Asymptote, asymptoteMeta } from "@/components/feedback/asymptote";
+import { Skittish, skittishMeta } from "@/components/feedback/skittish";
 import { LeadingCaret, leadingCaretMeta } from "@/components/inputs/leading-caret";
 import { LetterName, letterNameMeta } from "@/components/inputs/letter-name";
 import { SortedEmail, sortedEmailMeta } from "@/components/inputs/sorted-email";
 import type { LibraryEntry } from "@/components/library";
-import { Pagination, paginationMeta } from "@/components/navigation/pagination";
-import { TabBar, tabBarMeta } from "@/components/navigation/tab-bar";
-import { Brightness, brightnessMeta } from "@/components/sliders/brightness";
-import { DatePicker, datePickerMeta } from "@/components/sliders/date-picker";
-import { PointerSpeed, pointerSpeedMeta } from "@/components/sliders/pointer-speed";
-import { Thermostat, thermostatMeta } from "@/components/sliders/thermostat";
-import { PiCker, piCkerMeta } from "@/components/sliders/tip-slider";
-import {
-  CheckboxGroup,
-  checkboxGroupMeta,
-  ConfirmDialog,
-  confirmDialogMeta,
-  PasswordField,
-  passwordFieldMeta,
-} from "@/components/specimens/form-specimens";
-import {
-  PhoneNumber,
-  phoneNumberMeta,
-  VolumeControl,
-  volumeControlMeta,
-} from "@/components/specimens/physical-specimens";
+import { BackOfTheLine, backOfTheLineMeta } from "@/components/navigation/back-of-the-line";
+import { Doubling, doublingMeta } from "@/components/navigation/doubling";
+import { Compounding, compoundingMeta } from "@/components/sliders/compounding";
+import { Momentum, momentumMeta } from "@/components/sliders/momentum";
+import { OneGroove, oneGrooveMeta } from "@/components/sliders/one-groove";
+import { PiCker, piCkerMeta } from "@/components/sliders/picker";
+import { Rebound, reboundMeta } from "@/components/sliders/rebound";
+import { Carry, carryMeta } from "@/components/specimens/carry";
+import { LowGear, lowGearMeta } from "@/components/specimens/low-gear";
+import { MovingTarget, movingTargetMeta } from "@/components/specimens/moving-target";
+import { Recursion, recursionMeta } from "@/components/specimens/recursion";
+import { Solidarity, solidarityMeta } from "@/components/specimens/solidarity";
 
 /**
  * Every entry in the library, in index order. The collection is built from
@@ -50,18 +41,18 @@ export const entries: LibraryEntry[] = [
   { id: "shrinking", component: ShrinkingButton, meta: shrinkingButtonMeta },
   { id: "personal-space", component: PersonalSpace, meta: personalSpaceMeta },
   { id: "mitosis", component: MitosisButton, meta: mitosisButtonMeta },
-  { id: "password-field", component: PasswordField, meta: passwordFieldMeta },
-  { id: "checkboxes", component: CheckboxGroup, meta: checkboxGroupMeta },
-  { id: "phone-number", component: PhoneNumber, meta: phoneNumberMeta },
+  { id: "moving-target", component: MovingTarget, meta: movingTargetMeta },
+  { id: "solidarity", component: Solidarity, meta: solidarityMeta },
+  { id: "carry", component: Carry, meta: carryMeta },
   { id: "letter-name", component: LetterName, meta: letterNameMeta },
   { id: "leading-caret", component: LeadingCaret, meta: leadingCaretMeta },
   { id: "sorted-email", component: SortedEmail, meta: sortedEmailMeta },
-  { id: "brightness", component: Brightness, meta: brightnessMeta },
+  { id: "momentum", component: Momentum, meta: momentumMeta },
   { id: "picker", component: PiCker, meta: piCkerMeta },
-  { id: "date-picker", component: DatePicker, meta: datePickerMeta },
-  { id: "thermostat", component: Thermostat, meta: thermostatMeta },
-  { id: "pointer-speed", component: PointerSpeed, meta: pointerSpeedMeta },
-  { id: "volume-control", component: VolumeControl, meta: volumeControlMeta },
+  { id: "one-groove", component: OneGroove, meta: oneGrooveMeta },
+  { id: "rebound", component: Rebound, meta: reboundMeta },
+  { id: "compounding", component: Compounding, meta: compoundingMeta },
+  { id: "low-gear", component: LowGear, meta: lowGearMeta },
   { id: "mirrored-pointer", component: MirroredPointer, meta: mirroredPointerMeta },
   { id: "delayed-pointer", component: DelayedPointer, meta: delayedPointerMeta },
   { id: "heavy-pointer", component: HeavyPointer, meta: heavyPointerMeta },
@@ -69,10 +60,10 @@ export const entries: LibraryEntry[] = [
   { id: "opinionated-buddy", component: OpinionatedBuddy, meta: opinionatedBuddyMeta },
   { id: "screaming-buddy", component: ScreamingBuddy, meta: screamingBuddyMeta },
   { id: "clingy-buddy", component: ClingyBuddy, meta: clingyBuddyMeta },
-  { id: "tabs", component: TabBar, meta: tabBarMeta },
-  { id: "pagination", component: Pagination, meta: paginationMeta },
-  { id: "upload-progress", component: UploadProgress, meta: uploadProgressMeta },
-  { id: "undo-toast", component: UndoToast, meta: undoToastMeta },
-  { id: "confirmation-dialog", component: ConfirmDialog, meta: confirmDialogMeta },
+  { id: "back-of-the-line", component: BackOfTheLine, meta: backOfTheLineMeta },
+  { id: "doubling", component: Doubling, meta: doublingMeta },
+  { id: "asymptote", component: Asymptote, meta: asymptoteMeta },
+  { id: "skittish", component: Skittish, meta: skittishMeta },
+  { id: "recursion", component: Recursion, meta: recursionMeta },
   { id: "fog-of-war", component: FogOfWar, meta: fogOfWarMeta },
 ];

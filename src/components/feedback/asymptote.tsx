@@ -9,10 +9,10 @@ import {
   UPLOAD_STALL,
   UPLOAD_TICK_MS,
 } from "./rules";
-import { uploadProgressPrompt } from "./upload-progress.prompt";
+import { asymptotePrompt } from "./asymptote.prompt";
 import styles from "./feedback.module.css";
 
-export function UploadProgress() {
+export function Asymptote() {
   // Distance left to 100, or null while no upload is running.
   const [remaining, setRemaining] = useState<number | null>(null);
   const uploading = remaining !== null;
@@ -60,16 +60,16 @@ export function UploadProgress() {
   );
 }
 
-export const uploadProgressMeta: ComponentMeta = {
-  name: "Upload progress",
+export const asymptoteMeta: ComponentMeta = {
+  name: "Asymptote",
   kind: "hostile",
   category: "feedback",
   summary:
     "A file upload with a progress bar. Every quarter second the upload covers " +
     "a tenth of the distance left, so the readout climbs quickly, slows, and " +
     "holds at 99.9%. The estimate reads three seconds throughout.",
-  usage: "<UploadProgress />",
-  prompt: uploadProgressPrompt,
+  usage: "<Asymptote />",
+  prompt: asymptotePrompt,
   notes:
     "A role=progressbar with a one-decimal aria-valuetext. The estimate is " +
     "computed from the most recent tick's rate and sits in a status region. " +

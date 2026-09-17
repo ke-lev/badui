@@ -1,5 +1,5 @@
-export const paginationPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript results pager named Pagination. It takes no props and is used as <Pagination />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+export const doublingPrompt = `WHAT TO BUILD
+Build a portable React + TypeScript results pager named Doubling. It takes no props and is used as <Doubling />. Keep the component and its plain CSS self-contained, with no application-specific imports.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 

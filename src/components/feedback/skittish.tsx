@@ -12,7 +12,7 @@ import {
 } from "@/components/buttons/shrinking-button";
 import type { ComponentMeta } from "@/components/meta";
 import { TOAST_MS } from "./rules";
-import { undoToastPrompt } from "./undo-toast.prompt";
+import { skittishPrompt } from "./skittish.prompt";
 import styles from "./feedback.module.css";
 
 const FILES = ["budget.xlsx", "meeting-notes.txt", "poster.png", "minutes.docx"];
@@ -20,7 +20,7 @@ const SHADOW_FADE = 0.2; // the whole toast fades over the last this-much of the
 
 type Deletion = { name: string; index: number; sequence: number };
 
-export function UndoToast() {
+export function Skittish() {
   const [files, setFiles] = useState(FILES);
   const [deletion, setDeletion] = useState<Deletion | null>(null);
   const specimenRef = useRef<HTMLDivElement>(null);
@@ -205,16 +205,16 @@ export function UndoToast() {
   );
 }
 
-export const undoToastMeta: ComponentMeta = {
-  name: "Undo toast",
+export const skittishMeta: ComponentMeta = {
+  name: "Skittish",
   kind: "hostile",
   category: "feedback",
   summary:
     "A file list where each delete raises a toast with Undo. The toast stays " +
     "for five seconds, drawing down a countdown bar. Once a pointer comes " +
     "within 16 pixels of its edge, it shrinks to nothing and closes.",
-  usage: "<UndoToast />",
-  prompt: undoToastPrompt,
+  usage: "<Skittish />",
+  prompt: skittishPrompt,
   notes:
     "The toast renders inside a status region, so each deletion is announced. " +
     "The shrink is the Shrinking button's: width, height, and padding on " +

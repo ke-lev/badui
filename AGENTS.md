@@ -27,15 +27,15 @@ A component is not finished when it renders. It is finished when it exports a
 
 ```ts
 export const meta: ComponentMeta = {
-  name: "Volume control",
+  name: "Low gear",
   kind: "hostile",
-  category: "specimens",
+  category: "sliders",
   summary:
     "A rotary dial. Reaching 100% takes twelve and a half full turns; each " +
     "arrow-key press moves it one percent.",
-  usage: "<VolumeControl />",
+  usage: "<LowGear />",
   notes: "Pointer-driven via pointer capture. Exposed as role=slider.",
-  prompt: volumeControlPrompt,
+  prompt: lowGearPrompt,
   lines: {
     "volume-dial": "It goes to 100. It does not go to 100 quickly.",
   },

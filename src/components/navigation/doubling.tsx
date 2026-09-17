@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import type { ComponentMeta } from "@/components/meta";
-import { paginationPrompt } from "./pagination.prompt";
+import { doublingPrompt } from "./doubling.prompt";
 import { nextPage, PAGE_COUNT, previousPage, RESULTS_PER_PAGE } from "./rules";
 import styles from "./navigation.module.css";
 
-export function Pagination() {
+export function Doubling() {
   const [page, setPage] = useState(1);
   const first = (page - 1) * RESULTS_PER_PAGE + 1;
   const atStart = page === 1;
@@ -52,15 +52,15 @@ export function Pagination() {
   );
 }
 
-export const paginationMeta: ComponentMeta = {
-  name: "Pagination",
+export const doublingMeta: ComponentMeta = {
+  name: "Doubling",
   kind: "hostile",
   category: "navigation",
   summary:
     "Twenty-four pages of three records each. Next doubles the page number, " +
     "stopping at 24; Previous halves it, rounding down, stopping at 1.",
-  usage: "<Pagination />",
-  prompt: paginationPrompt,
+  usage: "<Doubling />",
+  prompt: doublingPrompt,
   notes:
     "The controls sit in a nav labelled Pagination, and the page readout is a " +
     "status region. At either end the relevant button is aria-disabled rather " +

@@ -113,12 +113,12 @@ export function digitWindow(position: number, reach = 10) {
   };
 }
 
-/* Thermostat */
+/* Temperature */
 
-export const THERMOSTAT_MIN = 10;
-export const THERMOSTAT_MAX = 30;
+export const TEMPERATURE_MIN = 10;
+export const TEMPERATURE_MAX = 30;
 /** Half-degree steps across the track. */
-export const THERMOSTAT_STEPS = 40;
+export const TEMPERATURE_STEPS = 40;
 /** Velocity decays by e^(−friction · seconds). */
 export const LOOSE_FRICTION = 1.5;
 /** Share of speed kept on rebounding off an end. */
@@ -136,8 +136,8 @@ export const LOOSE_HOLD_MS = 50;
 /** A drag position, 0 to 1 across the track, and when it was read. */
 export type Sample = { time: number; p: number };
 
-export function thermostatValue(p: number): number {
-  return THERMOSTAT_MIN + Math.round(p * THERMOSTAT_STEPS) / 2;
+export function temperatureValue(p: number): number {
+  return TEMPERATURE_MIN + Math.round(p * TEMPERATURE_STEPS) / 2;
 }
 
 /** One frame of free travel, rebounding off either end of the track. */

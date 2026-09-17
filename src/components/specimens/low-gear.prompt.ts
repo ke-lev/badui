@@ -1,5 +1,5 @@
-export const volumeControlPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript rotary volume control named VolumeControl. It takes no props and is used as <VolumeControl />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+export const lowGearPrompt = `WHAT TO BUILD
+Build a portable React + TypeScript rotary volume control named LowGear. It takes no props and is used as <LowGear />. Keep the component and its plain CSS self-contained, with no application-specific imports.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 

@@ -25,7 +25,7 @@ export type EntrySwitch = {
  * the component.
  */
 export type ComponentMeta = {
-  /** Display name, sentence case. "Volume control", not "VolumeControl". */
+  /** Display name, sentence case. "Low gear", not "LowGear". */
   name: string;
   /**
    * `hostile` for the deliberately awful, `benign` for the genuinely good.

@@ -1,5 +1,5 @@
-export const datePickerPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript date-of-birth slider named DatePicker. It takes no props and is used as <DatePicker />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+export const oneGroovePrompt = `WHAT TO BUILD
+Build a portable React + TypeScript date-of-birth slider named OneGroove. It takes no props and is used as <OneGroove />. Keep the component and its plain CSS self-contained, with no application-specific imports.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 

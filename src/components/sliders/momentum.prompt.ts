@@ -1,7 +1,7 @@
 import { BTC_CLOSES } from "./btc-closes";
 
-export const brightnessPrompt = `What to build
-Build a portable React + TypeScript component named Brightness. It takes no props and is used as <Brightness />. It is a brightness control drawn as a coordinate graph of the daily closing price of BTC/USD from 15 September 2025 to 14 September 2026, joined by a smooth curve. A tangent line is drawn at the selected point, and brightness is derived from the tangent’s slope.
+export const momentumPrompt = `What to build
+Build a portable React + TypeScript component named Momentum. It takes no props and is used as <Momentum />. It is a brightness control drawn as a coordinate graph of the daily closing price of BTC/USD from 15 September 2025 to 14 September 2026, joined by a smooth curve. A tangent line is drawn at the selected point, and brightness is derived from the tangent’s slope.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 

@@ -1,5 +1,5 @@
-export const checkboxGroupPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript linked preference group named CheckboxGroup. It takes no props and is used as <CheckboxGroup />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+export const solidarityPrompt = `WHAT TO BUILD
+Build a portable React + TypeScript linked preference group named Solidarity. It takes no props and is used as <Solidarity />. Keep the component and its plain CSS self-contained, with no application-specific imports.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 

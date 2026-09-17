@@ -21,12 +21,12 @@ npm start
 
 The library is open to more hostile and benign entries.
 
-- **Volume control:** a rotary dial that takes twelve and a half turns to reach 100%.
-- **Date picker:** every day from 1900 through 2026 on one slider.
-- **Password field:** additional requirements arrive as the earlier ones are met.
-- **Checkboxes:** each preference also toggles its neighbor.
-- **Phone number:** each digit increments the next digit as well.
-- **Confirmation dialog:** every confirmation requires another confirmation.
+- **Low gear:** a rotary dial that takes twelve and a half turns to reach 100%.
+- **One groove:** every day from 1900 through 2026 on one slider.
+- **Moving target:** additional requirements arrive as the earlier ones are met.
+- **Solidarity:** each preference also toggles its neighbor.
+- **Carry:** each digit increments the next digit as well.
+- **Recursion:** every confirmation requires another confirmation.
 - **Classic runaway:** springs to the far side of its area when the pointer comes near, with switches for what sends it, whether it shivers, and whether it talks.
 - **Cornered:** pushed directly away from the pointer, sliding along walls it meets.
 - **Shrinking:** stays put and shrinks to a 3-pixel square as the pointer arrives.

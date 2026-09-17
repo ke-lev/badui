@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { ComponentMeta } from "@/components/meta";
 import { digitWindow, TIP_LAST } from "./rules";
 import styles from "./sliders.module.css";
-import { tipSliderPrompt } from "./tip-slider.prompt";
+import { piCkerPrompt } from "./picker.prompt";
 
 export function PiCker() {
   const [position, setPosition] = useState(0);
@@ -40,14 +40,14 @@ export const piCkerMeta: ComponentMeta = {
   kind: "hostile",
   category: "sliders",
   summary:
-    "A range slider with 605 positions through the decimal digits of π. " +
+    "A range slider with 665 positions through the decimal digits of π. " +
     "Each position selects the next overlapping pair, shown in a digit window above the track.",
   usage: "<PiCker />",
-  prompt: tipSliderPrompt,
+  prompt: piCkerPrompt,
   notes:
     "A native range input; keyboard movement advances one decimal digit at a time. " +
     "aria-valuetext announces the selected pair.",
   lines: {
-    "picker-slider": "The digits continue for a while.",
+    "picker-slider": "Every number is in there eventually.",
   },
 };

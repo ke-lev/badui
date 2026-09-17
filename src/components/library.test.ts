@@ -16,27 +16,27 @@ describe("buildLibrary", () => {
   });
 
   it("files an entry under its own category", () => {
-    const sections = buildLibrary([entry("password-field", "inputs")]);
+    const sections = buildLibrary([entry("moving-target", "inputs")]);
     const inputs = sections.find((section) => section.id === "inputs")!;
-    expect(inputs.entries.map((item) => item.id)).toEqual(["password-field"]);
+    expect(inputs.entries.map((item) => item.id)).toEqual(["moving-target"]);
   });
 
   it("keeps entries of one category in the order they were declared", () => {
     const sections = buildLibrary([
-      entry("password-field", "inputs"),
-      entry("checkboxes", "inputs"),
-      entry("phone-number", "inputs"),
+      entry("moving-target", "inputs"),
+      entry("solidarity", "inputs"),
+      entry("carry", "inputs"),
     ]);
     const inputs = sections.find((section) => section.id === "inputs")!;
     expect(inputs.entries.map((item) => item.id)).toEqual([
-      "password-field",
-      "checkboxes",
-      "phone-number",
+      "moving-target",
+      "solidarity",
+      "carry",
     ]);
   });
 
   it("leaves a category with no entries empty rather than dropping it", () => {
-    const sections = buildLibrary([entry("password-field", "inputs")]);
+    const sections = buildLibrary([entry("moving-target", "inputs")]);
     const cursor = sections.find((section) => section.id === "cursor")!;
     expect(cursor.entries).toEqual([]);
   });

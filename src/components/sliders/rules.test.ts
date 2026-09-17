@@ -17,7 +17,7 @@ import {
   scaleSpeed,
   slopeAt,
   speakEquation,
-  thermostatValue,
+  temperatureValue,
   TIP_LAST,
   tipAt,
 } from "./rules";
@@ -110,15 +110,16 @@ function machinDigits(count: number): string {
 
 describe("tip", () => {
   it("reads the decimal digits of π", () => {
+    expect(PI_DIGITS).toHaveLength(666);
     expect(PI_DIGITS).toBe(machinDigits(PI_DIGITS.length));
   });
 
-  it("starts at 14 and reaches every percentage from 0 to 99 by the last step", () => {
+  it("starts at 14 and reaches every percentage from 0 to 99 before the last step", () => {
     expect(tipAt(0)).toBe(14);
     const seen = new Set(Array.from({ length: TIP_LAST + 1 }, (_, position) => tipAt(position)));
     expect(seen.size).toBe(100);
     const before = new Set(Array.from({ length: TIP_LAST }, (_, position) => tipAt(position)));
-    expect(before.size).toBe(99);
+    expect(before.size).toBe(100);
   });
 
   it("centres the pair in its strip of digits", () => {
@@ -127,12 +128,12 @@ describe("tip", () => {
   });
 });
 
-describe("thermostat", () => {
+describe("temperature", () => {
   it("reads in half degrees from 10 to 30", () => {
-    expect(thermostatValue(0)).toBe(10);
-    expect(thermostatValue(1)).toBe(30);
-    expect(thermostatValue(0.55)).toBe(21);
-    expect(thermostatValue(0.57)).toBe(21.5);
+    expect(temperatureValue(0)).toBe(10);
+    expect(temperatureValue(1)).toBe(30);
+    expect(temperatureValue(0.55)).toBe(21);
+    expect(temperatureValue(0.57)).toBe(21.5);
   });
 
   it("travels and slows between the ends", () => {

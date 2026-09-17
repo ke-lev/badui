@@ -3,7 +3,7 @@
 import { useId, useLayoutEffect, useRef, useState, type KeyboardEvent } from "react";
 import type { ComponentMeta } from "@/components/meta";
 import { moveToEnd } from "./rules";
-import { tabBarPrompt } from "./tab-bar.prompt";
+import { backOfTheLinePrompt } from "./back-of-the-line.prompt";
 import styles from "./navigation.module.css";
 
 const TABS = ["Overview", "Activity", "Members", "Billing", "Settings"] as const;
@@ -17,7 +17,7 @@ const PANELS: Record<Tab, string> = {
   Settings: "Workspace name, region, and retention period.",
 };
 
-export function TabBar() {
+export function BackOfTheLine() {
   const baseId = useId();
   const panelId = `${baseId}-panel`;
   const [order, setOrder] = useState<Tab[]>([...TABS]);
@@ -92,15 +92,15 @@ export function TabBar() {
   );
 }
 
-export const tabBarMeta: ComponentMeta = {
-  name: "Tabs",
+export const backOfTheLineMeta: ComponentMeta = {
+  name: "Back of the line",
   kind: "hostile",
   category: "navigation",
   summary:
     "Five tabs over one panel. Selecting a tab shows its panel and moves the " +
     "tab to the end of the row; the tabs after it each shift one place left.",
-  usage: "<TabBar />",
-  prompt: tabBarPrompt,
+  usage: "<BackOfTheLine />",
+  prompt: backOfTheLinePrompt,
   notes:
     "A role=tablist with manual activation: ArrowLeft, ArrowRight, Home, and " +
     "End move focus in the current order, and Enter, Space, or a click " +

@@ -1,5 +1,5 @@
-export const thermostatPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript temperature slider named Thermostat. It takes no props and is used as <Thermostat />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+export const reboundPrompt = `WHAT TO BUILD
+Build a portable React + TypeScript temperature slider named Rebound. It takes no props and is used as <Rebound />. Keep the component and its plain CSS self-contained, with no application-specific imports.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 

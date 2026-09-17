@@ -1,5 +1,5 @@
-export const passwordFieldPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript staged password form named PasswordField. It takes no props and is used as <PasswordField />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+export const movingTargetPrompt = `WHAT TO BUILD
+Build a portable React + TypeScript staged password form named MovingTarget. It takes no props and is used as <MovingTarget />. Keep the component and its plain CSS self-contained, with no application-specific imports.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 

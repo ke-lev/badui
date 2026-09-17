@@ -1,5 +1,5 @@
-export const pointerSpeedPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript pointer speed slider named PointerSpeed. It takes no props and is used as <PointerSpeed />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+export const compoundingPrompt = `WHAT TO BUILD
+Build a portable React + TypeScript pointer speed slider named Compounding. It takes no props and is used as <Compounding />. Keep the component and its plain CSS self-contained, with no application-specific imports.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 

@@ -9,21 +9,21 @@ import {
   LOOSE_MAX_SPEED,
   LOOSE_WINDOW_MS,
   releaseVelocity,
-  THERMOSTAT_MAX,
-  THERMOSTAT_MIN,
-  THERMOSTAT_STEPS,
-  thermostatValue,
+  TEMPERATURE_MAX,
+  TEMPERATURE_MIN,
+  TEMPERATURE_STEPS,
+  temperatureValue,
   type Sample,
 } from "./rules";
 import styles from "./sliders.module.css";
-import { thermostatPrompt } from "./thermostat.prompt";
+import { reboundPrompt } from "./rebound.prompt";
 
 const INITIAL = 0.55;
 /** Half the thumb's width: its centre travels this far inside each end. */
 const INSET = 7;
 
-export function Thermostat() {
-  const [value, setValue] = useState(() => thermostatValue(INITIAL));
+export function Rebound() {
+  const [value, setValue] = useState(() => temperatureValue(INITIAL));
   const [dragging, setDragging] = useState(false);
   const labelId = useId();
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -47,7 +47,7 @@ export function Thermostat() {
     function place(next: number) {
       p = next;
       thumb!.style.left = `${p * 100}%`;
-      setValue(thermostatValue(p));
+      setValue(temperatureValue(p));
     }
 
     function tick(now: number) {
@@ -113,7 +113,7 @@ export function Thermostat() {
       if (event.key === "ArrowLeft" || event.key === "ArrowDown") direction = -1;
       if (!direction) return;
       event.preventDefault();
-      if (reduced) place(clamp(p + direction / THERMOSTAT_STEPS, 0, 1));
+      if (reduced) place(clamp(p + direction / TEMPERATURE_STEPS, 0, 1));
       else launch(clamp(v + direction * LOOSE_KICK, -LOOSE_MAX_SPEED, LOOSE_MAX_SPEED));
     }
 
@@ -147,12 +147,12 @@ export function Thermostat() {
           ref={sliderRef}
           className={`${styles.customRange} ${dragging ? styles.grabbing : ""}`}
           role="slider"
-          data-sidekick="thermostat"
+          data-sidekick="temperature-slider"
           tabIndex={0}
           aria-labelledby={labelId}
           aria-orientation="horizontal"
-          aria-valuemin={THERMOSTAT_MIN}
-          aria-valuemax={THERMOSTAT_MAX}
+          aria-valuemin={TEMPERATURE_MIN}
+          aria-valuemax={TEMPERATURE_MAX}
           aria-valuenow={value}
           aria-valuetext={`${value.toFixed(1)} degrees Celsius`}
         >
@@ -171,8 +171,8 @@ export function Thermostat() {
   );
 }
 
-export const thermostatMeta: ComponentMeta = {
-  name: "Thermostat",
+export const reboundMeta: ComponentMeta = {
+  name: "Rebound",
   kind: "hostile",
   category: "sliders",
   summary:
@@ -180,8 +180,8 @@ export const thermostatMeta: ComponentMeta = {
     "follows the pointer while held; on release it keeps the speed it was let " +
     "go at, slows under friction, and rebounds off either end at 70% of its " +
     "speed until it comes to rest.",
-  usage: "<Thermostat />",
-  prompt: thermostatPrompt,
+  usage: "<Rebound />",
+  prompt: reboundPrompt,
   notes:
     "A role=slider driven by pointer capture. Release speed is measured over " +
     "the last 100ms of drag and capped at eight track-widths a second; a " +
@@ -190,6 +190,6 @@ export const thermostatMeta: ComponentMeta = {
     "prefers-reduced-motion the thumb stops on release and arrow keys move it " +
     "half a degree.",
   lines: {
-    thermostat: "It remembers how it was let go.",
+    "temperature-slider": "It remembers how it was let go.",
   },
 };

@@ -2,11 +2,11 @@
 
 import { useId, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import type { ComponentMeta } from "@/components/meta";
-import { pointerSpeedPrompt } from "./pointer-speed.prompt";
+import { compoundingPrompt } from "./compounding.prompt";
 import { nudgeSpeed, roundSpeed, scaleSpeed, SPEED_MAX, SPEED_MIN } from "./rules";
 import styles from "./sliders.module.css";
 
-export function PointerSpeed() {
+export function Compounding() {
   // Held unrounded, so small changes accumulate below the displayed decimal.
   const [speed, setSpeed] = useState(1);
   const [dragging, setDragging] = useState(false);
@@ -50,7 +50,7 @@ export function PointerSpeed() {
         <div
           className={`${styles.customRange} ${dragging ? styles.grabbing : ""}`}
           role="slider"
-          data-sidekick="pointer-speed"
+          data-sidekick="speed-slider"
           tabIndex={0}
           aria-labelledby={labelId}
           aria-orientation="horizontal"
@@ -85,8 +85,8 @@ export function PointerSpeed() {
   );
 }
 
-export const pointerSpeedMeta: ComponentMeta = {
-  name: "Pointer speed",
+export const compoundingMeta: ComponentMeta = {
+  name: "Compounding",
   kind: "hostile",
   category: "sliders",
   summary:
@@ -94,13 +94,13 @@ export const pointerSpeedMeta: ComponentMeta = {
     "is pressed. Each pixel of horizontal drag scales the value by about 2% of " +
     "itself, so the thumb moves slowly near 0.1× and quickly near 10×. Each " +
     "arrow-key press scales it by 10%.",
-  usage: "<PointerSpeed />",
-  prompt: pointerSpeedPrompt,
+  usage: "<Compounding />",
+  prompt: compoundingPrompt,
   notes:
     "A role=slider driven by pointer capture; pressing does not move the " +
     "thumb. The value is held unrounded and shown to one decimal, with " +
     "aria-valuetext in times.",
   lines: {
-    "pointer-speed": "It takes its own advice.",
+    "speed-slider": "It takes its own advice.",
   },
 };

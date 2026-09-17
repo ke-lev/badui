@@ -1,5 +1,5 @@
-export const undoToastPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript file list with an undo toast, named UndoToast. It takes no props and is used as <UndoToast />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+export const skittishPrompt = `WHAT TO BUILD
+Build a portable React + TypeScript file list with an undo toast, named Skittish. It takes no props and is used as <Skittish />. Keep the component and its plain CSS self-contained, with no application-specific imports.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 

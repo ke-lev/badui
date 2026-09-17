@@ -2,13 +2,12 @@
 
 import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import type { ComponentMeta } from "@/components/meta";
-import { phoneNumberPrompt } from "./phone-number.prompt";
+import { lowGearPrompt } from "./low-gear.prompt";
 import styles from "./physical-specimens.module.css";
-import { volumeControlPrompt } from "./volume-control.prompt";
 
 const MAX_ROTATION = 4_500;
 
-export function VolumeControl() {
+export function LowGear() {
   const [rotation, setRotation] = useState(0);
   const [dragging, setDragging] = useState(false);
   const previousAngle = useRef<number | null>(null);
@@ -107,93 +106,20 @@ export function VolumeControl() {
   );
 }
 
-export const volumeControlMeta: ComponentMeta = {
-  name: "Volume control",
+export const lowGearMeta: ComponentMeta = {
+  name: "Low gear",
   kind: "hostile",
   category: "sliders",
   summary:
     "A rotary dial read in percent. One full turn of the dial moves it eight " +
     "percent, so reaching 100% takes twelve and a half turns; each arrow-key " +
     "press moves it one percent.",
-  usage: "<VolumeControl />",
-  prompt: volumeControlPrompt,
+  usage: "<LowGear />",
+  prompt: lowGearPrompt,
   notes:
     "Turned with pointer capture, so the pointer may leave the dial mid-turn. " +
     "Exposed as role=slider from 0 to 100 with aria-valuetext in percent.",
   lines: {
     "volume-dial": "It goes to 100. It does not go to 100 quickly.",
-  },
-};
-
-export function PhoneNumber() {
-  const [digits, setDigits] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  const [lastDigit, setLastDigit] = useState<number | null>(null);
-  const groupRanges = [[0, 3], [3, 6], [6, 10]];
-
-  function increaseDigit(index: number) {
-    setDigits((current) => current.map((digit, position) => (
-      position === index || position === (index + 1) % 10 ? (digit + 1) % 10 : digit
-    )));
-    setLastDigit(index);
-  }
-
-  return (
-    <div className={styles.phoneSpecimen}>
-      <div className={styles.fieldHeading}>
-        <span id="phone-number-label">Phone number</span>
-        <span className={styles.countryCode}>+1</span>
-      </div>
-      <div className={styles.phoneDigits} role="group" aria-labelledby="phone-number-label">
-        {groupRanges.map(([start, end], groupIndex) => (
-          <div className={styles.digitGroup} key={start}>
-            {digits.slice(start, end).map((digit, localIndex) => {
-              const index = start + localIndex;
-              const connected = lastDigit !== null && index === (lastDigit + 1) % 10;
-              return (
-                <button
-                  key={index}
-                  type="button"
-                  className={`${styles.digitButton} ${connected ? styles.connectedDigit : ""}`}
-                  data-sidekick="phone-digit"
-                  aria-label={`Increase digit ${index + 1}, currently ${digit}`}
-                  onClick={() => increaseDigit(index)}
-                >
-                  <svg className={styles.digitArrow} viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                    <path d="m3 7.5 3-3 3 3" stroke="currentColor" strokeWidth="1.25" />
-                  </svg>
-                  <span>{digit}</span>
-                  <span className={styles.digitUnderline} aria-hidden="true" />
-                </button>
-              );
-            })}
-            {groupIndex < 2 && <span className={styles.phoneSeparator} aria-hidden="true">–</span>}
-          </div>
-        ))}
-      </div>
-      <div className={styles.phoneFooter}>
-        <span className={styles.phoneHint}>Adjust digits</span>
-        <svg width="25" height="16" viewBox="0 0 25 16" fill="none" aria-hidden="true">
-          <path d="M9.5 11H7a4 4 0 0 1 0-8h4a4 4 0 0 1 4 4M15.5 5H18a4 4 0 0 1 0 8h-4a4 4 0 0 1-4-4M8.5 8h8" stroke="currentColor" strokeWidth="1.25" />
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-export const phoneNumberMeta: ComponentMeta = {
-  name: "Phone number",
-  kind: "hostile",
-  category: "inputs",
-  summary:
-    "Ten digits, each raised by its own stepper and wrapping from 9 back to 0. " +
-    "Raising a digit also raises the one after it, wrapping from the tenth " +
-    "back to the first.",
-  usage: "<PhoneNumber />",
-  prompt: phoneNumberPrompt,
-  notes:
-    "Each stepper is a button whose accessible name carries its position and " +
-    "current value; the ten sit in a group labelled Phone number.",
-  lines: {
-    "phone-digit": "Every digit is on speaking terms with the next.",
   },
 };

@@ -1,5 +1,5 @@
-export const uploadProgressPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript file upload readout named UploadProgress. It takes no props and is used as <UploadProgress />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+export const asymptotePrompt = `WHAT TO BUILD
+Build a portable React + TypeScript file upload readout named Asymptote. It takes no props and is used as <Asymptote />. Keep the component and its plain CSS self-contained, with no application-specific imports.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 

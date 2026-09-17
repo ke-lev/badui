@@ -1,5 +1,5 @@
-export const phoneNumberPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript ten-digit phone-number stepper named PhoneNumber. It takes no props and is used as <PhoneNumber />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+export const carryPrompt = `WHAT TO BUILD
+Build a portable React + TypeScript ten-digit phone-number stepper named Carry. It takes no props and is used as <Carry />. Keep the component and its plain CSS self-contained, with no application-specific imports.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 

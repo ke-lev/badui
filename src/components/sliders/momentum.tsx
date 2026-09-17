@@ -2,7 +2,7 @@
 
 import { useState, type KeyboardEvent, type PointerEvent } from "react";
 import type { ComponentMeta } from "@/components/meta";
-import { brightnessPrompt } from "./brightness.prompt";
+import { momentumPrompt } from "./momentum.prompt";
 import { brightnessAt, BTC_LAST_DAY, clamp, formatDay, priceAt, slopeAt } from "./rules";
 import styles from "./sliders.module.css";
 
@@ -42,7 +42,7 @@ function tangentFor(x: number) {
   return { x1: point.x - ux, y1: point.y - uy, x2: point.x + ux, y2: point.y + uy };
 }
 
-export function Brightness() {
+export function Momentum() {
   const [x, setX] = useState(INITIAL_DAY);
   const brightness = brightnessAt(x);
   const day = formatDay(x);
@@ -119,7 +119,7 @@ export function Brightness() {
   );
 }
 
-export const brightnessMeta: ComponentMeta = {
+export const momentumMeta: ComponentMeta = {
   name: "Momentum",
   kind: "hostile",
   category: "sliders",
@@ -129,8 +129,8 @@ export const brightnessMeta: ComponentMeta = {
     "Dragging the point along the curve swings a tangent line; brightness is " +
     "50 plus ten times the tangent's slope in percent of price per day, " +
     "clamped to 0–100.",
-  usage: "<Brightness />",
-  prompt: brightnessPrompt,
+  usage: "<Momentum />",
+  prompt: momentumPrompt,
   notes:
     "A role=slider with pointer capture. Prices are Kraken XBT/USD daily " +
     "closes in whole dollars. The pointer sets x to the nearest hundredth of a " +

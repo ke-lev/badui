@@ -2,7 +2,7 @@
 
 import { useId, useState } from "react";
 import type { ComponentMeta } from "@/components/meta";
-import { datePickerPrompt } from "./date-picker.prompt";
+import { oneGroovePrompt } from "./one-groove.prompt";
 import styles from "./sliders.module.css";
 
 const DAY = 86_400_000;
@@ -11,7 +11,7 @@ const LAST_DAY = (Date.UTC(2026, 11, 31) - FIRST_DATE) / DAY;
 const INITIAL_DAY = (Date.UTC(1996, 4, 12) - FIRST_DATE) / DAY;
 const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
-export function DatePicker() {
+export function OneGroove() {
   const [day, setDay] = useState(INITIAL_DAY);
   const inputId = useId();
   const date = new Date(FIRST_DATE + day * DAY);
@@ -49,16 +49,16 @@ export function DatePicker() {
   );
 }
 
-export const datePickerMeta: ComponentMeta = {
-  name: "Date picker",
+export const oneGrooveMeta: ComponentMeta = {
+  name: "One groove",
   kind: "hostile",
   category: "sliders",
   summary:
     "A date of birth set on a single range slider covering 1 January 1900 to " +
     "31 December 2026 — one hundred and twenty-seven years in one groove, one " +
     "day per step. The chosen date is read out above the track.",
-  usage: "<DatePicker />",
-  prompt: datePickerPrompt,
+  usage: "<OneGroove />",
+  prompt: oneGroovePrompt,
   notes:
     "A native range input, so the keyboard moves it one day at a time. " +
     "aria-valuetext carries the formatted date rather than the day number.",

@@ -1,5 +1,5 @@
-export const confirmDialogPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript inline confirmation sequence named ConfirmDialog. It takes no props and is used as <ConfirmDialog />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+export const recursionPrompt = `WHAT TO BUILD
+Build a portable React + TypeScript inline confirmation sequence named Recursion. It takes no props and is used as <Recursion />. Keep the component and its plain CSS self-contained, with no application-specific imports.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 

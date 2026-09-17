@@ -1,5 +1,5 @@
-export const tabBarPrompt = `WHAT TO BUILD
-Build a portable React + TypeScript tab set named TabBar. It takes no props and is used as <TabBar />. Keep the component and its plain CSS self-contained, with no application-specific imports.
+export const backOfTheLinePrompt = `WHAT TO BUILD
+Build a portable React + TypeScript tab set named BackOfTheLine. It takes no props and is used as <BackOfTheLine />. Keep the component and its plain CSS self-contained, with no application-specific imports.
 
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 
