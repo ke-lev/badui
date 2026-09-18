@@ -51,12 +51,12 @@ export const HEAVY_RATIO = 0.22;
 
 /**
  * On an underdamped spring toward the real pointer, starting wherever the
- * pointer enters. Critically damped under reduced motion.
+ * pointer enters. Critically damped under reduced motion, which is asked for
+ * at each step so changing the preference takes effect at once.
  */
-export function heavyModel(reduced: boolean): PointerModel {
+export function heavyModel(isReduced: () => boolean): PointerModel {
   const x = spring(0);
   const y = spring(0);
-  const damping = dampingFor(HEAVY_STIFFNESS, reduced ? 1 : HEAVY_RATIO);
   let real: Point | null = null;
   return {
     input(next) {
@@ -69,6 +69,7 @@ export function heavyModel(reduced: boolean): PointerModel {
     },
     step(_now, dt) {
       if (!real) return { at: null, moving: false };
+      const damping = dampingFor(HEAVY_STIFFNESS, isReduced() ? 1 : HEAVY_RATIO);
       advance(x, real.x, dt, HEAVY_STIFFNESS, damping);
       advance(y, real.y, dt, HEAVY_STIFFNESS, damping);
       const resting =

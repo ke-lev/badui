@@ -21,6 +21,8 @@ BEHAVIOR
 - Listen for click on the area. If the click event's target is the button itself (keyboard activation), do nothing there. Otherwise, if the drawn position from the most recent frame lies within the button's bounds, increment the count.
 - Remove all listeners and cancel any pending frame on unmount.
 
+- Read the reduced-motion preference where it is used rather than capturing it when the component mounts, so changing the preference while the page is open takes effect on the next frame.
+
 STYLING
 - Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
 - The specimen is a vertical flex column that grows to fill its container (flex: 1, align-self: stretch), 12px gap, min-width 0, color light-dark(#282824, #e8e7e0).

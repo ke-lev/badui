@@ -20,6 +20,7 @@ import {
 } from "./models";
 import { opinionatedBuddyPrompt } from "./opinionated-buddy.prompt";
 import { paintEnvelope, placeTab, relative } from "./paint";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 
 const CHOICES = ["Unsubscribe", "Cancel"] as const;
 
@@ -39,8 +40,7 @@ export function OpinionatedBuddy() {
     const tab = tabRef.current;
     if (!area || !row || !pointer || !cuffEl || !tab) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const cuff = envelope(reduced);
+    const cuff = envelope(prefersReducedMotion);
     const shift = { x: spring(0), y: spring(0) };
     const damping = dampingFor(SHIFT_STIFFNESS, 1);
     const buttons = Array.from(row.querySelectorAll("button"));
@@ -66,7 +66,7 @@ export function OpinionatedBuddy() {
           target !== null ||
           nearestIndex({ x: bounds.left + real.x, y: bounds.top + real.y }, boxes, OPINION_REACH) >= 0;
       }
-      if (reduced) {
+      if (prefersReducedMotion()) {
         shift.x.value = goal.x;
         shift.y.value = goal.y;
       } else {

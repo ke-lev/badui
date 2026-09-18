@@ -28,6 +28,8 @@ BEHAVIOR
 - On resize, remeasure and clamp the destination. If it changes, put the body at that clamped point and zero both position velocities.
 - Under prefers-reduced-motion, move the body directly to the pushed destination every frame with no stretch, squash, or pinned compression. Preserve the alarm, repulsion, wall routing, native clicking, and the count.
 
+- Read the reduced-motion preference where it is used rather than capturing it when the component mounts, so changing the preference while the page is open takes effect on the next frame.
+
 STYLING
 - Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
 - The specimen stretches to its container, is a vertical flex layout with 12px gap, min-width 0, and color light-dark(#282824, #e8e7e0). The arena flexes to fill available height, has position relative, min-height 160px, and touch-action manipulation.

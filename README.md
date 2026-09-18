@@ -26,7 +26,6 @@ The library is open to more hostile and benign entries.
 - **Moving target:** additional requirements arrive as the earlier ones are met.
 - **Solidarity:** each preference also toggles its neighbor.
 - **Carry:** each digit increments the next digit as well.
-- **Recursion:** every confirmation requires another confirmation.
 - **Classic runaway:** springs to the far side of its area when the pointer comes near, with switches for what sends it, whether it shivers, and whether it talks.
 - **Cornered:** pushed directly away from the pointer, sliding along walls it meets.
 - **Shrinking:** stays put and shrinks to a 3-pixel square as the pointer arrives.

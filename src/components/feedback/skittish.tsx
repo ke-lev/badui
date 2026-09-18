@@ -14,6 +14,7 @@ import type { ComponentMeta } from "@/components/meta";
 import { TOAST_MS } from "./rules";
 import { skittishPrompt } from "./skittish.prompt";
 import styles from "./feedback.module.css";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 
 const FILES = ["budget.xlsx", "meeting-notes.txt", "poster.png", "minutes.docx"];
 const SHADOW_FADE = 0.2; // the whole toast fades over the last this-much of the shrink
@@ -55,7 +56,6 @@ export function Skittish() {
     const toast = toastRef.current;
     if (!deletion || !specimen || !toast) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const width = spring(0);
     const height = spring(0);
     const heightDamping = dampingFor(HEIGHT_STIFFNESS, RATIO);
@@ -95,7 +95,7 @@ export function Skittish() {
     function tick(now: number) {
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
-      if (reduced) {
+      if (prefersReducedMotion()) {
         width.value = height.value = 1;
         width.velocity = height.velocity = 0;
       } else {

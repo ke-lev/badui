@@ -45,7 +45,7 @@ describe("delayedModel", () => {
 
 describe("heavyModel", () => {
   function run(reduced: boolean) {
-    const model = heavyModel(reduced);
+    const model = heavyModel(() => reduced);
     model.input({ x: 0, y: 0 }, 0);
     model.input({ x: 100, y: 0 }, 0);
     let peak = 0;
@@ -58,7 +58,7 @@ describe("heavyModel", () => {
   }
 
   it("starts where the pointer enters", () => {
-    const model = heavyModel(false);
+    const model = heavyModel(() => false);
     model.input({ x: 30, y: 40 }, 0);
     expect(model.step(0, 1 / 60, SIZE)).toEqual({ at: { x: 30, y: 40 }, moving: false });
   });

@@ -23,6 +23,8 @@ BEHAVIOR
 - Advance springs with semi-implicit Euler substeps no larger than 1/240 second and cap frame delta at 0.05 second. The centre x and y springs use STIFFNESS = 520 and DAMPING = 22.80350850198276 (ratio 0.5). The radius spring uses STIFFNESS = 900 and DAMPING = 27 (ratio 0.45). All three settle to their target with zero velocity when within 0.05 of it and moving slower than 0.5 per second. Stop the animation loop when all three are settled; any pointer event restarts it.
 - Under prefers-reduced-motion, set the centre directly to its target and the radius directly to its goal with zero velocity each frame, and paint the same geometry.
 
+- Read the reduced-motion preference where it is used rather than capturing it when the component mounts, so changing the preference while the page is open takes effect on the next frame.
+
 STYLING
 - Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
 - The specimen stretches to its container, is a vertical flex layout with 12px gap, min-width 0, and color light-dark(#282824, #e8e7e0). The arena flexes to fill available height, has position relative, min-height 160px, and touch-action manipulation.

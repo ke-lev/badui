@@ -1,4 +1,3 @@
-import { entries } from "@/components/entries";
 import { inspect } from "./inspect";
 
 /** Everything the cursor companion envelopes. Each of these needs a line. */
@@ -25,16 +24,25 @@ export const FRAME_LINES: Record<string, string> = {
   "open-entry": "Same thing, more room.",
 };
 
-const LINES: Record<string, string> = Object.assign(
-  {},
-  FRAME_LINES,
-  ...entries.map((entry) => entry.meta.lines),
-);
+/**
+ * An entry's lines still live in its `meta`, but reading them from here would
+ * put all thirty implementations and their reproduction prompts in the root
+ * client's bundle, which every page loads. The collection owns those entries
+ * already, so it hands the flattened map over when it loads and the splash
+ * never pulls them in.
+ */
+let entryLines: Record<string, string> = {};
+
+export function registerEntryLines(lines: Record<string, string>): void {
+  entryLines = lines;
+}
 
 /** The bespoke line for an element, or undefined when it has none. */
 export function bespokeLine(el: Element): string | undefined {
   const key = el.closest("[data-sidekick]")?.getAttribute("data-sidekick");
-  return key && Object.hasOwn(LINES, key) ? LINES[key] : undefined;
+  if (!key) return undefined;
+  if (Object.hasOwn(FRAME_LINES, key)) return FRAME_LINES[key];
+  return Object.hasOwn(entryLines, key) ? entryLines[key] : undefined;
 }
 
 export function line(el: Element): string {

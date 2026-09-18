@@ -13,6 +13,7 @@ import { MirroredPointer, mirroredPointerMeta } from "@/components/cursor/mirror
 import { FogOfWar, fogOfWarMeta } from "@/components/experiments/fog-of-war";
 import { Asymptote, asymptoteMeta } from "@/components/feedback/asymptote";
 import { Skittish, skittishMeta } from "@/components/feedback/skittish";
+import { ExpiringPassword, expiringPasswordMeta } from "@/components/inputs/expiring-password";
 import { LeadingCaret, leadingCaretMeta } from "@/components/inputs/leading-caret";
 import { LetterName, letterNameMeta } from "@/components/inputs/letter-name";
 import { SortedEmail, sortedEmailMeta } from "@/components/inputs/sorted-email";
@@ -26,7 +27,6 @@ import { PiCker, piCkerMeta } from "@/components/sliders/picker";
 import { Rebound, reboundMeta } from "@/components/sliders/rebound";
 import { LowGear, lowGearMeta } from "@/components/specimens/low-gear";
 import { MovingTarget, movingTargetMeta } from "@/components/specimens/moving-target";
-import { Recursion, recursionMeta } from "@/components/specimens/recursion";
 import { Rotary, rotaryMeta } from "@/components/specimens/rotary";
 import { Solidarity, solidarityMeta } from "@/components/specimens/solidarity";
 
@@ -47,6 +47,7 @@ export const entries: LibraryEntry[] = [
   { id: "letter-name", component: LetterName, meta: letterNameMeta },
   { id: "leading-caret", component: LeadingCaret, meta: leadingCaretMeta },
   { id: "sorted-email", component: SortedEmail, meta: sortedEmailMeta },
+  { id: "expiring-password", component: ExpiringPassword, meta: expiringPasswordMeta },
   { id: "momentum", component: Momentum, meta: momentumMeta },
   { id: "picker", component: PiCker, meta: piCkerMeta },
   { id: "one-groove", component: OneGroove, meta: oneGrooveMeta },
@@ -64,6 +65,5 @@ export const entries: LibraryEntry[] = [
   { id: "doubling", component: Doubling, meta: doublingMeta },
   { id: "asymptote", component: Asymptote, meta: asymptoteMeta },
   { id: "skittish", component: Skittish, meta: skittishMeta },
-  { id: "recursion", component: Recursion, meta: recursionMeta },
   { id: "fog-of-war", component: FogOfWar, meta: fogOfWarMeta },
 ];

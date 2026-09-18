@@ -34,9 +34,10 @@ export type Envelope = {
 
 /**
  * Soft and critically damped while trailing, stiff and underdamped once
- * locked. Under reduced motion it sits on its target every frame.
+ * locked. Under reduced motion it sits on its target every frame; the
+ * preference is asked for at each step, so changing it takes effect at once.
  */
-export function envelope(reduced: boolean): Envelope {
+export function envelope(isReduced: () => boolean): Envelope {
   const x = spring(0);
   const y = spring(0);
   const w = spring(IDLE_SIZE);
@@ -54,7 +55,7 @@ export function envelope(reduced: boolean): Envelope {
     box: () => ({ x: x.value, y: y.value, w: w.value, h: h.value }),
     place,
     step(target, locked, dt) {
-      if (reduced) {
+      if (isReduced()) {
         place(target);
         return false;
       }

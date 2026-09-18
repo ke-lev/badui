@@ -5,6 +5,7 @@ import { inspect } from "./inspect";
 import { line, TARGETS } from "./lines";
 import styles from "./sidekick.module.css";
 import { useSidekickMode } from "./sidekick-mode";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 import {
   advance,
   DAMPING_IDLE,
@@ -14,6 +15,7 @@ import {
   MAX_STRETCH,
   settle,
   spring,
+  type Spring,
   STIFFNESS_IDLE,
   STIFFNESS_LOCK,
   STRETCH_DIVISOR,
@@ -55,7 +57,14 @@ function smoothstep(t: number): number {
 }
 
 function blend(current: number, target: number, rate: number, dt: number): number {
-  return current + (target - current) * (1 - Math.pow(1 - rate, dt * 60));
+  const next = current + (target - current) * (1 - Math.pow(1 - rate, dt * 60));
+  // An asymptote never arrives. Below half a thousandth the difference is
+  // invisible, and landing on the target is what lets the loop stop.
+  return Math.abs(target - next) < 0.0005 ? target : next;
+}
+
+function atRest(s: Spring, target: number): boolean {
+  return s.velocity === 0 && s.value === target;
 }
 
 // Resolved against the element's own box: getComputedStyle returns a percentage
@@ -84,6 +93,7 @@ export function Sidekick() {
   const textRef = useRef("");
   const pointerRef = useRef({ x: -100, y: -100 });
   const modeRef = useRef(mode);
+  const wakeRef = useRef<() => void>(() => {});
 
   // react-hooks/refs flags a render-phase ref write ("Cannot access refs during
   // render"). The rAF loop only ever reads modeRef on a later frame, always
@@ -91,7 +101,13 @@ export function Sidekick() {
   // equivalent here.
   useEffect(() => {
     modeRef.current = mode;
+    wakeRef.current();
   }, [mode]);
+
+  // A new string is a new tab width, which moves where the tab belongs.
+  useEffect(() => {
+    wakeRef.current();
+  }, [text]);
 
   // Depending on `mode` directly would tear down and rebuild the loop on every
   // DOM/Talk switch, resetting the cuff to the top-left corner. Only the Off
@@ -101,7 +117,6 @@ export function Sidekick() {
   useEffect(() => {
     if (!active) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const cuff = cuffRef.current;
     const tab = tabRef.current;
     if (!cuff || !tab) return;
@@ -141,6 +156,7 @@ export function Sidekick() {
 
     function onPointerMove(event: PointerEvent) {
       pointerRef.current = { x: event.clientX, y: event.clientY };
+      wake();
     }
 
     // Inside a [data-sidekick-off] region the companion fades out entirely and
@@ -154,15 +170,16 @@ export function Sidekick() {
       targetRef.current = el && !offRef.current
         ? el.closest("[data-sidekick-group]") ?? el.closest(TARGETS)
         : null;
+      wake();
     }
 
     function onPointerLeave() {
       targetRef.current = null;
       offRef.current = null;
+      wake();
     }
 
     const tick = (now: number) => {
-      frame = requestAnimationFrame(tick);
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
 
@@ -197,10 +214,11 @@ export function Sidekick() {
         th = IDLE_RADIUS * 2;
         targetRadius = IDLE_RADIUS;
       }
+      const tabWidth = tab.offsetWidth;
 
       // Lerped rather than stepped: switching the follow rate the frame the
       // pointer crosses an edge is a felt gear-change at the worst moment.
-      lock = reduced ? (locked ? 1 : 0) : blend(lock, locked ? 1 : 0, LOCK_BLEND, dt);
+      lock = prefersReducedMotion() ? (locked ? 1 : 0) : blend(lock, locked ? 1 : 0, LOCK_BLEND, dt);
       const morph = smoothstep(lock);
       const stiffness = STIFFNESS_IDLE + (STIFFNESS_LOCK - STIFFNESS_IDLE) * lock;
       const ratio = DAMPING_IDLE + (DAMPING_LOCK - DAMPING_IDLE) * lock;
@@ -208,7 +226,7 @@ export function Sidekick() {
 
       // Once faded out, the box waits at the pointer so it reappears there
       // rather than sweeping in from where it vanished.
-      if (reduced || (off && cuffAlpha < 0.05)) {
+      if (prefersReducedMotion() || (off && cuffAlpha < 0.05)) {
         settle(box.x, tx);
         settle(box.y, ty);
         settle(box.w, tw);
@@ -228,7 +246,7 @@ export function Sidekick() {
       const radius = round + (targetRadius - round) * morph;
 
       const speed = Math.hypot(box.x.velocity, box.y.velocity);
-      const stretch = reduced
+      const stretch = prefersReducedMotion()
         ? 0
         : Math.min(speed / STRETCH_DIVISOR, MAX_STRETCH) * (1 - morph);
 
@@ -244,7 +262,7 @@ export function Sidekick() {
       const squareness =
         Math.min(box.w.value, box.h.value) / Math.max(box.w.value, box.h.value);
       const orient = squareness * squareness * squareness;
-      const rotation = reduced ? 0 : heading * (stretch / MAX_STRETCH) * orient;
+      const rotation = prefersReducedMotion() ? 0 : heading * (stretch / MAX_STRETCH) * orient;
 
       cuff.style.width = `${box.w.value}px`;
       cuff.style.height = `${box.h.value}px`;
@@ -256,7 +274,7 @@ export function Sidekick() {
 
       // Fade the tab through every target change, and swap the string at the
       // trough so the text never hard-cuts mid-flight.
-      const fadeRate = reduced ? 1 : FADE_BLEND;
+      const fadeRate = prefersReducedMotion() ? 1 : FADE_BLEND;
       cuffAlpha = blend(cuffAlpha, off ? 0 : 1, fadeRate, dt);
       cuff.style.opacity = `${cuffAlpha}`;
       if (targetRef.current !== shownTarget) {
@@ -281,10 +299,10 @@ export function Sidekick() {
       const targetTabY = flip ? over : below;
       const targetTabX = Math.max(
         8,
-        Math.min(box.x.value, window.innerWidth - tab.offsetWidth - 8),
+        Math.min(box.x.value, window.innerWidth - tabWidth - 8),
       );
 
-      if (reduced) {
+      if (prefersReducedMotion()) {
         settle(tabPos.x, targetTabX);
         settle(tabPos.y, targetTabY);
       } else {
@@ -296,7 +314,32 @@ export function Sidekick() {
 
       tab.style.opacity = `${tabAlpha}`;
       tab.style.transform = `translate3d(${tabPos.x.value}px, ${tabPos.y.value}px, 0)`;
+
+      // With nothing left to move, stop scheduling and wait to be woken. A
+      // locked cuff keeps ticking: the element it envelops can move, resize or
+      // relabel itself under a still pointer, and re-measuring is how that is
+      // followed.
+      const still =
+        atRest(box.x, tx) &&
+        atRest(box.y, ty) &&
+        atRest(box.w, tw) &&
+        atRest(box.h, th) &&
+        atRest(tabPos.x, targetTabX) &&
+        atRest(tabPos.y, targetTabY) &&
+        lock === (locked ? 1 : 0) &&
+        cuffAlpha === (off ? 0 : 1) &&
+        tabAlpha === (textRef.current ? 1 : 0) &&
+        targetRef.current === shownTarget;
+      frame = still && !locked ? 0 : requestAnimationFrame(tick);
     };
+
+    // Anything that can change where the cuff belongs starts the loop again.
+    function wake() {
+      if (frame) return;
+      last = performance.now();
+      frame = requestAnimationFrame(tick);
+    }
+    wakeRef.current = wake;
 
     // Painted synchronously so the cuff and tab start at the idle box instead of
     // the CSS default of (0, 0) for the frame or two before the first rAF tick.
@@ -310,13 +353,19 @@ export function Sidekick() {
     document.addEventListener("pointermove", onPointerMove, { passive: true });
     document.addEventListener("pointerover", onPointerOver, { passive: true });
     document.addEventListener("pointerleave", onPointerLeave, { passive: true });
+    // Capturing, so a scrolling pane moves the cuff as well as the page does.
+    window.addEventListener("scroll", wake, { passive: true, capture: true });
+    window.addEventListener("resize", wake);
     frame = requestAnimationFrame(tick);
 
     return () => {
       cancelAnimationFrame(frame);
+      wakeRef.current = () => {};
       document.removeEventListener("pointermove", onPointerMove);
       document.removeEventListener("pointerover", onPointerOver);
       document.removeEventListener("pointerleave", onPointerLeave);
+      window.removeEventListener("scroll", wake, { capture: true });
+      window.removeEventListener("resize", wake);
       targetRef.current = null;
       textRef.current = "";
       setText("");

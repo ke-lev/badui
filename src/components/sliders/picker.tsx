@@ -40,7 +40,7 @@ export const piCkerMeta: ComponentMeta = {
   kind: "hostile",
   category: "sliders",
   summary:
-    "A range slider with 665 positions through the decimal digits of π. " +
+    "A range slider with 605 positions through the decimal digits of π. " +
     "Each position selects the next overlapping pair, shown in a digit window above the track.",
   usage: "<PiCker />",
   prompt: piCkerPrompt,

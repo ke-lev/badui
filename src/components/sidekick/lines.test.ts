@@ -3,7 +3,11 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import Home from "@/app/page";
 import CollectionPage from "@/app/collection/page";
-import { bespokeLine, line, TARGETS } from "./lines";
+import { bespokeLine, line, registerEntryLines, TARGETS } from "./lines";
+import { ENTRY_LINES } from "@/components/entry-lines";
+
+// The collection does this as it loads; a static render never gets that far.
+registerEntryLines(ENTRY_LINES);
 
 describe.each([
   ["the splash page", Home],
@@ -38,16 +42,16 @@ describe("line", () => {
 
   it("inherits the nearest keyed ancestor", () => {
     const el = render(
-      `<div data-sidekick="dialog"><button>Cancel</button></div>`,
+      `<div data-sidekick="lease-password"><button>Show</button></div>`,
     ).querySelector("button")!;
-    expect(line(el)).toBe("Cancel goes back one. Everything else goes forward.");
+    expect(line(el)).toBe("Hurry up!");
   });
 
   it("prefers the closest key over an ancestor's", () => {
     const el = render(
-      `<div data-sidekick="dialog"><button data-sidekick="dialog-close"></button></div>`,
+      `<div data-sidekick="lease-password"><button data-sidekick="lease-reveal"></button></div>`,
     ).querySelector("button")!;
-    expect(line(el)).toBe("This is not an exit.");
+    expect(line(el)).toBe("Show");
   });
 
   it("falls back to the inspector when there is no key", () => {

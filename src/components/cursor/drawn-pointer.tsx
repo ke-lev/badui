@@ -5,10 +5,11 @@ import { Readout } from "@/components/buttons/parts";
 import buttonStyles from "@/components/buttons/buttons.module.css";
 import type { PointerModel } from "./models";
 import styles from "./cursor.module.css";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 
 /** Pointer inside an area, `offset` placing the button off centre. */
 type Props = {
-  model: (reduced: boolean) => PointerModel;
+  model: (isReduced: () => boolean) => PointerModel;
   sidekick: string;
   label: string;
   offset?: boolean;
@@ -31,8 +32,7 @@ export function DrawnPointerArea({ model, sidekick, label, offset = false }: Pro
     const button = buttonRef.current;
     if (!arena || !pointer || !button) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const state = model(reduced);
+    const state = model(prefersReducedMotion);
     let at: { x: number; y: number } | null = null;
     let frame = 0;
     let last = 0;

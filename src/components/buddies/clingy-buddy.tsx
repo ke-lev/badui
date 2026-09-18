@@ -18,6 +18,7 @@ import {
   type Box,
 } from "./models";
 import { paintEnvelope } from "./paint";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 
 export function ClingyBuddy() {
   const [counts, setCounts] = useState<[number, number]>([0, 0]);
@@ -33,8 +34,7 @@ export function ClingyBuddy() {
     const cuffEl = envelopeRef.current;
     if (!area || !stay || !leave || !cuffEl) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const cuff = envelope(reduced);
+    const cuff = envelope(prefersReducedMotion);
     const buttons = [stay, leave];
     const offsets = buttons.map(() => ({ x: spring(0), y: spring(0) }));
     const holdDamping = dampingFor(HOLD_STIFFNESS, 1);
@@ -64,7 +64,7 @@ export function ClingyBuddy() {
           if (pull) goal = pull;
           else held = -1;
         }
-        if (reduced) {
+        if (prefersReducedMotion()) {
           offset.x.value = goal.x;
           offset.y.value = goal.y;
         } else {

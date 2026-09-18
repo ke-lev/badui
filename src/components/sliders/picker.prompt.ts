@@ -6,12 +6,12 @@ Build a portable React + TypeScript component named PiCker. It takes no props an
 Reproduce the behavior exactly as specified; do not adjust thresholds, timings, or interaction.
 
 MARKUP AND SEMANTICS
-- Render a native input type="range" with min=0, max=664, step=1, a controlled numeric position starting at 0, and aria-label="πcker".
+- Render a native input type="range" with min=0, max=604, step=1, a controlled numeric position starting at 0, and aria-label="πcker".
 - Above the range, render an aria-hidden paragraph holding a three-column digit strip: a right-aligned span for the text before the pair, a mark element holding the pair in the centre column, and a left-aligned span for the text after it.
 - Set the range's aria-valuetext to “π decimal digits ” followed by the selected pair, e.g. “π decimal digits 14”.
 
 BEHAVIOR
-- Define DIGITS as exactly this 666-character string, the first 666 decimal digits of π:
+- Define DIGITS as exactly this 606-character string, the first 606 decimal digits of π:
 ${PI_DIGITS}
 - For the strip, let full = "3." + DIGITS and at = position + 2. before = full.slice(Math.max(0, at − 10), at) padded at the start to 10 characters with U+00A0; pair = full.slice(at, at + 2); after = full.slice(at + 2, at + 12) padded at the end to 10 characters with U+00A0. This produces ten characters on each side of the selected pair, which keeps it at the exact centre. At position 0 the strip is eight U+00A0, “3.”, the pair “14”, then “1592653589”.
 - On change, store Number(event.target.value). Preserve native range keyboard behavior, including its step of 1. Nothing animates.

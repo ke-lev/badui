@@ -17,6 +17,7 @@ import {
 } from "./rules";
 import styles from "./sliders.module.css";
 import { reboundPrompt } from "./rebound.prompt";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 
 const INITIAL = 0.55;
 /** Half the thumb's width: its centre travels this far inside each end. */
@@ -36,7 +37,6 @@ export function Rebound() {
     const thumb = thumbRef.current;
     if (!slider || !thumb) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let p = INITIAL;
     let v = 0;
     let frame = 0;
@@ -95,7 +95,7 @@ export function Rebound() {
       pointer = null;
       samples = [];
       setDragging(false);
-      launch(reduced ? 0 : velocity);
+      launch(prefersReducedMotion() ? 0 : velocity);
     }
 
     function onUp(event: PointerEvent) {
@@ -113,7 +113,7 @@ export function Rebound() {
       if (event.key === "ArrowLeft" || event.key === "ArrowDown") direction = -1;
       if (!direction) return;
       event.preventDefault();
-      if (reduced) place(clamp(p + direction / TEMPERATURE_STEPS, 0, 1));
+      if (prefersReducedMotion()) place(clamp(p + direction / TEMPERATURE_STEPS, 0, 1));
       else launch(clamp(v + direction * LOOSE_KICK, -LOOSE_MAX_SPEED, LOOSE_MAX_SPEED));
     }
 

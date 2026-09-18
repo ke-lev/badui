@@ -17,6 +17,7 @@ import { advance, clamp, dampingFor, gapTo, herd, startleFor, type Point } from 
 import { Readout } from "./parts";
 import { corneredButtonPrompt } from "./cornered-button.prompt";
 import styles from "./buttons.module.css";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 
 const RADIUS = 90; // the push begins this far from the button's edge
 const MAX_SPEED = 1800; // px/s with the pointer at its edge
@@ -49,7 +50,6 @@ export function CorneredButton() {
     const button = buttonRef.current;
     if (!arena || !button) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const body = createBody();
     let { half, bounds } = measure(arena, button);
     let target: Point = { x: 0, y: 0 };
@@ -99,7 +99,7 @@ export function CorneredButton() {
       const { moved, pinned } = push(dt, now);
       let offset = { x: 0, y: 0, tilt: 0 };
 
-      if (reduced) {
+      if (prefersReducedMotion()) {
         body.x.value = target.x;
         body.y.value = target.y;
       } else {
@@ -140,7 +140,7 @@ export function CorneredButton() {
         }
       }
 
-      button!.style.transform = bodyTransform(body, reduced, offset);
+      button!.style.transform = bodyTransform(body, prefersReducedMotion(), offset);
       // Held in place under a still, calm pointer, nothing changes until it moves.
       frame = moved || pinned > 0 || !isResting(body) ? requestAnimationFrame(tick) : 0;
     }
@@ -174,7 +174,7 @@ export function CorneredButton() {
     }
 
     function onButtonDown() {
-      if (reduced) return;
+      if (prefersReducedMotion()) return;
       body.travel = { x: 0, y: 1 };
       anchored = false;
       body.squash.velocity -= PRESS_SQUASH;
@@ -193,7 +193,7 @@ export function CorneredButton() {
       body.y.value = clamped.y;
       body.x.velocity = 0;
       body.y.velocity = 0;
-      button.style.transform = bodyTransform(body, reduced);
+      button.style.transform = bodyTransform(body, prefersReducedMotion());
     });
     observer.observe(arena);
     observer.observe(button);

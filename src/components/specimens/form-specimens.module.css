@@ -48,6 +48,11 @@
   color: var(--muted);
 }
 
+.passwordInput input.masked {
+  -webkit-text-security: disc;
+  text-security: disc;
+}
+
 .invalidInput {
   border-color: var(--warning);
 }
@@ -159,8 +164,7 @@
 }
 
 .primaryButton:focus-visible,
-.secondaryButton:focus-visible,
-.closeButton:focus-visible {
+.secondaryButton:focus-visible {
   outline: 2px solid var(--accent-line);
   outline-offset: 3px;
 }
@@ -207,107 +211,6 @@
   margin: -9px 0 0;
   color: var(--muted);
   font-size: 12px;
-}
-
-.dialogStack {
-  position: relative;
-  isolation: isolate;
-  width: calc(100% - 12px);
-  max-width: 304px;
-  color: var(--foreground);
-}
-
-.dialogStack::before,
-.dialogStack::after {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  background: var(--surface);
-  content: "";
-  transform: translate(6px, -6px);
-  transition: opacity 160ms ease;
-}
-
-.dialogStack::after {
-  z-index: -2;
-  background: var(--selected);
-  transform: translate(12px, -12px);
-}
-
-.dialogStack[data-layers="0"]::before,
-.dialogStack[data-layers="0"]::after,
-.dialogStack[data-layers="1"]::after {
-  opacity: 0;
-}
-
-.dialog {
-  position: relative;
-  padding: 26px 23px 22px;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  background: var(--field);
-  box-shadow: 0 5px 12px color-mix(in srgb, var(--shadow) 33%, transparent);
-}
-
-.closeButton {
-  position: absolute;
-  top: 13px;
-  right: 12px;
-  display: grid;
-  width: 27px;
-  height: 27px;
-  padding: 0;
-  place-items: center;
-  border: 0;
-  border-radius: 3px;
-  background: transparent;
-  color: var(--faint);
-  cursor: pointer;
-}
-
-.closeButton:hover {
-  background: var(--surface);
-  color: var(--foreground);
-}
-
-.eyebrow {
-  margin: 0 20px 16px 0;
-  color: var(--muted);
-  font-family: var(--font-geist-sans), sans-serif;
-  font-size: 10px;
-  line-height: 1.5;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
-
-.dialogTitle {
-  margin: 0 0 9px;
-  font-size: 21px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.7px;
-}
-
-.dialogMessage {
-  min-height: 42px;
-  margin: 0 0 22px;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-.dialogActions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
-}
-
-.dialogActions .primaryButton,
-.dialogActions .secondaryButton {
-  min-width: 0;
-  padding-inline: 10px;
 }
 
 .preferenceFieldset {
@@ -408,8 +311,6 @@
   .passwordInput,
   .primaryButton,
   .secondaryButton,
-  .dialogStack::before,
-  .dialogStack::after,
   .checkboxVisual {
     transition: none;
   }

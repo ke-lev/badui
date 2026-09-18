@@ -9,6 +9,7 @@ import type { ComponentMeta } from "@/components/meta";
 import styles from "./buddies.module.css";
 import { hungryBuddyPrompt } from "./hungry-buddy.prompt";
 import { chew, HUNGRY_SIZE, hungryModel } from "./models";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 
 /** How far the face travels toward the pointer, as a fraction of the companion's size. */
 const LOOK_REACH = 0.1;
@@ -42,7 +43,6 @@ export function HungryBuddy() {
     const mouth = mouthRef.current;
     if (!area || !pointer || !button || !buddy || !face || !mouth) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const model = hungryModel();
     let arrow: Point | null = null;
     let eaten = 0;
@@ -73,7 +73,7 @@ export function HungryBuddy() {
       if (eating && !chewing) mealStart = now;
       if (eating) {
         // Reduced motion holds the mouth open and still.
-        const jaw = reduced ? { open: 1, side: 0 } : chew(now - mealStart);
+        const jaw = prefersReducedMotion() ? { open: 1, side: 0 } : chew(now - mealStart);
         mouth!.style.width = `${MOUTH_WIDTH * (1 - MOUTH_NARROW * jaw.open)}px`;
         mouth!.style.height = `${MOUTH_LINE + MOUTH_GAPE * jaw.open}px`;
         mouth!.style.transform = `translate(-50%, -50%) translateX(${JAW_SWAY * jaw.side}px)`;

@@ -18,7 +18,7 @@ STYLING
 - Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
 - The specimen is width 100%, max-width 310px, centered, color light-dark(#282824, #e8e7e0).
 - The heading is a 12px flex row, 20px line-height, space-between, 12px gap. The “A→z” text is 11px sans-serif in light-dark(#6b6b63, #9c9c91).
-- The input is display block, border-box, width 100%, height 44px, 10px top margin, 0 12px padding, 1px solid light-dark(#deded6, #34342f) border, 4px radius, light-dark(#ffffff, #1a1a17) background, color light-dark(#282824, #e8e7e0), 15px sans-serif. Placeholder color light-dark(#8c8c80, #75756b). Hover border light-dark(#a3aa95, #62635a). Focus-visible outline 2px solid light-dark(#6c7660, #8e9c78) at 3px offset. Border transition 140ms ease, removed under prefers-reduced-motion.
+- The input is display block, border-box, width 100%, height 44px, 10px top margin, 0 12px padding, 1px solid light-dark(#deded6, #34342f) border, 4px radius, light-dark(#ffffff, #1a1a17) background, color light-dark(#282824, #e8e7e0), 15px sans-serif. Placeholder color light-dark(#6b6b63, #9c9c91). Hover border light-dark(#a9aa9f, #62635a). Focus-visible outline 2px solid light-dark(#667251, #8e9c78) at 3px offset. Border transition 140ms ease, removed under prefers-reduced-motion.
 - The hint has 12px top margin, 11px type, line-height 1.5, color light-dark(#6b6b63, #9c9c91).
 
 DONE WHEN

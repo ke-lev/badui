@@ -7,6 +7,7 @@ import { advance, clamp, dampingFor, gapTo, shrinkFor, spring, type Point } from
 import { Readout } from "./parts";
 import { shrinkingButtonPrompt } from "./shrinking-button.prompt";
 import styles from "./buttons.module.css";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 
 export const FAR = 16; // full size with the pointer this far from its edge, or farther
 const NEAR = 1; // smallest with the pointer this close, or closer
@@ -32,7 +33,6 @@ export function ShrinkingButton() {
     const label = labelRef.current;
     if (!arena || !button || !label) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const width = spring(0);
     const height = spring(0);
     const heightDamping = dampingFor(HEIGHT_STIFFNESS, RATIO);
@@ -87,7 +87,7 @@ export function ShrinkingButton() {
       last = now;
       const g = goal();
 
-      if (reduced) {
+      if (prefersReducedMotion()) {
         width.value = height.value = g;
         width.velocity = height.velocity = 0;
       } else {

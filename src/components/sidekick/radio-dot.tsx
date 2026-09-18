@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import styles from "./sidekick.module.css";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 import {
   advance,
   DAMPING_LOCK,
@@ -27,7 +28,7 @@ export function RadioDot({ value }: { value: string }) {
     const group = dot?.parentElement;
     if (!dot || !group) return;
 
-    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    const motion = window.matchMedia?.("(prefers-reduced-motion: reduce)") ?? null;
     const damping = dampingFor(STIFFNESS_LOCK, DAMPING_LOCK);
     const x = spring(0);
     const y = spring(0);
@@ -48,7 +49,7 @@ export function RadioDot({ value }: { value: string }) {
 
     function paint() {
       const speed = Math.hypot(x.velocity, y.velocity);
-      const stretch = reduced ? 0 : Math.min(speed / STRETCH_DIVISOR, MAX_STRETCH);
+      const stretch = prefersReducedMotion() ? 0 : Math.min(speed / STRETCH_DIVISOR, MAX_STRETCH);
       const heading = foldedHeading(x.velocity, y.velocity);
       dot!.style.transform =
         `translate3d(${x.value}px, ${y.value}px, 0) translate(-50%, -50%) ` +
@@ -74,7 +75,7 @@ export function RadioDot({ value }: { value: string }) {
       const t = target();
       dot!.hidden = !t;
       if (!t) return;
-      if (!placed || reduced || !travel) {
+      if (!placed || prefersReducedMotion() || !travel) {
         cancelAnimationFrame(frame);
         frame = 0;
         settle(x, t.x);
@@ -96,6 +97,14 @@ export function RadioDot({ value }: { value: string }) {
       travel = true;
     }
 
+    // Turning the preference on mid-travel seats the dot where it was heading;
+    // turning it off leaves the dot alone until the next choice travels.
+    function onMotionChange() {
+      if (!prefersReducedMotion()) return;
+      travel = false;
+      place();
+    }
+
     // Layout moves (a resize, the font arriving) re-seat the dot without travel.
     function onResize() {
       if (frame) return;
@@ -107,6 +116,7 @@ export function RadioDot({ value }: { value: string }) {
     place();
     group.addEventListener("click", onClick, true);
     window.addEventListener("resize", onResize);
+    motion?.addEventListener("change", onMotionChange);
     const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(onResize);
     observer?.observe(group);
 
@@ -114,6 +124,7 @@ export function RadioDot({ value }: { value: string }) {
       cancelAnimationFrame(frame);
       group.removeEventListener("click", onClick, true);
       window.removeEventListener("resize", onResize);
+      motion?.removeEventListener("change", onMotionChange);
       observer?.disconnect();
       group.removeAttribute("data-dot");
       placeRef.current = () => {};

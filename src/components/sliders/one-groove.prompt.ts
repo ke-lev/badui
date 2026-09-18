@@ -21,11 +21,11 @@ BEHAVIOR
 STYLING
 - Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
 - The specimen is width 100%, max-width 310px, centered, color light-dark(#282824, #e8e7e0).
-- The heading is a 12px flex row with 20px line-height, items centered and spaced apart; the icon is light-dark(#838377, #75756b).
+- The heading is a 12px flex row with 20px line-height, items centered and spaced apart; the icon is light-dark(#8c8c80, #75756b).
 - The output is block-level with 24px top and 21px bottom padding, a 1px solid light-dark(#deded6, #34342f) bottom border, nowrap, tabular numerals, and a sans-serif stack. Its font size is clamp(25px, 2.8vw, 32px), line-height 1.3, letter-spacing -1.5px.
 - Put the track group 31px below the output. The range is 100% wide and 28px tall with no margin or padding, transparent background, no native appearance, cursor ew-resize, and 5px outline offset.
-- The track is 2px high with background light-dark(#c7c7bc, #4a4b43). The WebKit thumb is 14px by 26px with margin-top -12px, 4px solid light-dark(#ffffff, #1a1a17) border, 3px radius, 1px light-dark(#b9bbae, #4a4b43) outline, and light-dark(#879271, #717b5f) fill. The Firefox thumb is 6px by 18px with the same border, radius, outline, and fill.
-- The range focus-visible outline is 2px solid light-dark(#6c7660, #8e9c78) with 2px radius. Ticks sit in a 12px-high flex row with 6px horizontal margins: each is 1px by 4px in light-dark(#d2d2c6, #4a4b43) and majors are 7px high. Endpoint labels are spaced apart, 7px above margin, 10px sans-serif, color light-dark(#6b6b63, #9c9c91).
+- The track is 2px high with background light-dark(#c6c8ba, #4a4b43). The WebKit thumb is 14px by 26px with margin-top -12px, 4px solid light-dark(#ffffff, #1a1a17) border, 3px radius, 1px light-dark(#c6c8ba, #4a4b43) outline, and light-dark(#899176, #717b5f) fill. The Firefox thumb is 6px by 18px with the same border, radius, outline, and fill.
+- The range focus-visible outline is 2px solid light-dark(#667251, #8e9c78) with 2px radius. Ticks sit in a 12px-high flex row with 6px horizontal margins: each is 1px by 4px in light-dark(#c6c8ba, #4a4b43) and majors are 7px high. Endpoint labels are spaced apart, 7px above margin, 10px sans-serif, color light-dark(#6b6b63, #9c9c91).
 - At widths up to 600px, use clamp(24px, 7vw, 30px) for the reading.
 
 DONE WHEN

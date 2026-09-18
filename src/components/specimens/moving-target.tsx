@@ -83,13 +83,19 @@ export function MovingTarget() {
         <input
           ref={inputRef}
           id={inputId}
-          name="password"
-          type={visible ? "text" : "password"}
+          type="text"
+          className={visible ? undefined : styles.masked}
           data-sidekick="password"
           value={password}
           onChange={(event) => updatePassword(event.target.value)}
           autoComplete="off"
+          data-1p-ignore="true"
+          data-lpignore="true"
+          data-bwignore="true"
+          data-form-type="other"
           spellCheck={false}
+          autoCapitalize="none"
+          autoCorrect="off"
           placeholder="Enter password"
           aria-describedby={`${inputId}-requirements`}
           aria-invalid={submitted || undefined}
@@ -137,7 +143,8 @@ export const movingTargetMeta: ComponentMeta = {
   notes:
     "The requirement list is a live region and each item states met or not " +
     "met to a screen reader. A rejected submit sets aria-invalid and returns " +
-    "focus to the field.",
+    "focus to the field. The field is a text input masked in CSS rather than " +
+    "a native password input, so a screen reader reads the characters aloud.",
   lines: {
     password: "Meeting a requirement is how you find the next one.",
     "password-reveal": "Shows the password. Only the password.",

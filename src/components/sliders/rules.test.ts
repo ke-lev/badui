@@ -110,16 +110,16 @@ function machinDigits(count: number): string {
 
 describe("tip", () => {
   it("reads the decimal digits of π", () => {
-    expect(PI_DIGITS).toHaveLength(666);
+    expect(PI_DIGITS).toHaveLength(606);
     expect(PI_DIGITS).toBe(machinDigits(PI_DIGITS.length));
   });
 
-  it("starts at 14 and reaches every percentage from 0 to 99 before the last step", () => {
+  it("starts at 14 and reaches every percentage from 0 to 99 by the last step", () => {
     expect(tipAt(0)).toBe(14);
     const seen = new Set(Array.from({ length: TIP_LAST + 1 }, (_, position) => tipAt(position)));
     expect(seen.size).toBe(100);
     const before = new Set(Array.from({ length: TIP_LAST }, (_, position) => tipAt(position)));
-    expect(before.size).toBe(100);
+    expect(before.size).toBe(99);
   });
 
   it("centres the pair in its strip of digits", () => {

@@ -34,6 +34,8 @@ ${ENVELOPE_BEHAVIOR}
 ${TAB_BEHAVIOR}
 - Remove all listeners and cancel any pending frame on unmount.
 
+- Read the reduced-motion preference where it is used rather than capturing it when the component mounts, so changing the preference while the page is open takes effect on the next frame.
+
 STYLING
 ${SPECIMEN_STYLING}
 - The area also has overflow hidden.

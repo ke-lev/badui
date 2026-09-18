@@ -7,6 +7,7 @@ import { Readout } from "./parts";
 import { personalSpacePrompt } from "./personal-space.prompt";
 import { clipPath, deformedOutline, displace, insideBox, restOutline, type Box } from "./squish";
 import styles from "./buttons.module.css";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 
 const LABEL = "Submit";
 const HOLE = 26; // radius of the disc kept clear around the pointer
@@ -40,7 +41,6 @@ export function PersonalSpace() {
     const lettersEl = lettersRef.current;
     if (!arena || !button || !lettersEl) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const rest = restOutline(REST, STEP);
     const x = spring(0);
     const y = spring(0);
@@ -98,7 +98,7 @@ export function PersonalSpace() {
       last = now;
       const goal = present ? HOLE : 0;
 
-      if (reduced) {
+      if (prefersReducedMotion()) {
         x.value = target.x;
         y.value = target.y;
         radius.value = goal;

@@ -17,6 +17,7 @@ import { advance, clamp, dampingFor, gapTo, pickSpot, type Point } from "./flee"
 import { Arrow, Readout } from "./parts";
 import { classicRunawayPrompt } from "./runaway-button.prompt";
 import styles from "./buttons.module.css";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 
 const TRIGGER = 56; // pointer-to-edge distance that sends it, on hover
 const MIN_HOP = 90;
@@ -73,7 +74,6 @@ export function ClassicRunaway({ switches = NO_SWITCHES }: { switches?: SwitchSt
     const button = buttonRef.current;
     if (!arena || !button) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const body = createBody();
     let { half, bounds } = measure(arena, button);
     let target: Point = { x: 0, y: 0 };
@@ -87,7 +87,7 @@ export function ClassicRunaway({ switches = NO_SWITCHES }: { switches?: SwitchSt
     let releaseTimer = 0;
 
     function shiverAmount(): number {
-      if (reduced || !pointer || !settingsRef.current.anxious) return 0;
+      if (prefersReducedMotion() || !pointer || !settingsRef.current.anxious) return 0;
       const closeness = Math.max(0, 1 - gapTo(pointer, target, half) / SHIVER_RADIUS);
       return closeness * Math.sqrt(closeness);
     }
@@ -120,7 +120,7 @@ export function ClassicRunaway({ switches = NO_SWITCHES }: { switches?: SwitchSt
               tilt: (Math.random() * 2 - 1) * MAX_TILT * shiver,
             }
           : undefined;
-      button!.style.transform = bodyTransform(body, reduced, jitter);
+      button!.style.transform = bodyTransform(body, prefersReducedMotion(), jitter);
 
       // The frame that finds no shiver paints clean before the loop sleeps. A
       // body still short of its target is not resting, even at zero velocity.
@@ -143,7 +143,7 @@ export function ClassicRunaway({ switches = NO_SWITCHES }: { switches?: SwitchSt
       });
       setMoves((count) => count + 1);
 
-      if (reduced) {
+      if (prefersReducedMotion()) {
         target = next;
         body.x.value = next.x;
         body.y.value = next.y;
@@ -209,7 +209,7 @@ export function ClassicRunaway({ switches = NO_SWITCHES }: { switches?: SwitchSt
       body.y.value = clamped.y;
       body.x.velocity = 0;
       body.y.velocity = 0;
-      button.style.transform = bodyTransform(body, reduced);
+      button.style.transform = bodyTransform(body, prefersReducedMotion());
       check();
     });
     observer.observe(arena);

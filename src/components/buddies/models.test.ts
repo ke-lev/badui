@@ -98,14 +98,14 @@ describe("chew", () => {
 
 describe("envelope", () => {
   it("sits on its target under reduced motion", () => {
-    const cuff = envelope(true);
+    const cuff = envelope(() => true);
     const target = { x: 10, y: 20, w: 30, h: 40 };
     expect(cuff.step(target, true, FRAME / 1000)).toBe(false);
     expect(cuff.box()).toEqual(target);
   });
 
   it("passes a locked target before settling on it", () => {
-    const cuff = envelope(false);
+    const cuff = envelope(() => false);
     cuff.place({ x: 0, y: 0, w: 24, h: 24 });
     const target = { x: 100, y: 0, w: 24, h: 24 };
     let peak = 0;

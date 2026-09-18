@@ -8,6 +8,7 @@ import styles from "./buddies.module.css";
 import { around, envelope, LOCKED_RADIUS, padded, scream, shake } from "./models";
 import { paintEnvelope, placeTab, relative } from "./paint";
 import { screamingBuddyPrompt } from "./screaming-buddy.prompt";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 
 function nameOf(el: HTMLElement): string {
   if (el instanceof HTMLInputElement) return el.labels?.[0]?.textContent ?? "";
@@ -27,8 +28,7 @@ export function ScreamingBuddy() {
     const tab = tabRef.current;
     if (!area || !cuffEl || !tab) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const cuff = envelope(reduced);
+    const cuff = envelope(prefersReducedMotion);
     let real: Point | null = null;
     let target: HTMLElement | null = null;
     let since = 0;
@@ -51,7 +51,7 @@ export function ScreamingBuddy() {
 
       const dwell = now - since;
       tab!.textContent = scream(target ? nameOf(target) : "", dwell);
-      const jolt = reduced ? undefined : shake(now, dwell);
+      const jolt = prefersReducedMotion() ? undefined : shake(now, dwell);
       paintEnvelope(cuffEl!, cuff.box(), locked ? LOCKED_RADIUS : undefined, jolt);
       placeTab(tab!, cuff.box(), bounds, jolt);
       cuffEl!.setAttribute("data-shown", "");

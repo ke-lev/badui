@@ -89,3 +89,22 @@ describe("Talk line keys", () => {
     }
   });
 });
+
+describe("entry ids", () => {
+  // A shared link addresses an entry by its id alone, without naming the
+  // shelf, so an id repeated across two categories would be ambiguous.
+  it("are unique across the whole library", () => {
+    const seen = new Set<string>();
+    for (const entry of entries) {
+      expect(seen.has(entry.id), entry.id).toBe(false);
+      seen.add(entry.id);
+    }
+  });
+
+  it("survive a round trip through a query string", () => {
+    for (const entry of entries) {
+      expect(new URLSearchParams({ entry: entry.id }).get("entry")).toBe(entry.id);
+      expect(entry.id).toMatch(/^[a-z0-9-]+$/);
+    }
+  });
+});

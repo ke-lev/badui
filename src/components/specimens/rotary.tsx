@@ -24,16 +24,13 @@ import {
   travelFor,
 } from "./rules";
 import styles from "./physical-specimens.module.css";
+import { prefersReducedMotion } from "@/components/reduced-motion";
 
 type Phase = "idle" | "dragging" | "pulling" | "returning";
 
 const SLOT_GROUPS = [[0, 3], [3, 6], [6, 10]];
 const STOP_START = pointAt(STOP_ANGLE + 11, 90);
 const STOP_END = pointAt(STOP_ANGLE + 11, 108);
-
-function reducedMotion() {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
 
 export function Rotary() {
   const maskId = `rotary-plate-${useId().replace(/[^\w-]/g, "")}`;
@@ -81,7 +78,7 @@ export function Rotary() {
       enter("idle");
       if (digit !== null) register(digit);
     };
-    if (from <= 0 || reducedMotion()) return finish();
+    if (from <= 0 || prefersReducedMotion()) return finish();
     enter("returning");
     const start = performance.now();
     const step = (now: number) => {
@@ -136,7 +133,7 @@ export function Rotary() {
     if (phaseRef.current !== "idle" || digitsRef.current.length >= NUMBER_LENGTH) return;
     const digit = Number(event.key);
     const travel = travelFor(digit);
-    if (reducedMotion()) {
+    if (prefersReducedMotion()) {
       turn(travel);
       return windHome(digit);
     }

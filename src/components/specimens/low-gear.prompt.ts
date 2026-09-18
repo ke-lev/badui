@@ -20,10 +20,10 @@ BEHAVIOR
 STYLING
 - Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
 - The specimen is width 100%, max-width 320px, centered, color light-dark(#282824, #e8e7e0), and a vertical flex layout aligned center with a 15px gap.
-- The dial is position relative, 224px square, circular, touch-action none, user-select none, cursor grab, and cursor grabbing while dragged. Its focus-visible outline is 2px solid light-dark(#6c7660, #8e9c78) with 7px offset.
-- Major ticks use stroke light-dark(#9d9d92, #62635a) at width 1; minor ticks use light-dark(#d4d4c9, #4a4b43) at width 1.
-- Inset the face by 29px; give it a 1px solid light-dark(#deded6, #34342f) border and light-dark(#ffffff, #1a1a17) background. Inset the hand by 10px. Its marker is 4px by 12px, top 2px, centered horizontally, radius 2px, background light-dark(#858e70, #717b5f).
-- Use a 42px normal-weight sans-serif reading with line-height 1.1, letter-spacing -3px, tabular numerals. Position the 13px light-dark(#77776b, #9c9c91) percent sign at top 8px with 4px left margin. Use 11px light-dark(#6b6b63, #9c9c91) for the label and hint.
+- The dial is position relative, 224px square, circular, touch-action none, user-select none, cursor grab, and cursor grabbing while dragged. Its focus-visible outline is 2px solid light-dark(#667251, #8e9c78) with 7px offset.
+- Major ticks use stroke light-dark(#a9aa9f, #62635a) at width 1; minor ticks use light-dark(#c6c8ba, #4a4b43) at width 1.
+- Inset the face by 29px; give it a 1px solid light-dark(#deded6, #34342f) border and light-dark(#ffffff, #1a1a17) background. Inset the hand by 10px. Its marker is 4px by 12px, top 2px, centered horizontally, radius 2px, background light-dark(#899176, #717b5f).
+- Use a 42px normal-weight sans-serif reading with line-height 1.1, letter-spacing -3px, tabular numerals. Position the 13px light-dark(#6b6b63, #9c9c91) percent sign at top 8px with 4px left margin. Use 11px light-dark(#6b6b63, #9c9c91) for the label and hint.
 - At widths up to 600px, make the dial 210px square and inset the face by 28px.
 
 DONE WHEN

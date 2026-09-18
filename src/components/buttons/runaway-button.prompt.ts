@@ -23,6 +23,8 @@ BEHAVIOR
 - On resize or a talkative width change, remeasure bounds, clamp the destination, and if clamping changed it, place the animated body there with zero x/y velocity.
 - Under prefers-reduced-motion, every hop relocates immediately and disables spring flight, stretch, landing squash, and shiver. All interaction rules and counting remain unchanged.
 
+- Read the reduced-motion preference where it is used rather than capturing it when the component mounts, so changing the preference while the page is open takes effect on the next frame.
+
 STYLING
 - Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
 - The specimen stretches to its container, is a vertical flex layout with 12px gap, min-width 0, and color light-dark(#282824, #e8e7e0). The arena flexes to fill available height, has position relative, min-height 160px, and touch-action manipulation.

@@ -23,6 +23,8 @@ BEHAVIOR
 - keydown on the slider: ArrowRight and ArrowUp are direction +1, ArrowLeft and ArrowDown are −1; for those, prevent the default and launch with clamp(v + 0.6 × direction, −8, 8). Other keys are ignored.
 - Read prefers-reduced-motion: reduce once on mount. When it matches, ending a drag always launches with 0, and an arrow key sets p to clamp(p + direction / 40, 0, 1) instead of launching.
 
+- Read the reduced-motion preference where it is used rather than capturing it when the component mounts, so changing the preference while the page is open takes effect on the next frame.
+
 STYLING
 - Colors are given as light-dark(light, dark) pairs and resolve against the page's color-scheme; if the host page does not set one, set color-scheme: light dark on :root.
 - The specimen is width 100%, max-width 310px, centered, color light-dark(#282824, #e8e7e0).

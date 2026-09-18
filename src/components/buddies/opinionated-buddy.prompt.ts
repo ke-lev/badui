@@ -42,6 +42,8 @@ ${TAB_BEHAVIOR}
 - Listen for click on the area. If the event's target is a button (keyboard activation), do nothing there. Otherwise, if a button is hovered by the drawn position, call that button's click().
 - Remove all listeners and cancel any pending frame on unmount.
 
+- Read the reduced-motion preference where it is used rather than capturing it when the component mounts, so changing the preference while the page is open takes effect on the next frame.
+
 STYLING
 ${SPECIMEN_STYLING}
 - The area also has overflow hidden and cursor none.
