@@ -101,13 +101,24 @@
 }
 
 .track {
+  position: relative;
   height: 6px;
   overflow: hidden;
   border-radius: 999px;
   background: var(--selected);
 }
 
+.highWater {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: light-dark(#bcc2b0, #5a6250);
+  transform-origin: left center;
+  transition: transform 250ms linear;
+}
+
 .fill {
+  position: relative;
   height: 100%;
   border-radius: inherit;
   background: var(--accent-ink);
@@ -120,7 +131,149 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 16px;
+  margin-top: 8px;
+}
+
+.thoughtRow {
+  min-height: 26px;
+  margin-top: 8px;
+}
+
+.thought {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.thought summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+  border-radius: 3px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.thought summary::-webkit-details-marker {
+  display: none;
+}
+
+.thought summary::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 3.5px solid transparent;
+  border-bottom: 3.5px solid transparent;
+  border-left: 5px solid currentColor;
+  transition: transform 150ms ease;
+}
+
+.thought[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.thought summary:hover {
+  color: var(--foreground);
+}
+
+.thought summary:focus-visible {
+  outline: 2px solid var(--accent-line);
+  outline-offset: 3px;
+}
+
+.thought ul {
+  margin: 4px 0 0;
+  padding: 0 0 0 11px;
+  border-left: 1px solid var(--border);
+  list-style: none;
+  line-height: 1.7;
+}
+
+.statusSlot {
+  min-width: 0;
+}
+
+.shimmer {
+  background: linear-gradient(
+      90deg,
+      var(--muted) 0%,
+      var(--muted) 35%,
+      var(--foreground) 50%,
+      var(--muted) 65%,
+      var(--muted) 100%
+    )
+    0 0 / 250% 100%;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 1800ms linear infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
+}
+
+.iconButton {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--inverse);
+  color: var(--on-inverse);
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.iconButton:hover {
+  background: var(--inverse-hover);
+}
+
+.iconButton:focus-visible {
+  outline: 2px solid var(--accent-line);
+  outline-offset: 3px;
+}
+
+.stopIcon {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.noticeSlot:empty {
+  display: none;
+}
+
+.noticeWarn,
+.noticeLimit {
+  margin: 14px 0 0;
+  padding: 8px 10px;
+  border: 1px solid;
+  border-radius: 5px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.noticeWarn {
+  border-color: light-dark(#ecd6a8, #4d3d1f);
+  background: light-dark(#fbf3e2, #2e2616);
+  color: light-dark(#7a4d0b, #e9c27a);
+}
+
+.noticeLimit {
+  border-color: light-dark(#efc9c6, #55302d);
+  background: light-dark(#fbeceb, #301b1a);
+  color: light-dark(#8f2a24, #f0a39c);
 }
 
 /* Undo toast */
@@ -266,8 +419,17 @@
   .primaryButton,
   .secondaryButton,
   .rowButton,
-  .fill {
+  .iconButton,
+  .fill,
+  .highWater,
+  .thought summary::before {
     transition: none;
+  }
+
+  .shimmer {
+    background: none;
+    color: var(--muted);
+    animation: none;
   }
 
   .toast {

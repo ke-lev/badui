@@ -11,7 +11,7 @@ import { DelayedPointer, delayedPointerMeta } from "@/components/cursor/delayed-
 import { HeavyPointer, heavyPointerMeta } from "@/components/cursor/heavy-pointer";
 import { MirroredPointer, mirroredPointerMeta } from "@/components/cursor/mirrored-pointer";
 import { FogOfWar, fogOfWarMeta } from "@/components/experiments/fog-of-war";
-import { Asymptote, asymptoteMeta } from "@/components/feedback/asymptote";
+import { Thinking, thinkingMeta } from "@/components/feedback/thinking";
 import { Skittish, skittishMeta } from "@/components/feedback/skittish";
 import { ExpiringPassword, expiringPasswordMeta } from "@/components/inputs/expiring-password";
 import { LeadingCaret, leadingCaretMeta } from "@/components/inputs/leading-caret";
@@ -41,13 +41,13 @@ export const entries: LibraryEntry[] = [
   { id: "shrinking", component: ShrinkingButton, meta: shrinkingButtonMeta },
   { id: "personal-space", component: PersonalSpace, meta: personalSpaceMeta },
   { id: "mitosis", component: MitosisButton, meta: mitosisButtonMeta },
-  { id: "moving-target", component: MovingTarget, meta: movingTargetMeta },
-  { id: "solidarity", component: Solidarity, meta: solidarityMeta },
+  { id: "expiring-password", component: ExpiringPassword, meta: expiringPasswordMeta },
   { id: "rotary", component: Rotary, meta: rotaryMeta },
   { id: "letter-name", component: LetterName, meta: letterNameMeta },
+  { id: "moving-target", component: MovingTarget, meta: movingTargetMeta },
+  { id: "solidarity", component: Solidarity, meta: solidarityMeta },
   { id: "leading-caret", component: LeadingCaret, meta: leadingCaretMeta },
   { id: "sorted-email", component: SortedEmail, meta: sortedEmailMeta },
-  { id: "expiring-password", component: ExpiringPassword, meta: expiringPasswordMeta },
   { id: "momentum", component: Momentum, meta: momentumMeta },
   { id: "picker", component: PiCker, meta: piCkerMeta },
   { id: "one-groove", component: OneGroove, meta: oneGrooveMeta },
@@ -63,7 +63,7 @@ export const entries: LibraryEntry[] = [
   { id: "clingy-buddy", component: ClingyBuddy, meta: clingyBuddyMeta },
   { id: "back-of-the-line", component: BackOfTheLine, meta: backOfTheLineMeta },
   { id: "doubling", component: Doubling, meta: doublingMeta },
-  { id: "asymptote", component: Asymptote, meta: asymptoteMeta },
+  { id: "thinking", component: Thinking, meta: thinkingMeta },
   { id: "skittish", component: Skittish, meta: skittishMeta },
   { id: "fog-of-war", component: FogOfWar, meta: fogOfWarMeta },
 ];

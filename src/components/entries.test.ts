@@ -38,10 +38,11 @@ describe.each(entries)("$id", (entry) => {
     }
   });
 
-  it("declares at least one Talk line, none of them empty", () => {
-    const lines = Object.entries(entry.meta.lines);
-    expect(lines.length).toBeGreaterThan(0);
-    for (const [key, text] of lines) expect(text.trim(), key).not.toBe("");
+  // An empty line is deliberate: the tab stays blank instead of falling back
+  // to the inspector readout.
+  it("declares at least one non-empty Talk line", () => {
+    const lines = Object.values(entry.meta.lines);
+    expect(lines.some((text) => text.trim() !== "")).toBe(true);
   });
 
   it("renders at least one element the cursor companion can key on", () => {
