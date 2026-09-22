@@ -14,10 +14,8 @@ export const heavyPointerMeta: ComponentMeta = {
   kind: "hostile",
   category: "cursor",
   summary:
-    "An area that hides the system pointer and draws its own on a loose spring " +
-    "toward the real one, overshooting by about half of each move before it " +
-    "settles. A click presses the centred Continue button only when the drawn " +
-    "pointer is over it.",
+    "An area that replaces the system pointer with a springy one that overshoots " +
+    "the real position. Continue responds only when the drawn pointer is over it.",
   usage: "<HeavyPointer />",
   prompt: heavyPointerPrompt,
   notes:

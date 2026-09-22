@@ -14,9 +14,8 @@ export const mirroredPointerMeta: ComponentMeta = {
   kind: "hostile",
   category: "cursor",
   summary:
-    "An area that hides the system pointer and draws its own, reflected across " +
-    "the area's vertical centre line. A Continue button sits a quarter of the " +
-    "way in from the left; a click presses it only when the drawn pointer is over it.",
+    "An area that reflects the pointer across its vertical centreline. Continue " +
+    "responds only when the reflected pointer reaches it.",
   usage: "<MirroredPointer />",
   prompt: mirroredPointerPrompt,
   notes:

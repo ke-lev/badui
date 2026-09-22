@@ -70,9 +70,8 @@ export const solidarityMeta: ComponentMeta = {
   kind: "hostile",
   category: "inputs",
   summary:
-    "Three preference checkboxes: Good, Cheap, and Fast. Toggling one also toggles the next in the " +
-    "list, wrapping from the last back to the first; a running count sits " +
-    "beside the save button.",
+    "Three preference checkboxes where toggling one also toggles the next, wrapping " +
+    "around the list. A count sits beside Save.",
   usage: "<Solidarity />",
   prompt: solidarityPrompt,
   notes:

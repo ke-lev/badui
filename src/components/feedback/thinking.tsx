@@ -250,14 +250,8 @@ export const thinkingMeta: ComponentMeta = {
   kind: "hostile",
   category: "feedback",
   summary:
-    "A file upload that alternates between uploading and thinking. It pauses " +
-    "six times with individually timed status lines. The second pause " +
-    "returns it to 0%; the first, third, and fourth undo 25–55% of the " +
-    "preceding burst; the fifth resumes between 21 and " +
-    "28% and resets the estimate to three seconds. A credits warning appears " +
-    "at 85% with 10% of credits remaining, falling to 5% halfway through " +
-    "the climb after compaction. The final check holds at 95% while remaining credits fall " +
-    "from 5% to zero, then stops the upload.",
+    "A file upload that alternates between progress and six timed thinking pauses. " +
+    "It backtracks, resets its estimate, and ends at 95% when credits reach zero.",
   usage: "<Thinking />",
   prompt: thinkingPrompt,
   notes:

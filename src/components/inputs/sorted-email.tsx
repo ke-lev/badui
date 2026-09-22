@@ -46,9 +46,8 @@ export const sortedEmailMeta: ComponentMeta = {
   kind: "hostile",
   category: "inputs",
   summary:
-    "An email address field that sorts its value after every change, by " +
-    "character code: punctuation and digits first, then capitals, then lower " +
-    "case. The caret is placed after the last character.",
+    "An email field that sorts its value after every change: punctuation and digits, " +
+    "then capitals, then lowercase. The caret lands at the end.",
   usage: "<SortedEmail />",
   prompt: sortedEmailPrompt,
   notes:

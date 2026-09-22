@@ -157,10 +157,8 @@ export const shrinkingButtonMeta: ComponentMeta = {
   kind: "hostile",
   category: "buttons",
   summary:
-    "A Submit button that stays in place and shrinks as the pointer approaches: " +
-    "full size while the pointer is 16 pixels or more from its edge, and a " +
-    "3-by-3-pixel square once the pointer is within 1 pixel of it. It regrows " +
-    "as the pointer withdraws.",
+    "A Submit button that shrinks as the pointer approaches, from full size at 16 " +
+    "pixels to a 3-by-3-pixel square at 1 pixel. It regrows as the pointer withdraws.",
   usage: "<ShrinkingButton />",
   prompt: shrinkingButtonPrompt,
   notes:

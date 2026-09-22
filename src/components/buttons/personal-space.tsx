@@ -191,11 +191,8 @@ export const personalSpaceMeta: ComponentMeta = {
   kind: "hostile",
   category: "buttons",
   summary:
-    "A Submit button that keeps a disc of 26-pixel radius around the pointer clear " +
-    "of itself. Each point of the button at distance r from the pointer is pushed " +
-    "straight out to √(r² + 26²): approached from outside, its edge dents inward; " +
-    "with the pointer over it, a hole opens there and the outline bulges by the " +
-    "area displaced.",
+    "A Submit button that clears a 26-pixel disc around the pointer. Its edge dents " +
+    "around the disc and opens a hole when the pointer enters.",
   usage: "<PersonalSpace />",
   prompt: personalSpacePrompt,
   sidekick: false,

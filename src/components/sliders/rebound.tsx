@@ -176,10 +176,8 @@ export const reboundMeta: ComponentMeta = {
   kind: "hostile",
   category: "sliders",
   summary:
-    "A temperature slider from 10 to 30 °C in half-degree steps. The thumb " +
-    "follows the pointer while held; on release it keeps the speed it was let " +
-    "go at, slows under friction, and rebounds off either end at 70% of its " +
-    "speed until it comes to rest.",
+    "A 10–30 °C temperature slider that keeps its release velocity, slows under " +
+    "friction, and rebounds at either end. It settles after the bounces.",
   usage: "<Rebound />",
   prompt: reboundPrompt,
   notes:

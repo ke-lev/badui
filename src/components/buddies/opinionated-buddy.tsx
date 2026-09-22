@@ -191,10 +191,8 @@ export const opinionatedBuddyMeta: ComponentMeta = {
   kind: "hostile",
   category: "buddies",
   summary:
-    "A companion that, whenever the pointer is within 40 pixels of either of two " +
-    "buttons, wraps Cancel. Anywhere within 40 pixels of Unsubscribe, the drawn " +
-    "pointer is carried to the matching spot inside Cancel, and it never rests on " +
-    "or passes over Unsubscribe.",
+    "A companion that redirects the drawn pointer from Unsubscribe to Cancel within " +
+    "40 pixels. It never lands on or crosses Unsubscribe.",
   usage: "<OpinionatedBuddy />",
   prompt: opinionatedBuddyPrompt,
   notes:

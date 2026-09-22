@@ -122,6 +122,14 @@ function CopyPromptIcon({ copied }: { copied: boolean }) {
   );
 }
 
+function PromptDisclosureIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <path d="m4.5 2.5 4 3.5-4 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function Collection() {
   // The address bar holds the place, so a link opens one and Back and Forward
   // walk them. Everything below it — resets, switches, the folded rail — is
@@ -559,14 +567,19 @@ function EntryPane({
 }) {
   const Specimen = entry.component;
   const promptTitleId = `${entry.id}-prompt-title`;
+  const promptPanelId = `${entry.id}-prompt`;
   // The pane is reused as the selection changes, so the mark is held against
   // the entry it was earned by rather than as a bare flag. `sequence` makes
   // each success a new object, which restarts the pause below.
   const [copiedPrompt, setCopiedPrompt] = useState<{ entryId: string; sequence: number } | null>(null);
+  // The pane itself is reused as the selection changes. Keeping the open
+  // entry's id here means every newly selected prompt starts folded.
+  const [expandedPromptFor, setExpandedPromptFor] = useState<string | null>(null);
   // Counts copies so a slower earlier one that lands after a newer one is
   // dropped instead of reporting over it.
   const copyCount = useRef(0);
   const copied = copiedPrompt?.entryId === entry.id;
+  const promptExpanded = expandedPromptFor === entry.id;
 
   useEffect(() => {
     if (!copiedPrompt) return;
@@ -633,9 +646,21 @@ function EntryPane({
             )}
           </dl>
         </div>
-        <section className="prompt-card" aria-labelledby={promptTitleId}>
+        <section className="prompt-card" data-expanded={promptExpanded || undefined} aria-labelledby={promptTitleId}>
           <div className="prompt-card-heading">
-            <h2 id={promptTitleId}>Agent Prompt</h2>
+            <h2 id={promptTitleId}>
+              <button
+                type="button"
+                className="prompt-card-toggle"
+                data-sidekick="prompt-toggle"
+                aria-expanded={promptExpanded}
+                aria-controls={promptPanelId}
+                onClick={() => setExpandedPromptFor(promptExpanded ? null : entry.id)}
+              >
+                Agent Prompt
+                <PromptDisclosureIcon />
+              </button>
+            </h2>
             <button
               type="button"
               className="copy-prompt"
@@ -648,9 +673,11 @@ function EntryPane({
               <CopyPromptIcon copied={copied} />
             </button>
           </div>
-          <pre className="prompt-text" tabIndex={0} aria-labelledby={promptTitleId}>
-            <code>{entry.meta.prompt}</code>
-          </pre>
+          <div id={promptPanelId} role="region" aria-labelledby={promptTitleId} hidden={!promptExpanded}>
+            <pre className="prompt-text" tabIndex={0}>
+              <code>{entry.meta.prompt}</code>
+            </pre>
+          </div>
         </section>
       </div>
     </article>

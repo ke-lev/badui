@@ -146,8 +146,14 @@ button, a { touch-action: manipulation; }
 .entry-facts dd { margin: 0; font-size: 13px; line-height: 1.6; }
 .entry-facts code { font-family: var(--font-geist-mono), monospace; font-size: 12px; background: var(--surface-sunk); border-radius: 3px; padding: 3px 7px; }
 .prompt-card { min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
-.prompt-card-heading { display: flex; min-width: 0; min-height: 52px; align-items: center; justify-content: space-between; gap: 20px; padding: 4px 4px 4px 17px; border-bottom: 1px solid var(--border); }
-.prompt-card-heading h2 { margin: 0; font-size: 12px; font-weight: 500; }
+.prompt-card-heading { display: flex; min-width: 0; min-height: 52px; align-items: center; justify-content: space-between; gap: 20px; padding: 4px; }
+.prompt-card[data-expanded] .prompt-card-heading { border-bottom: 1px solid var(--border); }
+.prompt-card-heading h2 { align-self: stretch; flex: 1; min-width: 0; margin: 0; font-size: 12px; font-weight: 500; }
+.prompt-card-toggle { display: flex; width: 100%; min-height: 44px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 13px; border: 0; border-radius: 4px; background: transparent; color: inherit; font: inherit; text-align: left; }
+.prompt-card-toggle svg { flex: none; color: var(--muted); transition: transform 160ms cubic-bezier(.2, .8, .2, 1); }
+.prompt-card-toggle[aria-expanded="true"] svg { transform: rotate(90deg); }
+.prompt-card-toggle:hover { background: var(--accent-tint); color: var(--foreground); }
+.prompt-card-toggle:focus-visible { outline-offset: 1px; }
 .copy-prompt { display: grid; flex: none; width: 44px; height: 44px; padding: 0; place-items: center; border: 0; border-radius: 4px; background: transparent; color: var(--accent-ink); }
 .copy-prompt:hover { background: var(--accent-tint); color: var(--foreground); }
 .copy-prompt[data-copied] { color: var(--accent); }

@@ -135,9 +135,8 @@ export const movingTargetMeta: ComponentMeta = {
   kind: "hostile",
   category: "inputs",
   summary:
-    "A password field that reveals its requirements as they are met: eight " +
-    "characters and a number bring out a rule about how many numbers, and " +
-    "meeting that one brings out a rule about vowels.",
+    "A password field whose requirements appear as earlier ones are met. Each new " +
+    "rule follows the requirement before it.",
   usage: "<MovingTarget />",
   prompt: movingTargetPrompt,
   notes:

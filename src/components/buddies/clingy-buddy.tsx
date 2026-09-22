@@ -190,9 +190,8 @@ export const clingyBuddyMeta: ComponentMeta = {
   kind: "hostile",
   category: "buddies",
   summary:
-    "A companion that takes hold of whichever of two buttons the pointer enters and " +
-    "pulls it after the pointer, 85% of the distance from its resting place. The hold " +
-    "breaks once the pointer is more than 200 pixels away, and the button swings back.",
+    "A companion that pulls the button under the pointer to 85% of the pointer's " +
+    "displacement. It lets go beyond 200 pixels and the button swings back.",
   usage: "<ClingyBuddy />",
   prompt: clingyBuddyPrompt,
   notes:

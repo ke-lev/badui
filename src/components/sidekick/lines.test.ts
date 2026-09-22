@@ -40,6 +40,11 @@ describe("line", () => {
     expect(line(el)).toBe("Everything it needs to happen again.");
   });
 
+  it("returns the frame line for the prompt disclosure", () => {
+    const el = render(`<button data-sidekick="prompt-toggle">Agent Prompt</button>`);
+    expect(line(el)).toBe("The rest is folded inside.");
+  });
+
   it("inherits the nearest keyed ancestor", () => {
     const el = render(
       `<div data-sidekick="lease-password"><button>Show</button></div>`,

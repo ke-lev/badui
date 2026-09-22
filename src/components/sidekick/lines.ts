@@ -7,6 +7,7 @@ export const TARGETS =
 /** Lines for the frame's own controls. A component's lines live in its `meta.lines`. */
 export const FRAME_LINES: Record<string, string> = {
   "copy-prompt": "Everything it needs to happen again.",
+  "prompt-toggle": "The rest is folded inside.",
   reset: "The only control here that does what it says.",
   "skip-link": "Skipping ahead. Understandable.",
   home: "Back to the start. It is not far.",

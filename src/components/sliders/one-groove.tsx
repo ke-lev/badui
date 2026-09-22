@@ -54,9 +54,8 @@ export const oneGrooveMeta: ComponentMeta = {
   kind: "hostile",
   category: "sliders",
   summary:
-    "A date of birth set on a single range slider covering 1 January 1900 to " +
-    "31 December 2026 — one hundred and twenty-seven years in one groove, one " +
-    "day per step. The chosen date is read out above the track.",
+    "A date-of-birth slider spanning 1 January 1900 through 31 December 2026, one " +
+    "day per step.",
   usage: "<OneGroove />",
   prompt: oneGroovePrompt,
   notes:

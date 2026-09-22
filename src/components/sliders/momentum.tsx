@@ -124,11 +124,8 @@ export const momentumMeta: ComponentMeta = {
   kind: "hostile",
   category: "sliders",
   summary:
-    "A brightness control drawn as the daily closing price of BTC/USD from " +
-    "15 September 2025 to 14 September 2026, joined by a cubic Hermite curve. " +
-    "Dragging the point along the curve swings a tangent line; brightness is " +
-    "50 plus ten times the tangent's slope in percent of price per day, " +
-    "clamped to 0–100.",
+    "A brightness slider plotted over a year of BTC/USD closing prices. Dragging " +
+    "its point sets brightness from the curve's tangent, clamped to 0–100.",
   usage: "<Momentum />",
   prompt: momentumPrompt,
   notes:

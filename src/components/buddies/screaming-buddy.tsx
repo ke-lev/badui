@@ -147,9 +147,8 @@ export const screamingBuddyMeta: ComponentMeta = {
   kind: "hostile",
   category: "buddies",
   summary:
-    "A red companion that wraps the field and button in its area and shows each " +
-    "one's name in capitals, followed by an A that repeats every 70 milliseconds " +
-    "up to eighteen. It shakes harder as the A's accumulate.",
+    "A red companion that labels controls in capitals and adds an A every 70 " +
+    "milliseconds, up to eighteen. It shakes harder as the string grows.",
   usage: "<ScreamingBuddy />",
   prompt: screamingBuddyPrompt,
   notes:

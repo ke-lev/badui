@@ -536,11 +536,8 @@ export const fogOfWarMeta: ComponentMeta = {
   kind: "hostile",
   category: "experiments",
   summary:
-    "A map of Middle-earth filling the card, covered by a field of " +
-    "overlapping dots. Around the pointer the dots shrink away and are pushed " +
-    "aside on springs. Ground already crossed keeps smaller dots, which grow " +
-    "back from the outside in: a six-second half-life at the light's edge, " +
-    "0.6 seconds three and a half radii away.",
+    "A Middle-earth map covered in dots that shrink and spring aside near the " +
+    "pointer. Traversed ground remains visible briefly, then refills from the outside in.",
   usage: "<FogOfWar switches={{ spray: true, remember: true }} />",
   prompt: fogOfWarPrompt,
   sidekick: false,

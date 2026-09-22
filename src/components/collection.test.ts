@@ -82,6 +82,8 @@ function traverseTo(href: string) {
 }
 
 const copyButton = () => query<HTMLButtonElement>(".copy-prompt");
+const promptToggle = () => query<HTMLButtonElement>(".prompt-card-toggle");
+const promptPanel = () => query<HTMLElement>(".prompt-card [role='region']");
 const showsCopied = () => copyButton().getAttribute("data-copied") === "true";
 
 function mount() {
@@ -220,6 +222,27 @@ describe("prompt copy feedback", () => {
     click(copyButton());
     await clipboard.finish(0, false);
     expect(showsCopied()).toBe(false);
+  });
+});
+
+describe("agent prompt disclosure", () => {
+  it("starts folded into its header", () => {
+    click(railEntries()[0]);
+
+    expect(promptToggle().getAttribute("aria-expanded")).toBe("false");
+    expect(promptPanel().hidden).toBe(true);
+  });
+
+  it("opens from its header and folds again for another entry", () => {
+    const [first, second] = railEntries();
+    click(first);
+    click(promptToggle());
+    expect(promptToggle().getAttribute("aria-expanded")).toBe("true");
+    expect(promptPanel().hidden).toBe(false);
+
+    click(second);
+    expect(promptToggle().getAttribute("aria-expanded")).toBe("false");
+    expect(promptPanel().hidden).toBe(true);
   });
 });
 

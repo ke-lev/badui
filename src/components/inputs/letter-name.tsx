@@ -76,9 +76,8 @@ export const letterNameMeta: ComponentMeta = {
   kind: "hostile",
   category: "inputs",
   summary:
-    "A first name composed from dropdowns, one per letter, up to twelve. Each " +
-    "dropdown lists the alphabet in order of letter frequency in English text, " +
-    "E first and Z last. Add letter appends an E; Remove letter takes the last.",
+    "A first-name field assembled from up to twelve letter dropdowns. The alphabet " +
+    "runs from E to Z by English-letter frequency.",
   usage: "<LetterName />",
   prompt: letterNamePrompt,
   notes:

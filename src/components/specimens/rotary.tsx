@@ -235,10 +235,8 @@ export const rotaryMeta: ComponentMeta = {
   kind: "hostile",
   category: "inputs",
   summary:
-    "A rotary dial for a ten-digit phone number. Each digit is pulled clockwise " +
-    "from its finger hole to the stop and released, and registers once the dial " +
-    "has wound home at 300 degrees a second, so a 0 takes 1.1 seconds. Digits " +
-    "cannot be removed.",
+    "A rotary dial for a ten-digit phone number. Pull each digit to the stop and " +
+    "wait for the dial to return; digits cannot be removed.",
   usage: "<Rotary />",
   prompt: rotaryPrompt,
   notes:

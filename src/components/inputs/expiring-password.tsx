@@ -141,7 +141,9 @@ export const expiringPasswordMeta: ComponentMeta = {
   name: "Expiring password",
   kind: "hostile",
   category: "inputs",
-  summary: "A password field with a eight-second lifetime for each character. Characters expire independently, and the requirements update against what remains. Editing does not renew unchanged characters.",
+  summary:
+    "A password field where each character expires after eight seconds. Requirements " +
+    "track what remains, and unchanged characters do not renew.",
   usage: "<ExpiringPassword />",
   notes: "Accepts 8–24 printable ASCII characters without spaces, with uppercase, lowercase, a number and a symbol. The field is a text input masked in CSS rather than a native password input, so a screen reader reads the characters aloud. Each bar tracks one character. Paste and keyboard editing work; submission checks deadlines again. Acceptance clears the field and stops expiration. Nothing is stored or sent.",
   prompt: expiringPasswordPrompt,

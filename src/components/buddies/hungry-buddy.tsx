@@ -189,9 +189,8 @@ export const hungryBuddyMeta: ComponentMeta = {
   kind: "hostile",
   category: "buddies",
   summary:
-    "A companion that follows the pointer on a slow, critically damped spring and " +
-    "swallows it once within a quarter of its own diameter. The pointer is gone for " +
-    "1.4 seconds. The companion stays 24 pixels across throughout.",
+    "A companion that follows on a slow spring and swallows the pointer at close " +
+    "range. The pointer returns after 1.4 seconds.",
   usage: "<HungryBuddy />",
   prompt: hungryBuddyPrompt,
   notes:

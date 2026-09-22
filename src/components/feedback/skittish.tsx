@@ -210,9 +210,8 @@ export const skittishMeta: ComponentMeta = {
   kind: "hostile",
   category: "feedback",
   summary:
-    "A file list where each delete raises a toast with Undo. The toast stays " +
-    "for five seconds, drawing down a countdown bar. Once a pointer comes " +
-    "within 16 pixels of its edge, it shrinks to nothing and closes.",
+    "A file list whose delete toast offers Undo for five seconds. Bring the pointer " +
+    "within 16 pixels and the toast shrinks away and closes.",
   usage: "<Skittish />",
   prompt: skittishPrompt,
   notes:

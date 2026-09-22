@@ -45,9 +45,8 @@ export const leadingCaretMeta: ComponentMeta = {
   kind: "hostile",
   category: "inputs",
   summary:
-    "A full-name text field whose caret returns to the start after every " +
-    "change and on focus, so each character typed is placed before the ones " +
-    "already there.",
+    "A full-name field that returns its caret to the start after every change and " +
+    "on focus.",
   usage: "<LeadingCaret />",
   prompt: leadingCaretPrompt,
   notes:

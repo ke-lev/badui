@@ -269,10 +269,8 @@ export const classicRunawayMeta: ComponentMeta = {
   kind: "hostile",
   category: "buttons",
   summary:
-    "A Continue button that springs to the spot in its area farthest from the " +
-    "pointer. It stretches along its path in flight, overshoots its landing by " +
-    "about a tenth of the distance, and squashes on arrival. Three switches " +
-    "beneath its card set what sends it, whether it shivers, and whether it talks.",
+    "A Continue button that springs to the point in its area farthest from the " +
+    "pointer. Switches choose how it moves and whether it shivers or changes label.",
   usage: "<ClassicRunaway switches={{ onClick: false, anxious: true, talkative: true }} />",
   prompt: classicRunawayPrompt,
   notes:

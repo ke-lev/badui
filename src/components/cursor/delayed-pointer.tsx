@@ -16,9 +16,8 @@ export const delayedPointerMeta: ComponentMeta = {
   kind: "hostile",
   category: "cursor",
   summary:
-    "An area that hides the system pointer and draws its own where the real " +
-    "pointer was 450 milliseconds earlier, arrival and departure included. A " +
-    "click presses the centred Continue button only when the drawn pointer is over it.",
+    "An area that replaces the system pointer with one shown 450 milliseconds late. " +
+    "Continue responds only when the drawn pointer is over it.",
   usage: "<DelayedPointer />",
   prompt: delayedPointerPrompt,
   notes:

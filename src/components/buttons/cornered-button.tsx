@@ -236,11 +236,8 @@ export const corneredButtonMeta: ComponentMeta = {
   kind: "hostile",
   category: "buttons",
   summary:
-    "A Confirm button pushed directly away from a moving pointer, harder the " +
-    "closer and faster the pointer comes. A pointer that moves slowly enough " +
-    "does not push it. Against a wall, the part of the push aimed into the wall " +
-    "compresses the button against it and only the part along the wall moves " +
-    "it; pushed squarely into a wall or a corner, it stays where it is.",
+    "A Confirm button that moves away from a fast-approaching pointer. At a wall, " +
+    "it compresses and slides along the available edge.",
   usage: "<CorneredButton />",
   prompt: corneredButtonPrompt,
   notes:

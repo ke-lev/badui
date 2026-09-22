@@ -90,10 +90,8 @@ export const compoundingMeta: ComponentMeta = {
   kind: "hostile",
   category: "sliders",
   summary:
-    "A pointer speed setting from 0.1× to 10×, dragged relative to where it " +
-    "is pressed. Each pixel of horizontal drag scales the value by about 2% of " +
-    "itself, so the thumb moves slowly near 0.1× and quickly near 10×. Each " +
-    "arrow-key press scales it by 10%.",
+    "A 0.1×–10× pointer-speed slider whose drag response scales with its current " +
+    "value. It moves slowly at the low end and quickly at the high end; arrow keys change it by 10%.",
   usage: "<Compounding />",
   prompt: compoundingPrompt,
   notes:
