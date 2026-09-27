@@ -22,6 +22,9 @@ export function SiteHeader() {
         <a className="github-link" href="https://github.com/ke-lev/badui" data-sidekick="github">
           <GitHubMark /> GitHub
         </a>
+        <a className="github-link" href="https://ke1ev.dev" data-sidekick="dev">
+          ke1ev.dev
+        </a>
       </nav>
     </header>
   );

@@ -87,6 +87,7 @@ button, a { touch-action: manipulation; }
 .wordmark-text > span { font-family: var(--font-instrument-serif), Georgia, serif; font-weight: 400; font-style: italic; letter-spacing: -.055em; margin-left: .015em; }
 .wordmark-text > i { font-family: var(--font-geist-sans), sans-serif; font-style: normal; font-size: .8em; color: var(--accent-muted); margin-left: .02em; }
 .wordmark-logo { width: 18px; height: 26px; flex: none; display: block; object-fit: contain; }
+.site-header nav { display: flex; gap: 28px; }
 .github-link { display: flex; gap: 9px; align-items: center; min-height: 44px; font-size: 13px; }
 .github-link:hover, .site-footer a:hover { color: var(--accent-ink); }
 

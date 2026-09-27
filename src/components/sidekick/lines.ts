@@ -12,6 +12,7 @@ export const FRAME_LINES: Record<string, string> = {
   "skip-link": "Skipping ahead. Understandable.",
   home: "Back to the start. It is not far.",
   github: "Where the source lives.",
+  dev: "Whoever made this. Proceed with caution.",
   "back-to-top": "Up. Pretty self-explanatory.",
   "sidekick-dom": "Facts only. No personality.",
   "sidekick-talk": "You are already here.",
