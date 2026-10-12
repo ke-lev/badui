@@ -25,6 +25,9 @@ export function SiteHeader() {
         <a className="github-link" href="https://ke1ev.dev" data-sidekick="dev">
           ke1ev.dev
         </a>
+        <a className="github-link" href="https://lilbuddy.ke1ev.dev/" data-sidekick="lilbuddy">
+          <span><span className="nav-pitch">check out my mac app: </span>lilbuddy</span>
+        </a>
       </nav>
     </header>
   );
