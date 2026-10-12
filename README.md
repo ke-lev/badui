@@ -11,6 +11,10 @@ npm run dev
 
 Open [localhost:3000](http://localhost:3000).
 
+On `/collection`, the lilbuddy nav link has an arrow that drifts out and back
+on a five-second loop, paused offscreen or in a hidden tab. Reduced motion
+keeps the arrow still.
+
 ```sh
 npm run lint
 npm run build

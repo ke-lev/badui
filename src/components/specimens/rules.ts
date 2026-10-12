@@ -68,6 +68,22 @@ export function reachedStop(rotation: number, travel: number): boolean {
   return rotation >= travel - STOP_TOLERANCE;
 }
 
+/** The digit nearest the stop at a positive rotation, favouring shorter travel on ties. */
+export function nearestDialDigit(rotation: number): number | null {
+  if (rotation <= 0) return null;
+
+  let nearest = HOLE_DIGITS[0];
+  let distance = Infinity;
+  for (const digit of HOLE_DIGITS) {
+    const candidateDistance = Math.abs(travelFor(digit) - rotation);
+    if (candidateDistance < distance) {
+      nearest = digit;
+      distance = candidateDistance;
+    }
+  }
+  return nearest;
+}
+
 /** Rotation `elapsed` milliseconds into a return that began at `from`. */
 export function returning(from: number, elapsed: number): number {
   return Math.max(0, from - (RETURN_SPEED * elapsed) / 1000);

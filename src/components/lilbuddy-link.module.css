@@ -1,0 +1,39 @@
+.link {
+  white-space: nowrap;
+}
+
+.content {
+  display: inline-flex;
+  align-items: center;
+  white-space: pre;
+}
+
+.name {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.arrow {
+  display: block;
+  flex: none;
+  color: var(--accent-ink);
+  animation: arrow-nudge 5000ms ease-in-out infinite;
+}
+
+.link[data-paused="true"] .arrow {
+  animation-play-state: paused;
+}
+
+@keyframes arrow-nudge {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(2px, -2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow {
+    animation: none;
+    transform: none;
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
-import type { ComponentMeta } from "@/components/meta";
+import type { ComponentMeta, SwitchState } from "@/components/meta";
 import { rotaryPrompt } from "./rotary.prompt";
 import {
   angleDifference,
@@ -12,6 +12,7 @@ import {
   HOLE_RADIUS,
   HOLE_RING,
   holeAt,
+  nearestDialDigit,
   NUMBER_LENGTH,
   PLATE_RADIUS,
   pointAt,
@@ -31,8 +32,10 @@ type Phase = "idle" | "dragging" | "pulling" | "returning";
 const SLOT_GROUPS = [[0, 3], [3, 6], [6, 10]];
 const STOP_START = pointAt(STOP_ANGLE + 11, 90);
 const STOP_END = pointAt(STOP_ANGLE + 11, 108);
+const NO_SWITCHES: SwitchState = {};
 
-export function Rotary() {
+export function Rotary({ switches = NO_SWITCHES }: { switches?: SwitchState }) {
+  const realistic = switches.realistic === true;
   const maskId = `rotary-plate-${useId().replace(/[^\w-]/g, "")}`;
   const readoutId = useId();
   const [digits, setDigits] = useState<number[]>([]);
@@ -44,10 +47,14 @@ export function Rotary() {
   const phaseRef = useRef<Phase>("idle");
   const rotationRef = useRef(0);
   const grabbed = useRef<number | null>(null);
+  const activePointer = useRef<number | null>(null);
+  const grabbedRealistic = useRef(false);
   const previousAngle = useRef(0);
+  const gestureTravel = useRef(0);
   const frame = useRef(0);
 
   const full = digits.length === NUMBER_LENGTH;
+  const concealed = realistic && !full;
 
   useEffect(() => () => cancelAnimationFrame(frame.current), []);
 
@@ -90,11 +97,14 @@ export function Rotary() {
     frame.current = requestAnimationFrame(step);
   }
 
-  function svgPoint(event: PointerEvent<HTMLDivElement>) {
+  function svgPoint(
+    event: PointerEvent<HTMLDivElement>,
+    sample: { clientX: number; clientY: number } = event,
+  ) {
     const rect = event.currentTarget.getBoundingClientRect();
     return {
-      x: ((event.clientX - rect.left) / rect.width) * 224,
-      y: ((event.clientY - rect.top) / rect.height) * 224,
+      x: ((sample.clientX - rect.left) / rect.width) * 224,
+      y: ((sample.clientY - rect.top) / rect.height) * 224,
     };
   }
 
@@ -105,26 +115,53 @@ export function Rotary() {
     const { x, y } = svgPoint(event);
     const digit = holeAt(x, y);
     if (digit === null) return;
+    event.preventDefault();
     event.currentTarget.setPointerCapture(event.pointerId);
     grabbed.current = digit;
+    activePointer.current = event.pointerId;
+    grabbedRealistic.current = realistic;
     previousAngle.current = angleOf(x - 112, y - 112);
+    gestureTravel.current = 0;
     enter("dragging");
   }
 
   function drag(event: PointerEvent<HTMLDivElement>) {
-    if (phaseRef.current !== "dragging" || grabbed.current === null) return;
-    const { x, y } = svgPoint(event);
-    const next = angleOf(x - 112, y - 112);
-    const difference = angleDifference(previousAngle.current, next);
-    previousAngle.current = next;
-    turn(pull(rotationRef.current, difference, travelFor(grabbed.current)));
+    if (phaseRef.current !== "dragging" || grabbed.current === null ||
+        event.pointerId !== activePointer.current) return;
+    const track = (sample: { clientX: number; clientY: number }) => {
+      const { x, y } = svgPoint(event, sample);
+      const next = angleOf(x - 112, y - 112);
+      gestureTravel.current += angleDifference(previousAngle.current, next);
+      previousAngle.current = next;
+    };
+    // Keep intermediate samples so fast turns remain continuous across 0°.
+    for (const sample of event.nativeEvent.getCoalescedEvents?.() ?? []) track(sample);
+    track(event);
+    // Clamp the plate, rather than the gesture, so passing the stop then
+    // backing up does not unwind it while the pointer is still past the stop.
+    turn(pull(0, gestureTravel.current, travelFor(grabbed.current)));
   }
 
-  function release() {
-    if (phaseRef.current !== "dragging" || grabbed.current === null) return;
+  function release(event: PointerEvent<HTMLDivElement>) {
+    if (phaseRef.current !== "dragging" || grabbed.current === null ||
+        event.pointerId !== activePointer.current) return;
+    // Pointerup can carry a newer position than the final pointermove.
+    drag(event);
     const digit = grabbed.current;
     grabbed.current = null;
-    windHome(reachedStop(rotationRef.current, travelFor(digit)) ? digit : null);
+    activePointer.current = null;
+    const registered = grabbedRealistic.current
+      ? nearestDialDigit(rotationRef.current)
+      : reachedStop(rotationRef.current, travelFor(digit)) ? digit : null;
+    windHome(registered);
+  }
+
+  function cancel(event: PointerEvent<HTMLDivElement>) {
+    if (phaseRef.current !== "dragging" || grabbed.current === null ||
+        event.pointerId !== activePointer.current) return;
+    grabbed.current = null;
+    activePointer.current = null;
+    windHome(null);
   }
 
   function dialKey(event: KeyboardEvent<HTMLDivElement>) {
@@ -159,14 +196,16 @@ export function Rotary() {
           <span className={styles.numberGroup} key={start}>
             {Array.from({ length: end - start }, (_, offset) => (
               <span className={styles.slot} key={start + offset}>
-                {digits[start + offset] ?? ""}
+                {digits[start + offset] === undefined ? "" : concealed ? "•" : digits[start + offset]}
               </span>
             ))}
           </span>
         ))}
       </div>
       <span id={readoutId} className="sr-only">
-        {digits.length ? `Dialed so far: ${formatNumber(digits)}` : "Nothing dialed"}
+        {!digits.length ? "Nothing dialed" : concealed
+          ? `${digits.length} of ${NUMBER_LENGTH} digits dialed`
+          : `Dialed so far: ${formatNumber(digits)}`}
       </span>
       <div
         className={`${styles.rotaryDial} ${phase === "dragging" ? styles.dragging : ""}`}
@@ -182,8 +221,8 @@ export function Rotary() {
         onPointerDown={grab}
         onPointerMove={drag}
         onPointerUp={release}
-        onPointerCancel={release}
-        onLostPointerCapture={release}
+        onPointerCancel={cancel}
+        onLostPointerCapture={cancel}
       >
         <svg viewBox="0 0 224 224" aria-hidden="true">
           <defs>
@@ -224,7 +263,7 @@ export function Rotary() {
         </svg>
       </div>
       <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
-        {announcement}
+        {concealed ? (digits.length ? `${digits.length} of ${NUMBER_LENGTH} digits dialed.` : "") : announcement}
       </p>
     </div>
   );
@@ -235,18 +274,31 @@ export const rotaryMeta: ComponentMeta = {
   kind: "hostile",
   category: "inputs",
   summary:
-    "A rotary dial for a ten-digit phone number. Pull each digit to the stop and " +
-    "wait for the dial to return; digits cannot be removed.",
-  usage: "<Rotary />",
+    "A rotary dial for a ten-digit phone number. Standard requires each pull " +
+    "to reach the stop. Realistic accepts partial turns and conceals the " +
+    "number until all ten digits are entered. Digits cannot be removed.",
+  usage: "<Rotary switches={{ realistic: true }} />",
   prompt: rotaryPrompt,
   notes:
-    "Pulled with pointer capture from inside a finger hole; a release more than " +
-    "five degrees short of the stop registers nothing. The dial takes no input " +
+    "Pulled with pointer capture from inside a finger hole. Standard is the " +
+    "default; a release more than five degrees short of the stop registers " +
+    "nothing. Realistic selects the digit whose full travel is nearest the " +
+    "released rotation, with ties choosing the shorter travel; no rotation " +
+    "registers nothing. A canceled gesture registers nothing in either mode. " +
+    "Only the pointer that starts a pull controls it; its final release position " +
+    "counts, and backing through an overshoot keeps the plate at the stop. " +
+    "The release uses the mode selected when the pull began. The dial takes no input " +
     "while moving or once ten digits are in. With the dial focused, keys 0–9 " +
     "pull it round automatically. Under reduced motion the dial returns " +
-    "instantly. Exposed as a focusable group described by the digits so far; " +
-    "each registered digit is announced in a polite live region.",
+    "instantly. Changing modes keeps the entered digits. Realistic masks " +
+    "entered slots and reports only the count until the tenth digit; then " +
+    "the complete number is shown and announced. Standard shows and " +
+    "announces each digit. Exposed as a focusable group with a polite live region.",
   lines: {
     "rotary-dial": "Zero is the long way round.",
+    "rotary-realistic-switch": "The number appears at the end.",
   },
+  switches: [
+    { key: "realistic", off: "Standard", on: "Realistic", sidekick: "rotary-realistic-switch" },
+  ],
 };

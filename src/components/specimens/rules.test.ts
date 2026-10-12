@@ -7,6 +7,7 @@ import {
   holeAt,
   HOLE_DIGITS,
   HOLE_RING,
+  nearestDialDigit,
   PLATE_RADIUS,
   pointAt,
   pull,
@@ -62,6 +63,35 @@ describe("rotary geometry", () => {
   it("counts a release only at the stop", () => {
     expect(reachedStop(54, 60)).toBe(false);
     expect(reachedStop(55, 60)).toBe(true);
+  });
+
+  it("resolves every full-stop rotation to its digit", () => {
+    for (const digit of HOLE_DIGITS) {
+      expect(nearestDialDigit(travelFor(digit))).toBe(digit);
+    }
+  });
+
+  it("resolves a partial pull to the nearest digit travel", () => {
+    expect(nearestDialDigit(148)).toBe(4);
+    expect(nearestDialDigit(1)).toBe(1);
+    expect(nearestDialDigit(59)).toBe(1);
+    expect(nearestDialDigit(330)).toBe(0);
+    expect(nearestDialDigit(360)).toBe(0);
+  });
+
+  it("does not dial when released at or below rest", () => {
+    expect(nearestDialDigit(0)).toBeNull();
+    expect(nearestDialDigit(-1)).toBeNull();
+  });
+
+  it("favours shorter travel at every halfway point", () => {
+    for (let index = 0; index < HOLE_DIGITS.length - 1; index++) {
+      const shorter = HOLE_DIGITS[index];
+      const longer = HOLE_DIGITS[index + 1];
+      const halfway = (travelFor(shorter) + travelFor(longer)) / 2;
+      expect(nearestDialDigit(halfway)).toBe(shorter);
+      expect(nearestDialDigit(halfway + 0.01)).toBe(longer);
+    }
   });
 
   it("returns at a constant speed", () => {
