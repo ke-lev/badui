@@ -11,7 +11,6 @@ export const FRAME_LINES: Record<string, string> = {
   reset: "The only control here that does what it says.",
   "skip-link": "Skipping ahead. Understandable.",
   home: "Back to the start. It is not far.",
-  github: "The sauce.",
   dev: "The dude who made these.",
   lilbuddy: "Warning: *extremely* cute.",
   "back-to-top": "Up. Pretty self-explanatory.",
